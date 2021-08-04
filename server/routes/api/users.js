@@ -20,7 +20,8 @@ const isValidEmail = (email) => {
 // @access   Public
 router.post("/", (req, res) => {
   const { fullName, email, password } = req.body;
-  const name = req.body.name.toLowerCase();
+  const name =
+    typeof req.body.name === "string" ? req.body.name.toLowerCase() : undefined;
 
   // Simple validation
   if (!name || !fullName || !email || !password) {
