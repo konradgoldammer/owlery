@@ -97,6 +97,28 @@ router.delete("/:reviewId", auth, (req, res) => {
     });
 });
 
+// @route    GET "/?skip=xxx"
+// @desc.    Get last week's reviews (sorted by totalLikes)
+// @access   Public
+router.get("/", (req, res) => {
+  let skip = Number(req.query.skip) || 0;
+  if (skip === NaN) {
+    skip = 0;
+  }
+
+  Review.find(
+    { date: { $gte: new Date(new Date() - 7 * 60 * 60 * 24 * 1000) } },
+    {},
+    { skip, limit: 10, sort: { totalLikes: -1 } }
+  )
+    .then((reviews) => {
+      return res.json(reviews);
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+});
+
 // @route    GET "/:episodeId?skip=xxx"
 // @desc.    Get reviews of an episode (sorted by totalLikes)
 // @access   Public
