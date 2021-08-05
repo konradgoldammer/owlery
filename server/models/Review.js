@@ -18,10 +18,6 @@ const reviewSchema = new Schema({
     type: String,
     required: true,
   },
-  comments: {
-    type: Array,
-    default: [],
-  },
   totalLikes: {
     type: Number,
     default: 0,
