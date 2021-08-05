@@ -23,6 +23,7 @@ app.use(express.json());
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/reviews", require("./routes/api/reviews"));
+app.use("/api/comments", require("./routes/api/comments"));
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server listening on port ${port}...`));
