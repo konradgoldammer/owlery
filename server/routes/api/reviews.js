@@ -48,7 +48,9 @@ router.post("/", auth, (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(400).json({ msg: "Episode with that ID does not exist" });
+      return res
+        .status(400)
+        .json({ msg: "Episode with that ID does not exist" });
     });
 });
 
@@ -87,11 +89,11 @@ router.delete("/:reviewId", auth, (req, res) => {
           });
         })
         .catch((err) => {
-          console.log(err);
+          return console.log(err);
         });
     })
     .catch((err) => {
-      console.log(err);
+      return console.log(err);
     });
 });
 
@@ -114,7 +116,7 @@ router.get("/:episodeId", (req, res) => {
       return res.json(reviews);
     })
     .catch((err) => {
-      console.log(err);
+      return console.log(err);
     });
 });
 
@@ -137,7 +139,7 @@ router.get("/user/:username", (req, res) => {
       return res.json(reviews);
     })
     .catch((err) => {
-      console.log(err);
+      return console.log(err);
     });
 });
 
