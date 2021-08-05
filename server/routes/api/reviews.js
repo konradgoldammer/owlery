@@ -37,7 +37,10 @@ router.post("/", auth, (req, res) => {
       User.findById(req.user.id)
         .select("-password")
         .then((author) => {
+          // Create review object
           const newReview = new Review({ episode, title, content, author });
+
+          // Add review to database
           newReview.save().then((review) => {
             res.json(review);
           });
