@@ -10,8 +10,8 @@ const commentSchema = {
     type: String,
     required: true,
   },
-  author: {
-    type: Object,
+  authorId: {
+    type: String,
     required: true,
   },
   date: {

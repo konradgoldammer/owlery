@@ -6,6 +6,38 @@ const User = require("../../models/User");
 const Review = require("../../models/Review");
 const auth = require("../../middleware/auth");
 
+// Adds author objects to comment objects in an array of reviews (based on the authorId property)
+const addAuthorObjects = (comments) => {
+  return new Promise((resolve, reject) => {
+    const promiseArr = comments.reduce((total, comment) => {
+      total.push(
+        new Promise((resolve, reject) => {
+          User.findById(comment.authorId)
+            .select("-password")
+            .then((user) => {
+              resolve(user);
+            })
+            .catch((err) => {
+              reject(err);
+            });
+        })
+      );
+      return total;
+    }, []);
+    Promise.all(promiseArr)
+      .then((authors) => {
+        resolve(
+          comments.map((comment, index) => {
+            return { comment, author: authors[index] };
+          })
+        );
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
 // @route    POST "/"
 // @desc.    Comment on existing review
 // @access   Private
@@ -31,27 +63,22 @@ router.post("/", auth, (req, res) => {
       });
     }
 
-    // Get author data
-    User.findById(req.user.id)
-      .select("-password")
-      .then((author) => {
-        // Create comment object
-        const newComment = new Comment({
-          reviewId,
-          content,
-          author,
-          date: new Date(),
-        });
+    // Create comment object
+    const newComment = new Comment({
+      reviewId,
+      content,
+      authorId: req.user.id,
+      date: new Date(),
+    });
 
-        // Add comment to database
-        newComment
-          .save()
-          .then((comment) => {
-            return res.json(comment);
-          })
-          .catch((err) => {
-            return console.log(err);
-          });
+    // Add comment to database
+    newComment
+      .save()
+      .then((comment) => {
+        return res.json(comment);
+      })
+      .catch((err) => {
+        return console.log(err);
       });
   });
 });
@@ -79,7 +106,7 @@ router.delete("/:commentId", auth, (req, res) => {
       }
 
       // Check if user is authorized to delete this comment
-      if (comment.author._id.toString() !== userId) {
+      if (comment.authorId !== userId) {
         return res.status(401).json({
           msg: "You are unautorized to do this; You can only delete your own comment",
         });
@@ -113,7 +140,10 @@ router.get("/:reviewId", (req, res) => {
 
   Comment.find({ reviewId }, {}, { skip, limit: 10, sort: { date: -1 } })
     .then((comments) => {
-      return res.json(comments);
+      // Add author objects to comment objects for the response JSON
+      addAuthorObjects(comments).then((commentsWithAuthorObject) => {
+        return res.json(commentsWithAuthorObject);
+      });
     })
     .catch((err) => {
       return console.log(err);
