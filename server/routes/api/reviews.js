@@ -10,6 +10,38 @@ const { Client } = require("podcast-api");
 // Init podcast API client; See documentation: https://www.listennotes.com/api/docs/
 const client = Client({ apiKey: config.get("listenApiKey") });
 
+// Adds author objects to review objects in an array of reviews (based on the authorId property)
+const addAuthorObjects = (reviews) => {
+  return new Promise((resolve, reject) => {
+    const promiseArr = reviews.reduce((total, review) => {
+      total.push(
+        new Promise((resolve, reject) => {
+          User.findById(review.authorId)
+            .select("-password")
+            .then((user) => {
+              resolve(user);
+            })
+            .catch((err) => {
+              reject(err);
+            });
+        })
+      );
+      return total;
+    }, []);
+    Promise.all(promiseArr)
+      .then((authors) => {
+        resolve(
+          reviews.map((review, index) => {
+            return { review: review, author: authors[index] };
+          })
+        );
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
 // @route    POST "/"
 // @desc.    Add new review
 // @access   Private
@@ -33,18 +65,18 @@ router.post("/", auth, (req, res) => {
     .then((response) => {
       const episode = response.data;
 
-      // Get author data
-      User.findById(req.user.id)
-        .select("-password")
-        .then((author) => {
-          // Create review object
-          const newReview = new Review({ episode, title, content, author });
+      // Create review object
+      const newReview = new Review({
+        episode,
+        title,
+        content,
+        authorId: req.user.id,
+      });
 
-          // Add review to database
-          newReview.save().then((review) => {
-            res.json(review);
-          });
-        });
+      // Add review to database
+      newReview.save().then((review) => {
+        return res.json(review);
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -75,7 +107,7 @@ router.delete("/:reviewId", auth, (req, res) => {
       }
 
       // Check if user is authorized to delete this review
-      if (review.author._id.toString() !== userId) {
+      if (review.authorId !== userId) {
         return res.status(401).json({
           msg: "You are unautorized to do this; You can only delete your own reviews",
         });
@@ -112,7 +144,10 @@ router.get("/", (req, res) => {
     { skip, limit: 10, sort: { totalLikes: -1 } }
   )
     .then((reviews) => {
-      return res.json(reviews);
+      // Add author objects to review objects for the response JSON
+      addAuthorObjects(reviews).then((reviewsWithAuthorObject) => {
+        return res.json(reviewsWithAuthorObject);
+      });
     })
     .catch((err) => {
       return console.log(err);
@@ -135,7 +170,10 @@ router.get("/:episodeId", (req, res) => {
     { skip, limit: 10, sort: { totalLikes: -1 } }
   )
     .then((reviews) => {
-      return res.json(reviews);
+      // Add author objects to review objects for the response JSON
+      addAuthorObjects(reviews).then((reviewsWithAuthorObject) => {
+        return res.json(reviewsWithAuthorObject);
+      });
     })
     .catch((err) => {
       return console.log(err);
@@ -145,20 +183,19 @@ router.get("/:episodeId", (req, res) => {
 // @route    GET "/:episodeId?skip=xxx"
 // @desc.    Get reviews of a user (sorted by date)
 // @access   Public
-router.get("/user/:username", (req, res) => {
-  const username = req.params.username;
+router.get("/user/:userId", (req, res) => {
+  const userId = req.params.userId;
   let skip = Number(req.query.skip) || 0;
   if (skip === NaN) {
     skip = 0;
   }
 
-  Review.find(
-    { "author.name": username },
-    {},
-    { skip, limit: 10, sort: { date: -1 } }
-  )
+  Review.find({ authorId: userId }, {}, { skip, limit: 10, sort: { date: -1 } })
     .then((reviews) => {
-      return res.json(reviews);
+      // Add author objects to review objects for the response JSON
+      addAuthorObjects(reviews).then((reviewsWithAuthorObject) => {
+        return res.json(reviewsWithAuthorObject);
+      });
     })
     .catch((err) => {
       return console.log(err);
