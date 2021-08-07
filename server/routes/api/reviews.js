@@ -63,7 +63,16 @@ router.post("/", auth, (req, res) => {
   client
     .fetchEpisodeById({ id: episodeId })
     .then((response) => {
-      const episode = response.data;
+      const episode = {
+        id: response.data.id,
+        title: response.data.title,
+        date: new Date(response.data.pub_date_ms),
+        thumbnail: response.data.thumbnail,
+        podcast: {
+          id: response.data.podcast.id,
+          title: response.data.podcast.title,
+        },
+      };
 
       // Create review object
       const newReview = new Review({
