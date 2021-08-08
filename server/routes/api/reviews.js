@@ -84,7 +84,34 @@ router.post("/", auth, (req, res) => {
 
       // Add review to database
       newReview.save().then((review) => {
-        return res.json(review);
+        res.json(review);
+      });
+
+      // Get user to check if this episode must be added to his episodes array
+      User.findById(req.user.id).then((user) => {
+        // Checks if episodes array includes episode
+        if (
+          user.episodes.filter((item) => {
+            return item.episode.id === episodeId;
+          }).length === 0
+        ) {
+          // Add episode to user's episodes array
+          User.findOneAndUpdate(
+            { _id: req.user.id },
+            {
+              $push: {
+                episodes: { episode, like: false, episodeId: episode.id },
+              },
+            }
+          )
+            .then(() => {
+              return;
+            })
+            .catch((err) => {
+              return console.log(err);
+            });
+        }
+        return;
       });
     })
     .catch((err) => {

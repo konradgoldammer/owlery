@@ -32,6 +32,10 @@ const userSchema = new Schema({
     type: Date,
     default: new Date(),
   },
+  episodes: {
+    type: Array,
+    default: [],
+  },
 });
 
 const User = mongoose.model("user", userSchema);
