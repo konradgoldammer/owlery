@@ -32,7 +32,7 @@ const addAuthorObjects = (reviews) => {
       .then((authors) => {
         resolve(
           reviews.map((review, index) => {
-            return { review, author: authors[index] };
+            return { ...review.toObject(), author: authors[index] };
           })
         );
       })
