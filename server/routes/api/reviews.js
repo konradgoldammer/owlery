@@ -96,7 +96,12 @@ router.post("/", auth, (req, res) => {
             { _id: req.user.id },
             {
               $push: {
-                episodes: { episode, like: false, episodeId: episode.id },
+                episodes: {
+                  episode,
+                  like: false,
+                  rating: -1,
+                  episodeId: episode.id,
+                },
               },
             }
           )

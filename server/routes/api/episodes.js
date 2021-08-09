@@ -70,7 +70,12 @@ router.put("/listen", auth, (req, res) => {
           { _id: req.user.id },
           {
             $push: {
-              episodes: { episode, like: false, episodeId: episode.id },
+              episodes: {
+                episode,
+                like: false,
+                rating: -1,
+                episodeId: episode.id,
+              },
             },
           },
           { new: true }
@@ -167,7 +172,12 @@ router.put("/like", auth, (req, res) => {
             { _id: req.user.id },
             {
               $push: {
-                episodes: { episode, like: true, episodeId: episode.id },
+                episodes: {
+                  episode,
+                  like: true,
+                  rating: -1,
+                  episodeId: episode.id,
+                },
               },
             },
             { new: true }
@@ -243,6 +253,144 @@ router.put("/unlike", auth, (req, res) => {
     User.findOneAndUpdate(
       { _id: req.user.id, "episodes.episodeId": episodeId },
       { $set: { "episodes.$.like": false } },
+      { new: true }
+    )
+      .then((user) => {
+        return res.json(user);
+      })
+      .catch((err) => {
+        return console.log(err);
+      });
+  });
+});
+
+// @route    PUT "/rate"
+// @desc.    Rate an episode on a 5-star scale
+// @access   Private
+router.put("/rate", auth, (req, res) => {
+  const { episodeId, rating } = req.body;
+
+  // Simple validation of body data
+  if (!episodeId || !rating) {
+    return res.status(400).json({ msg: "Did not receive enough information" });
+  }
+
+  if (
+    typeof rating !== "number" ||
+    !Number.isInteger(rating) ||
+    rating > 9 ||
+    rating < 0
+  ) {
+    return res.status(400).json({ msg: "Rating value is invalid" });
+  }
+
+  // Get user to check if he already marked this episode as listened
+  User.findById(req.user.id).then((user) => {
+    const listenedEpisode = user.episodes.filter((item) => {
+      return item.episode.id === episodeId;
+    })[0];
+
+    if (listenedEpisode) {
+      if (listenedEpisode.rating === rating) {
+        return res
+          .status(400)
+          .json({ msg: `You already gave this episode a rating of ${rating}` });
+      }
+
+      // Set rating property of the according object in the episodes array to new rating
+      User.findOneAndUpdate(
+        { _id: req.user.id, "episodes.episodeId": episodeId },
+        { $set: { "episodes.$.rating": rating } },
+        { new: true }
+      )
+        .then((user) => {
+          return res.json(user);
+        })
+        .catch((err) => {
+          return console.log(err);
+        });
+    } else if (!listenedEpisode) {
+      // Create new object in user's episodes array
+      client
+        .fetchEpisodeById({ id: episodeId })
+        .then((response) => {
+          const episode = {
+            id: response.data.id,
+            title: response.data.title,
+            date: new Date(response.data.pub_date_ms),
+            thumbnail: response.data.thumbnail,
+            podcast: {
+              id: response.data.podcast.id,
+              title: response.data.podcast.title,
+            },
+          };
+
+          // Add episode to user's episodes array
+          User.findOneAndUpdate(
+            { _id: req.user.id },
+            {
+              $push: {
+                episodes: {
+                  episode,
+                  like: false,
+                  rating,
+                  episodeId: episode.id,
+                },
+              },
+            },
+            { new: true }
+          )
+            .then((user) => {
+              return res.json(user);
+            })
+            .catch((err) => {
+              return console.log(err);
+            });
+        })
+        .catch(() => {
+          return res
+            .status(404)
+            .json({ msg: `Couldn't find episode with the ID ${episodeId}` });
+        });
+    }
+  });
+});
+
+// @route    PUT "/unrate"
+// @desc.    Unrate an episode
+// @access   Private
+router.put("/unrate", auth, (req, res) => {
+  const { episodeId } = req.body;
+
+  // Simple validation
+  if (!episodeId) {
+    return res.status(400).json({ msg: "Did not receive episode ID" });
+  }
+
+  // Get user to check if he already marked this episode as listened
+  User.findById(req.user.id).then((user) => {
+    const listenedEpisode = user.episodes.find(
+      (e) => e.episode.id === episodeId
+    );
+
+    // Checks if episodes array includes episode
+    if (!listenedEpisode) {
+      return res.status(400).json({
+        msg: "You haven't rated this episode, therefore you can't unlike it",
+      });
+    }
+
+    // Check if user has already not liked the episode
+    if (listenedEpisode.rating === -1) {
+      return res.status(400).json({
+        msg: "You haven't rated this episode, therefore you can't unrate it",
+      });
+    }
+
+    // Set rating property of the according object in the episodes array to -1 (no rating)
+    User.findOneAndUpdate(
+      { _id: req.user.id, "episodes.episodeId": episodeId },
+      { $set: { "episodes.$.rating": -1 } },
       { new: true }
     )
       .then((user) => {
