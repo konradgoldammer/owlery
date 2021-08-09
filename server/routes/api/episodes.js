@@ -45,11 +45,7 @@ router.put("/listen", auth, (req, res) => {
   // Get user to check if this episode must be added to his episodes array
   User.findById(req.user.id).then((user) => {
     // Checks if episodes array includes episode
-    if (
-      user.episodes.filter((item) => {
-        return item.episode.id === episodeId;
-      }).length > 0
-    ) {
+    if (user.episodes.find((e) => e.episode.id === episodeId)) {
       return res
         .status(400)
         .json({ msg: "You have already marked this episode as listened" });
@@ -145,9 +141,9 @@ router.put("/like", auth, (req, res) => {
 
   // Get user to check if he already marked this episode as listened
   User.findById(req.user.id).then((user) => {
-    const listenedEpisode = user.episodes.filter((item) => {
-      return item.episode.id === episodeId;
-    })[0];
+    const listenedEpisode = user.episodes.find(
+      (e) => e.episode.id === episodeId
+    );
 
     // Checks if episodes array includes episode
     if (!listenedEpisode) {
@@ -225,9 +221,9 @@ router.put("/unlike", auth, (req, res) => {
 
   // Get user to check if he already marked this episode as listened
   User.findById(req.user.id).then((user) => {
-    const listenedEpisode = user.episodes.filter((item) => {
-      return item.episode.id === episodeId;
-    })[0];
+    const listenedEpisode = user.episodes.find(
+      (e) => e.episode.id === episodeId
+    );
 
     // Checks if episodes array includes episode
     if (!listenedEpisode) {

@@ -90,11 +90,7 @@ router.post("/", auth, (req, res) => {
       // Get user to check if this episode must be added to his episodes array
       User.findById(req.user.id).then((user) => {
         // Checks if episodes array includes episode
-        if (
-          user.episodes.filter((item) => {
-            return item.episode.id === episodeId;
-          }).length === 0
-        ) {
+        if (!user.episodes.find((e) => e.episode.id === episodeId)) {
           // Add episode to user's episodes array
           User.findOneAndUpdate(
             { _id: req.user.id },
