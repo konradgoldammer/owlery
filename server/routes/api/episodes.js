@@ -9,6 +9,24 @@ const { Client } = require("podcast-api");
 // Init podcast API client; See documentation: https://www.listennotes.com/api/docs/
 const client = Client({ apiKey: config.get("listenApiKey") });
 
+// Returns the total number of reviews of an episode
+const countReviews = (episodeId) => {
+  return new Promise((resolve, reject) => {
+    Review.countDocuments({ "episode.id": episodeId })
+      .then((num) => resolve(num))
+      .catch((err) => reject(err));
+  });
+};
+
+// Returns the total number of listeners of an episode
+const countListeners = (episodeId) => {
+  return new Promise((resolve, reject) => {
+    User.countDocuments({ "episodes.episodeId": episodeId })
+      .then((num) => resolve(num))
+      .catch((err) => reject(err));
+  });
+};
+
 // @route    GET "/:episodeId"
 // @desc.    Fetch data for single episode
 // @access   Public
@@ -18,13 +36,13 @@ router.get("/:episodeId", (req, res) => {
   // Fetch episode data
   client
     .fetchEpisodeById({ id: episodeId })
-    .then((response) => {
+    .then(async (response) => {
       const episode = response.data;
-      // TODO: get total amount of reviews and likes
+      episode.totalReviews = await countReviews(episodeId);
+      episode.totalListeners = await countListeners(episodeId);
       return res.json(episode);
     })
-    .catch((err) => {
-      console.log(err);
+    .catch(() => {
       return res
         .status(404)
         .json({ msg: `Couldn't find episode with the ID ${episodeId}` });
@@ -376,7 +394,7 @@ router.put("/unrate", auth, (req, res) => {
     // Checks if episodes array includes episode
     if (!listenedEpisode) {
       return res.status(400).json({
-        msg: "You haven't rated this episode, therefore you can't unlike it",
+        msg: "You haven't rated this episode, therefore you can't unrate it",
       });
     }
 
