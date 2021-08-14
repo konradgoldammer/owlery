@@ -67,6 +67,29 @@ const addMetaData = (episodes) => {
   });
 };
 
+// @route    GET "/most-popular-podcasts"
+// @desc.    Get most popular podcasts of all time (based on how often episodes of them got reviewed)
+// @access   Public
+router.get("/most-popular-podcasts", (req, res) => {
+  Review.aggregate([
+    { $match: {} },
+    {
+      $group: {
+        _id: "$episode.podcast.id",
+        totalReviews: { $sum: 1 },
+        podcast: { $first: "$episode.podcast" },
+      },
+    },
+    { $sort: { totalReviews: -1 } },
+  ])
+    .then((podcasts) => {
+      return res.json(podcasts);
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+});
+
 // Returns the total number of reviews of an podcast
 const countReviewsOfPodcast = (podcastId) => {
   return new Promise((resolve, reject) => {
