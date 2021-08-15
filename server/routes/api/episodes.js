@@ -27,6 +27,33 @@ const countListeners = (episodeId) => {
   });
 };
 
+// @route    GET "/trending"
+// @desc.    Get trending episodes (episodes  with most reviews in the last week)
+// @access   Public
+router.get("/trending", (req, res) => {
+  Review.aggregate([
+    {
+      $match: {
+        date: { $gte: new Date(new Date() - 7 * 60 * 60 * 24 * 1000) },
+      },
+    },
+    {
+      $group: {
+        _id: "$episode.id",
+        totalReviews: { $sum: 1 },
+        episode: { $first: "$episode" },
+      },
+    },
+    { $sort: { totalReviews: -1 } },
+  ])
+    .then((episodes) => {
+      return res.json(episodes);
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+});
+
 // @route    GET "/:episodeId"
 // @desc.    Fetch data for single episode
 // @access   Public
