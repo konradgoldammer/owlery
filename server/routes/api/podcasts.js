@@ -90,6 +90,33 @@ router.get("/most-popular-podcasts", (req, res) => {
     });
 });
 
+// @route    GET "/trending-podcasts"
+// @desc.    Get trending podcast (podcast with most reviews in the last week)
+// @access   Public
+router.get("/trending-podcasts", (req, res) => {
+  Review.aggregate([
+    {
+      $match: {
+        date: { $gte: new Date(new Date() - 7 * 60 * 60 * 24 * 1000) },
+      },
+    },
+    {
+      $group: {
+        _id: "$episode.podcast.id",
+        totalReviews: { $sum: 1 },
+        podcast: { $first: "$episode.podcast" },
+      },
+    },
+    { $sort: { totalReviews: -1 } },
+  ])
+    .then((podcasts) => {
+      return res.json(podcasts);
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+});
+
 // Returns the total number of reviews of an podcast
 const countReviewsOfPodcast = (podcastId) => {
   return new Promise((resolve, reject) => {
