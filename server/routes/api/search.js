@@ -7,7 +7,7 @@ const { Client } = require("podcast-api");
 // Init podcast API client; See documentation: https://www.listennotes.com/api/docs/
 const client = Client({ apiKey: config.get("listenApiKey") });
 
-// @route    GET "/:q"
+// @route    GET "/"
 // @desc.    Search for term "q"
 // @access   Public
 router.get("/", (req, res) => {
