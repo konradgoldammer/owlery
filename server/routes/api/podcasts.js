@@ -67,10 +67,10 @@ const addMetaData = (episodes) => {
   });
 };
 
-// @route    GET "/most-popular-podcasts"
+// @route    GET "/most-popular"
 // @desc.    Get most popular podcasts of all time (based on how often episodes of them got reviewed)
 // @access   Public
-router.get("/most-popular-podcasts", (req, res) => {
+router.get("/most-popular", (req, res) => {
   Review.aggregate([
     { $match: {} },
     {
@@ -90,10 +90,10 @@ router.get("/most-popular-podcasts", (req, res) => {
     });
 });
 
-// @route    GET "/trending-podcasts"
+// @route    GET "/trending"
 // @desc.    Get trending podcast (podcast with most reviews in the last week)
 // @access   Public
-router.get("/trending-podcasts", (req, res) => {
+router.get("/trending", (req, res) => {
   Review.aggregate([
     {
       $match: {
