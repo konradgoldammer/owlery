@@ -26,6 +26,7 @@ app.use("/api/reviews", require("./routes/api/reviews"));
 app.use("/api/comments", require("./routes/api/comments"));
 app.use("/api/episodes", require("./routes/api/episodes"));
 app.use("/api/podcasts", require("./routes/api/podcasts"));
+app.use("/api/search", require("./routes/api/search"));
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server listening on port ${port}...`));
