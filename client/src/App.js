@@ -16,7 +16,7 @@ function App() {
         <Switch>
           <Route>
             <SignUp />
-          </Route>
+          </Route>  
         </Switch>
       </div>
     </Router>

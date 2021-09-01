@@ -8,34 +8,46 @@ const SignUp = () => {
     const [password, setPassword] = useState()
 
     const handleSubmit = e => {
-        setEmail({value: e.target.value})
-        setUsername({value: e.target.value})
-        setPassword({value: e.target.value})
         e.preventDefault()
+        // dispatch()
+    }
+
+    const handleChange = e => {
+        //catch values
     }
 
     return(
         <div className='container'>
             <Form onSubmit={handleSubmit}>
                 <FormGroup row>
-                    <Label for='email' sm={2}>Email address</Label>
-                    <Col sm={10}>
-                        <Input type='email' name='email' id='email'/>
+                    <Label for='email'>Email address</Label>
+                    <Col sm={2}>
+                        <Input type='email' 
+                                name='email' 
+                                id='email'
+                                value={email}
+                                onChange={handleChange}/>
                     </Col>
                 </FormGroup>
-                <FormGroup>
+                <FormGroup row>
                     <Label for='username'>Username</Label>
-                    <Input type='text' name='user' id='user'/>
+                    <Col sm={2}>
+                        <Input type='text' name='user' id='user'/>
+                    </Col>
                 </FormGroup>
-                <FormGroup>
+                <FormGroup row>
                     <Label for='password'>Password</Label>
-                    <Input type='password' name='password' id='password'/>
+                    <Col sm={2}>
+                        <Input type='password' name='password' id='password'/>
+                    </Col>
                 </FormGroup>
-                <FormGroup>
+                <FormGroup row>
                     <Label for='confirmPassword'>Confirm password</Label>
-                    <Input type='password' name='confirmPass' id='confirmPass'/>
+                    <Col sm={2}>
+                        <Input type='password' name='confirmPass' id='confirmPass'/>
+                    </Col>
                 </FormGroup>
-                <Button>Submit</Button>
+                <Button color="warning">Create Account</Button>
             </Form>
         </div>
     )
