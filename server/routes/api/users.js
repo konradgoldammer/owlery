@@ -112,14 +112,14 @@ router.put("/follow", auth, (req, res) => {
         { $push: { following: userId } },
         (err) => {
           if (err) {
-            return console.log(error);
+            return console.log(err);
           }
           User.findOneAndUpdate(
             { _id: userId },
             { $push: { followers: req.user.id } },
             (err) => {
               if (err) {
-                return console.log(error);
+                return console.log(err);
               }
               res.json({ msg: `Successfully followed user with id ${userId}` });
             }
@@ -167,14 +167,14 @@ router.put("/unfollow", auth, (req, res) => {
         { $pull: { following: userId } },
         (err) => {
           if (err) {
-            return console.log(error);
+            return console.log(err);
           }
           User.findOneAndUpdate(
             { _id: userId },
             { $pull: { followers: req.user.id } },
             (err) => {
               if (err) {
-                return console.log(error);
+                return console.log(err);
               }
               res.json({
                 msg: `Successfully unfollowed user with id ${userId}`,

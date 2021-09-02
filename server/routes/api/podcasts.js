@@ -3,7 +3,6 @@ const router = express.Router();
 const config = require("config");
 const User = require("../../models/User");
 const Review = require("../../models/Review");
-const auth = require("../../middleware/auth");
 const { Client } = require("podcast-api");
 
 // Init podcast API client; See documentation: https://www.listennotes.com/api/docs/
