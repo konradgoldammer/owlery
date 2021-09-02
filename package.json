@@ -1,0 +1,27 @@
+{
+  "name": "owlery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "server-install": "npm install --prefix server",
+    "client": "npm start --prefix client",
+    "server": "npm start --prefix server",
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/konradgoldammer/owlery.git"
+  },
+  "keywords": [],
+  "author": "Konrad Goldammer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/konradgoldammer/owlery/issues"
+  },
+  "homepage": "https://github.com/konradgoldammer/owlery#readme",
+  "dependencies": {
+    "concurrently": "^6.2.1"
+  }
+}
