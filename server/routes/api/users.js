@@ -20,12 +20,12 @@ const isValidEmail = (email) => {
 // @desc.    Register new user
 // @access   Public
 router.post("/", (req, res) => {
-  const { fullName, email, password } = req.body;
+  const { email, password } = req.body;
   const name =
     typeof req.body.name === "string" ? req.body.name.toLowerCase() : undefined;
 
   // Simple validation
-  if (!name || !fullName || !email || !password) {
+  if (!name || !email || !password) {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
@@ -45,7 +45,7 @@ router.post("/", (req, res) => {
           .json({ msg: "User with that email already exists" });
       }
 
-      const newUser = { name, fullName, email, password };
+      const newUser = { name, email, password };
 
       // Create hashed password
       bcrypt.hash(newUser.password, 10, (err, hashedPassword) => {
@@ -67,7 +67,6 @@ router.post("/", (req, res) => {
                 user: {
                   id: user.id,
                   name: user.name,
-                  fullName: user.fullName,
                   email: user.email,
                 },
               });
