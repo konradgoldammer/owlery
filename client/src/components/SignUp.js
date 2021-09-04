@@ -30,8 +30,8 @@ const SignUp = () => {
 
   return (
     <div className="signup-container">
-      <h2 className="signup-title">owlery</h2>
-      <Form onSubmit={handleSubmit}>
+      <Form className="signUpForm" onSubmit={handleSubmit}>
+        <h2 className="signup-title">owlery</h2>
         <FormGroup row>
           <Label for="email">Email address</Label>
           <Col sm={2}>
