@@ -20,7 +20,7 @@ export const loadUser = () => (dispatch, getState) => {
     .get("/api/auth/user", tokenConfig(getState))
     .then((res) => dispatch({ type: USER_LOADED, payload: res.data }))
     .catch((err) => {
-      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch(returnErrors(err.response.data.msg, err.response.status));
       dispatch({ type: AUTH_ERROR });
     });
 };
@@ -44,7 +44,11 @@ export const register = (newUser) => (dispatch) => {
     .then((res) => dispatch({ type: REGISTER_SUCCESS, payload: res.data }))
     .catch((err) => {
       dispatch(
-        returnErrors(err.response.data, err.response.status, "REGISTER_FAIL")
+        returnErrors(
+          err.response.data.msg,
+          err.response.status,
+          "REGISTER_FAIL"
+        )
       );
       dispatch({ type: REGISTER_FAIL });
     });
