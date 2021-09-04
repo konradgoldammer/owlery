@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Button, Form, FormGroup, Label, Input, Col } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input, Col, Alert } from "reactstrap";
 import { Link } from "react-router-dom";
 import { register } from "../actions/authActions";
+import { useSelector } from "react-redux";
 import store from "../store";
 import "../App.css";
 
@@ -10,6 +11,8 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const error = useSelector((store) => store.error);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -98,6 +101,9 @@ const SignUp = () => {
           Already have an account? <Link to="">Sign In.</Link>
         </p>
       </Form>
+      {error.id === "REGISTER_FAIL" && (
+        <Alert color="danger">{error.msg}</Alert>
+      )}
     </div>
   );
 };

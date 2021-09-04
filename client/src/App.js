@@ -7,7 +7,7 @@ import SignUp from "./components/SignUp";
 
 function App() {
   useEffect(() => {
-    // store.dispatch(loadUser());
+    // sstore.dispatch(loadUser());
   }, []);
 
   return (
