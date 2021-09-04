@@ -21,11 +21,13 @@ const isValidEmail = (email) => {
 // @access   Public
 router.post("/", (req, res) => {
   const { email, password } = req.body;
-  const name =
-    typeof req.body.name === "string" ? req.body.name.toLowerCase() : undefined;
+  const username =
+    typeof req.body.username === "string"
+      ? req.body.username.toLowerCase()
+      : undefined;
 
   // Simple validation
-  if (!name || !email || !password) {
+  if (!username || !email || !password) {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
@@ -33,7 +35,7 @@ router.post("/", (req, res) => {
     return res.status(400).json({ msg: "Please enter a valid email" });
   }
 
-  User.findOne({ name }).then((user) => {
+  User.findOne({ username }).then((user) => {
     if (user) {
       return res.status(400).json({ msg: "Username is already taken" });
     }
@@ -45,7 +47,7 @@ router.post("/", (req, res) => {
           .json({ msg: "User with that email already exists" });
       }
 
-      const newUser = { name, email, password };
+      const newUser = { username, email, password };
 
       // Create hashed password
       bcrypt.hash(newUser.password, 10, (err, hashedPassword) => {
@@ -66,7 +68,7 @@ router.post("/", (req, res) => {
                 token,
                 user: {
                   id: user.id,
-                  name: user.name,
+                  username: user.username,
                   email: user.email,
                 },
               });
