@@ -1,27 +1,39 @@
-*{
-    margin: 0;
-    border: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    --main-background-color: #252525;
-    --primary-color: #FFDA14;
-    --second-color: #7EB600;
-    --dark-color: #0D0D0D;
-    --light-text-color: #FAFAFA;
-    --secondary-text-color: #C4C4C4;
-    --font-family: 'Roboto', sans-serif;
+  --main-background-color: #252525;
+  --primary-color: #ffda14;
+  --second-color: #7eb600;
+  --dark-color: #0d0d0d;
+  --light-text-color: #fafafa;
+  --secondary-text-color: #c4c4c4;
+  --font-family: "Roboto", sans-serif;
 }
 
-html, body {
-    min-height: 100vh;
-    max-width: 100%;
-    overflow-x: hidden;
-    background-color: var(--main-background-color);
-    font-family: var(--font-family);
+html,
+body {
+  min-height: 100vh;
+  max-width: 100%;
+  overflow-x: hidden;
+  background-color: var(--main-background-color);
+  font-family: var(--font-family);
 }
 
 .signup-container {
-    color: white;
+  color: white;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+}
+
+.signUpForm {
+  width: 334px;
+  height: 455px;
+  margin-top: 109px;
+  background: var(--dark-color);
+  border-radius: 5px;
 }
