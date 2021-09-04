@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input, Col } from "reactstrap";
 import { Link } from "react-router-dom";
+import { register } from "../actions/authActions";
+import store from "../store";
 import "../App.css";
 
 const SignUp = () => {
@@ -11,7 +13,12 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const userInfo = { email, username, password };
+
+    // Create new user object
+    const newUser = { username, email, password };
+
+    store.dispatch(register(newUser));
+
     setEmail("");
     setUsername("");
     setPassword("");
