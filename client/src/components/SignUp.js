@@ -95,7 +95,7 @@ const SignUp = () => {
           <FormGroup check>
             <Label check for="chk">
               <Input type="checkbox" />I accept the{" "}
-              <Link to="" style={tagStyle}>
+              <Link to="/terms" style={tagStyle}>
                 Terms of Use
               </Link>
             </Label>
@@ -103,7 +103,7 @@ const SignUp = () => {
           <FormGroup check>
             <Label check for="chk">
               <Input type="checkbox" />I accept the{" "}
-              <Link to="" style={tagStyle}>
+              <Link to="/privacy" style={tagStyle}>
                 Privacy Policy
               </Link>
             </Label>
@@ -113,7 +113,7 @@ const SignUp = () => {
           </Button>
           <p className="createAccount">
             Already have an account?{" "}
-            <Link to="" style={tagStyle}>
+            <Link to="/login" style={tagStyle}>
               Sign In.
             </Link>
           </p>
