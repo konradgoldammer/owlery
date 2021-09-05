@@ -5,7 +5,7 @@ import React from "react";
 const Terms = () => {
   return (
     <div className="terms-container">
-      <h2>
+      <h2 className="terms-title">
         <strong>Terms and Conditions</strong>
       </h2>
 

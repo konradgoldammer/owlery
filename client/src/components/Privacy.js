@@ -4,7 +4,9 @@ import React from "react";
 const Privacy = () => {
   return (
     <div className="privacy-container">
-      <h1>Privacy Policy for Owlery</h1>
+      <h2 className="privacy-title">
+        <strong>Privacy Policy for Owlery</strong>
+      </h2>
 
       <p>
         At Owlery, accessible from http://www.owlery.com, one of our main
@@ -25,14 +27,14 @@ const Privacy = () => {
         information collected offline or via channels other than this website.
       </p>
 
-      <h2>Consent</h2>
+      <h3>Consent</h3>
 
       <p>
         By using our website, you hereby consent to our Privacy Policy and agree
         to its terms.
       </p>
 
-      <h2>Information we collect</h2>
+      <h3>Information we collect</h3>
 
       <p>
         The personal information that you are asked to provide, and the reasons
@@ -51,7 +53,7 @@ const Privacy = () => {
         address, and telephone number.
       </p>
 
-      <h2>How we use your information</h2>
+      <h3>How we use your information</h3>
 
       <p>We use the information we collect in various ways, including to:</p>
 
@@ -70,7 +72,7 @@ const Privacy = () => {
         <li>Find and prevent fraud</li>
       </ul>
 
-      <h2>Log Files</h2>
+      <h3>Log Files</h3>
 
       <p>
         Owlery follows a standard procedure of using log files. These files log
@@ -84,7 +86,7 @@ const Privacy = () => {
         the website, and gathering demographic information.
       </p>
 
-      <h2>Cookies and Web Beacons</h2>
+      <h3>Cookies and Web Beacons</h3>
 
       <p>
         Like any other website, Owlery uses 'cookies'. These cookies are used to
@@ -94,7 +96,7 @@ const Privacy = () => {
         on visitors' browser type and/or other information.
       </p>
 
-      <h2>Google DoubleClick DART Cookie</h2>
+      <h3>Google DoubleClick DART Cookie</h3>
 
       <p>
         Google is one of a third-party vendor on our site. It also uses cookies,
@@ -107,7 +109,7 @@ const Privacy = () => {
         </a>
       </p>
 
-      <h2>Our Advertising Partners</h2>
+      <h3>Our Advertising Partners</h3>
 
       <p>
         Some of advertisers on our site may use cookies and web beacons. Our
@@ -127,7 +129,7 @@ const Privacy = () => {
         </li>
       </ul>
 
-      <h2>Advertising Partners Privacy Policies</h2>
+      <h3>Advertising Partners Privacy Policies</h3>
 
       <p>
         You may consult this list to find the Privacy Policy for each of the
@@ -149,7 +151,7 @@ const Privacy = () => {
         used by third-party advertisers.
       </p>
 
-      <h2>Third Party Privacy Policies</h2>
+      <h3>Third Party Privacy Policies</h3>
 
       <p>
         Owlery's Privacy Policy does not apply to other advertisers or websites.
@@ -166,7 +168,7 @@ const Privacy = () => {
         websites.
       </p>
 
-      <h2>CCPA Privacy Rights (Do Not Sell My Personal Information)</h2>
+      <h3>CCPA Privacy Rights (Do Not Sell My Personal Information)</h3>
 
       <p>
         Under the CCPA, among other rights, California consumers have the right
@@ -190,7 +192,7 @@ const Privacy = () => {
         like to exercise any of these rights, please contact us.
       </p>
 
-      <h2>GDPR Data Protection Rights</h2>
+      <h3>GDPR Data Protection Rights</h3>
 
       <p>
         We would like to make sure you are fully aware of all of your data
@@ -228,7 +230,7 @@ const Privacy = () => {
         like to exercise any of these rights, please contact us.
       </p>
 
-      <h2>Children's Information</h2>
+      <h3>Children's Information</h3>
 
       <p>
         Another part of our priority is adding protection for children while
