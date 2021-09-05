@@ -4,6 +4,8 @@ import { loadUser } from "./actions/authActions";
 import store from "./store";
 import "./App.css";
 import SignUp from "./components/SignUp";
+import Terms from "./components/Terms";
+import Privacy from "./components/Privacy";
 
 function App() {
   useEffect(() => {
@@ -14,8 +16,14 @@ function App() {
     <Router>
       <div className="container">
         <Switch>
-          <Route>
+          <Route exact path="/">
             <SignUp />
+          </Route>
+          <Route path="/terms">
+            <Terms />
+          </Route>
+          <Route path="/privacy">
+            <Privacy />
           </Route>
         </Switch>
       </div>
