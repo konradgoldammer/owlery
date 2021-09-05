@@ -1,8 +1,12 @@
+/***** RESET ******/
+
 * {
   margin: 0;
   border: 0;
   box-sizing: border-box;
 }
+
+/***** GLOBAL VARIABLES ******/
 
 :root {
   --main-background-color: #252525;
@@ -14,6 +18,8 @@
   --font-family: "Roboto", sans-serif;
 }
 
+/***** MAIN VALUES ******/
+
 html,
 body {
   min-height: 100vh;
@@ -23,6 +29,8 @@ body {
   font-family: var(--font-family);
 }
 
+/***** SIGN UP ******/
+
 .signup-container {
   color: white;
   display: flex;
@@ -31,9 +39,59 @@ body {
 }
 
 .signUpForm {
-  width: 334px;
-  height: 455px;
-  margin-top: 109px;
+  width: 30%;
+  height: 75vh;
   background: var(--dark-color);
+  margin-top: 50px;
   border-radius: 5px;
+}
+
+.signUpTitle {
+  text-align: center;
+  margin-top: 20px;
+  font-family: right;
+  font-size: 1.5em;
+}
+
+.insideForm {
+  text-align: center;
+}
+
+label[for="email"],
+[for="username"],
+[for="password"],
+[for="confirmPassword"] {
+  text-align: left;
+  margin-left: 18%;
+  padding: 5px 0;
+  font-size: 16px;
+}
+
+label[for="email"] {
+  margin-top: 5%;
+}
+
+.form-check {
+  font-size: 13px;
+  text-align: left;
+  margin-left: 17%;
+}
+
+input#confirmPass {
+  margin-bottom: 5%;
+}
+
+input {
+  max-height: 30px;
+  margin-left: 25%;
+}
+
+.signupBtn {
+  margin: 5% 0;
+}
+
+p.createAccount {
+  font-size: 13px;
+  text-align: left;
+  margin-left: 17%;
 }
