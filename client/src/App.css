@@ -95,3 +95,21 @@ p.createAccount {
   text-align: left;
   margin-left: 17%;
 }
+
+/***** T&C & PP ******/
+
+.terms-container,
+.privacy-container {
+  color: var(--light-text-color);
+}
+
+h2.terms-title,
+h2.privacy-title {
+  text-align: center;
+  margin-bottom: 3%;
+}
+
+.terms-container h3,
+.privacy-container h3 {
+  margin: 1.5% 0;
+}
