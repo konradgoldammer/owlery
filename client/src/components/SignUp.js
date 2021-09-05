@@ -12,7 +12,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const error = useSelector((store) => store.error);
+  const error = useSelector((state) => state.error);
 
   const handleSubmit = (e) => {
     e.preventDefault();
