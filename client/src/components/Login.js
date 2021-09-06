@@ -4,6 +4,7 @@ import store from "../store";
 import { useSelector } from "react-redux";
 import "../App.css";
 import { Link } from "react-router-dom";
+import { login } from "../actions/authActions";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -11,8 +12,16 @@ const Login = () => {
 
   const error = useSelector((state) => state.error);
 
+  //validation function
+  const validateForm = () => username.length > 0 && password.length > 0;
+
+  //login call function
   const handleLogin = (e) => {
     e.preventDefault();
+
+    const user = { username, password };
+
+    store.dispatch(login(user));
   };
   return (
     <div className="login-container">
@@ -26,6 +35,7 @@ const Login = () => {
                 type="text"
                 name="username"
                 id="username"
+                autoFocus
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -50,7 +60,11 @@ const Login = () => {
               />
             </Col>
           </FormGroup>
-          <Button className="loginBtn btn btn-sm" color="primary">
+          <Button
+            className="loginBtn btn btn-sm"
+            color="primary"
+            disabled={!validateForm()}
+          >
             Sign In
           </Button>
           <p className="createAccount">
