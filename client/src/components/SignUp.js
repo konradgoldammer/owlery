@@ -42,7 +42,7 @@ const SignUp = () => {
         <div className="insideForm">
           <FormGroup row>
             <Label for="email">Email address</Label>
-            <Col sm={8}>
+            <Col sm={12}>
               <Input
                 type="email"
                 name="email"
@@ -55,7 +55,7 @@ const SignUp = () => {
           </FormGroup>
           <FormGroup row>
             <Label for="username">Username</Label>
-            <Col sm={8}>
+            <Col sm={12}>
               <Input
                 type="text"
                 name="user"
@@ -68,7 +68,7 @@ const SignUp = () => {
           </FormGroup>
           <FormGroup row>
             <Label for="password">Password</Label>
-            <Col sm={8}>
+            <Col sm={12}>
               <Input
                 type="password"
                 name="password"
@@ -81,7 +81,7 @@ const SignUp = () => {
           </FormGroup>
           <FormGroup row>
             <Label for="confirmPassword">Confirm password</Label>
-            <Col sm={8}>
+            <Col sm={12}>
               <Input
                 type="password"
                 name="confirmPass"
@@ -96,7 +96,7 @@ const SignUp = () => {
             <Label check for="chk">
               <Input type="checkbox" />I accept the{" "}
               <Link to="/terms" style={tagStyle}>
-                Terms of Use
+                Terms of Use.
               </Link>
             </Label>
           </FormGroup>
@@ -104,11 +104,11 @@ const SignUp = () => {
             <Label check for="chk">
               <Input type="checkbox" />I accept the{" "}
               <Link to="/privacy" style={tagStyle}>
-                Privacy Policy
+                Privacy Policy.
               </Link>
             </Label>
           </FormGroup>
-          <Button className="signupBtn" color="warning">
+          <Button className="signupBtn btn btn-sm" color="warning">
             Create Account
           </Button>
           <p className="createAccount">

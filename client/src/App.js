@@ -14,19 +14,17 @@ function App() {
 
   return (
     <Router>
-      <div className="container">
-        <Switch>
-          <Route exact path="/">
-            <SignUp />
-          </Route>
-          <Route path="/terms">
-            <Terms />
-          </Route>
-          <Route path="/privacy">
-            <Privacy />
-          </Route>
-        </Switch>
-      </div>
+      <Switch>
+        <Route exact path="/">
+          <SignUp />
+        </Route>
+        <Route path="/terms">
+          <Terms />
+        </Route>
+        <Route path="/privacy">
+          <Privacy />
+        </Route>
+      </Switch>
     </Router>
   );
 }
