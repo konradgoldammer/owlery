@@ -1,5 +1,3 @@
-@import "../../node_modules/bootstrap/scss/bootstrap";
-
 $theme-colors: (
   "primary": #ffda14,
   "secondary": #7eb600,
@@ -7,3 +5,5 @@ $theme-colors: (
   "light": #fafafa,
   "dark": #0d0d0d,
 );
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
