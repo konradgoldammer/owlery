@@ -108,7 +108,7 @@ const SignUp = () => {
               </Link>
             </Label>
           </FormGroup>
-          <Button className="signupBtn btn btn-sm" color="warning">
+          <Button className="signupBtn btn btn-sm" color="primary">
             Create Account
           </Button>
           <p className="createAccount">

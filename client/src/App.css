@@ -96,7 +96,6 @@ input {
   width: 100%;
   font-weight: bold;
   text-transform: uppercase;
-  background-color: var(--primary-color);
 }
 
 p.createAccount {
