@@ -1,0 +1,57 @@
+.header-bg{
+    background-color: black !important;
+    max-width: 100%;
+}
+.nav-bg{
+    background-color: transparent !important;
+    color: white !important;
+}
+
+.rs-nav-item-content{
+    color: white !important;
+    font-weight: bold;
+}
+.rs-nav-item-content:hover{
+    color: black !important;
+}
+
+.search-bar{
+    margin: 2% 0% 0 5%;
+    padding: 0.5% 2%;
+    background-color: #252525;
+    color: white;
+    border: 1px solid #252525;
+    width: 90%;
+    border-radius: 30px;
+}
+
+.search-bar::placeholder{
+    color: white;
+}
+
+.search-bar:focus{
+    outline: none;
+}
+
+.login{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    margin: 0 3%;
+}
+
+.create-acc{
+    color: black;
+    background-color: #FFDA14;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.profile-pic{
+    height: 80px;
+    width: auto;
+    border-radius: 100%;
+}
