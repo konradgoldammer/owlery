@@ -60,7 +60,7 @@ body {
   font-size: 1.5em;
 }
 
-.insideForm {
+.insideSignUpForm {
   text-align: center;
 }
 
@@ -101,6 +101,52 @@ input {
 p.createAccount {
   font-size: 13px;
   text-align: left;
+}
+
+/***** LOGIN ******/
+
+.login-container {
+  color: white;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 20%;
+}
+
+.loginForm {
+  width: 100%;
+  height: 100%;
+  background: var(--dark-color);
+  border-radius: 5px;
+  padding: 25px 40px;
+}
+
+.loginTitle {
+  text-align: center;
+  font-family: "Righteous";
+  font-size: 1.5em;
+}
+
+.insideLoginForm {
+  text-align: center;
+}
+
+label[for="username"],
+[for="password"] {
+  text-align: left;
+  margin-left: 10px;
+  padding: 5px 0;
+  font-size: 16px;
+}
+
+/* label[for="password"], */
+.forgotPass {
+  text-decoration: none;
+  color: #7eb600;
 }
 
 /***** T&C & PP ******/
