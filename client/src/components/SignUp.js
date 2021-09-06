@@ -39,7 +39,7 @@ const SignUp = () => {
     <div className="signup-container">
       <Form className="signUpForm" onSubmit={handleSubmit}>
         <h2 className="signUpTitle">owlery</h2>
-        <div className="insideForm">
+        <div className="insideSignUpForm">
           <FormGroup row>
             <Label for="email">Email address</Label>
             <Col sm={12}>
