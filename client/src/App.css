@@ -38,7 +38,6 @@ body {
   color: white;
   display: flex;
   flex-flow: column wrap;
-  align-items: center;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -55,20 +54,18 @@ body {
 }
 
 .signUpTitle {
-  text-align: center;
   font-family: "Righteous";
   font-size: 1.5em;
 }
 
 .insideSignUpForm {
-  text-align: center;
+  text-align: left;
 }
 
 label[for="email"],
 [for="username"],
 [for="password"],
 [for="confirmPassword"] {
-  text-align: left;
   margin-left: 10px;
   padding: 5px 0;
   font-size: 16px;
@@ -80,7 +77,6 @@ label[for="email"] {
 
 .form-check {
   font-size: 13px;
-  text-align: left;
 }
 
 input#confirmPass {
@@ -94,13 +90,10 @@ input {
 .signupBtn {
   margin: 30px 0;
   width: 100%;
-  font-weight: bold;
-  text-transform: uppercase;
 }
 
 p.createAccount {
   font-size: 13px;
-  text-align: left;
 }
 
 /***** LOGIN ******/
@@ -126,13 +119,8 @@ p.createAccount {
 }
 
 .loginTitle {
-  text-align: center;
   font-family: "Righteous";
   font-size: 1.5em;
-}
-
-.insideLoginForm {
-  text-align: center;
 }
 
 label[for="username"],

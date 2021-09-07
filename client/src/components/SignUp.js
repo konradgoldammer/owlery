@@ -38,7 +38,7 @@ const SignUp = () => {
   return (
     <div className="signup-container">
       <Form className="signUpForm" onSubmit={handleSubmit}>
-        <h2 className="signUpTitle">owlery</h2>
+        <h2 className="signUpTitle text-center text-lowercase">Owlery</h2>
         <div className="insideSignUpForm">
           <FormGroup row>
             <Label for="email">Email address</Label>
@@ -108,8 +108,11 @@ const SignUp = () => {
               </Link>
             </Label>
           </FormGroup>
-          <Button className="signupBtn btn btn-sm" color="primary">
-            Create Account
+          <Button
+            className="signupBtn btn btn-sm text-uppercase"
+            color="primary"
+          >
+            <strong>Create Account</strong>
           </Button>
           <p className="createAccount">
             Already have an account?{" "}
