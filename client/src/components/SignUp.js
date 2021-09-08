@@ -28,13 +28,6 @@ const SignUp = () => {
     setConfirmPassword("");
   };
 
-  // style for link tags
-
-  const tagStyle = {
-    textDecoration: "none",
-    color: "#7EB600",
-  };
-
   return (
     <div className="signup-container">
       <Form className="signUpForm" onSubmit={handleSubmit}>
@@ -95,7 +88,7 @@ const SignUp = () => {
           <FormGroup check>
             <Label check for="chk">
               <Input type="checkbox" />I accept the{" "}
-              <Link to="/terms" style={tagStyle}>
+              <Link to="/terms" className="text-secondary text-decoration-none">
                 Terms of Use.
               </Link>
             </Label>
@@ -103,7 +96,10 @@ const SignUp = () => {
           <FormGroup check>
             <Label check for="chk">
               <Input type="checkbox" />I accept the{" "}
-              <Link to="/privacy" style={tagStyle}>
+              <Link
+                to="/privacy"
+                className="text-secondary text-decoration-none"
+              >
                 Privacy Policy.
               </Link>
             </Label>
@@ -116,7 +112,7 @@ const SignUp = () => {
           </Button>
           <p className="createAccount">
             Already have an account?{" "}
-            <Link to="/login" style={tagStyle}>
+            <Link to="/login" className="text-secondary text-decoration-none">
               Sign In.
             </Link>
           </p>
