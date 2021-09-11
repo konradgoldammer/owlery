@@ -88,7 +88,10 @@ const SignUp = () => {
           <FormGroup check>
             <Label check for="chk">
               <Input type="checkbox" />I accept the{" "}
-              <Link to="/terms" className="text-secondary text-decoration-none">
+              <Link
+                to="/terms"
+                className="text-secondary link-secondary text-decoration-none"
+              >
                 Terms of Use.
               </Link>
             </Label>
@@ -98,7 +101,7 @@ const SignUp = () => {
               <Input type="checkbox" />I accept the{" "}
               <Link
                 to="/privacy"
-                className="text-secondary text-decoration-none"
+                className="text-secondary link-secondary text-decoration-none"
               >
                 Privacy Policy.
               </Link>
@@ -112,7 +115,10 @@ const SignUp = () => {
           </Button>
           <p className="createAccount">
             Already have an account?{" "}
-            <Link to="/login" className="text-secondary text-decoration-none">
+            <Link
+              to="/login"
+              className="text-secondary link-secondary text-decoration-none"
+            >
               Sign In.
             </Link>
           </p>

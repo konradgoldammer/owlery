@@ -15,4 +15,8 @@ $secondary-text-color: #c4c4c4;
   }
 }
 
+.link-secondary:hover {
+  color: lighten(map-get($theme-colors, "secondary"), 20%) !important;
+}
+
 @import "../../node_modules/bootstrap/scss/bootstrap";
