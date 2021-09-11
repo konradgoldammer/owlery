@@ -20,6 +20,10 @@
   --font-family: "Roboto", sans-serif;
 }
 
+.navbarBrand {
+  font-family: "Righteous";
+}
+
 /***** MAIN VALUES ******/
 
 html,
@@ -30,6 +34,56 @@ body {
   background-color: var(--main-background-color);
   font-family: var(--font-family);
   position: relative;
+}
+
+/***** HOME ******/
+
+.searchbar {
+  position: absolute;
+  width: 30%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.navbarLink {
+  font-size: 0.875rem;
+}
+
+.searchbarInput {
+  background-color: var(--light-text-color);
+  border-top-left-radius: 0.2em;
+  border-bottom-left-radius: 0.2em;
+  border-right-width: 0ch;
+}
+
+.searchbarSpan {
+  background-color: var(--light-text-color);
+  border-radius: 0;
+  border-top-right-radius: 0.2em;
+  border-bottom-right-radius: 0.2em;
+}
+
+.profileDropdownMenu {
+  background-color: var(--main-background-color);
+}
+
+.profileDropdownItem {
+  font-size: 0.875rem;
+  color: var(--light-text-color);
+  text-align: center;
+}
+
+.profileDropdownItem:hover {
+  background-color: var(--primary-color);
+}
+
+.profileDropdownToggle {
+  color: var(--light-text-color);
+  font-size: 0.875rem;
+}
+
+.profileDropdownToggle:hover {
+  color: var(--primary-color);
 }
 
 /***** SIGN UP ******/

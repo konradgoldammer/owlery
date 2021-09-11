@@ -7,7 +7,7 @@ import Routes from "./routes";
 
 function App() {
   useEffect(() => {
-    // sstore.dispatch(loadUser());
+    store.dispatch(loadUser());
   }, []);
 
   return <Routes />;

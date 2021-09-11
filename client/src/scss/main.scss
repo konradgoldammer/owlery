@@ -19,4 +19,11 @@ $secondary-text-color: #c4c4c4;
   color: lighten(map-get($theme-colors, "secondary"), 20%) !important;
 }
 
+.searchbarIcon {
+  color: map-get($theme-colors, "dark");
+  &:hover {
+    color: lighten(map-get($theme-colors, "dark"), 20%) !important;
+  }
+}
+
 @import "../../node_modules/bootstrap/scss/bootstrap";
