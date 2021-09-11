@@ -107,6 +107,9 @@ const SignUp = () => {
               </Link>
             </Label>
           </FormGroup>
+          {error.id === "REGISTER_FAIL" && (
+            <Alert color="danger my-3">{error.msg}</Alert>
+          )}
           <Button
             className="signupBtn btn btn-sm text-uppercase"
             color="primary"
@@ -152,9 +155,6 @@ const SignUp = () => {
           </div>
         </div>
       </div>
-      {error.id === "REGISTER_FAIL" && (
-        <Alert color="danger">{error.msg}</Alert>
-      )}
     </div>
   );
 };
