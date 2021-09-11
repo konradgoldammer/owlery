@@ -118,6 +118,34 @@ const SignUp = () => {
           </p>
         </div>
       </Form>
+      <div className="smallFooter my-4">
+        <div className="row text-center">
+          <div className="col-sm">
+            <Link
+              to="/terms"
+              className="text-decoration-none text-secondary-text-color"
+            >
+              Terms
+            </Link>
+          </div>
+          <div className="col-sm">
+            <Link
+              to="/privacy"
+              className="text-decoration-none text-secondary-text-color"
+            >
+              Privacy
+            </Link>
+          </div>
+          <div className="col-sm">
+            <Link
+              to="#"
+              className="text-decoration-none text-secondary-text-color"
+            >
+              Contact
+            </Link>
+          </div>
+        </div>
+      </div>
       {error.id === "REGISTER_FAIL" && (
         <Alert color="danger">{error.msg}</Alert>
       )}

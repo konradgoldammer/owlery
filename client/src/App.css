@@ -96,6 +96,10 @@ p.createAccount {
   font-size: 13px;
 }
 
+.smallFooter {
+  font-size: 13px;
+}
+
 /***** LOGIN ******/
 
 .login-container {

@@ -6,4 +6,13 @@ $theme-colors: (
   "dark": #0d0d0d,
 );
 
+$secondary-text-color: #c4c4c4;
+
+.text-secondary-text-color {
+  color: $secondary-text-color;
+  &:hover {
+    color: lighten($secondary-text-color, 20%);
+  }
+}
+
 @import "../../node_modules/bootstrap/scss/bootstrap";
