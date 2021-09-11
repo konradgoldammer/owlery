@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, FormGroup, Label, Input, Col, Alert } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input, Col } from "reactstrap";
 import store from "../store";
 import { useSelector } from "react-redux";
 import "../App.css";
@@ -45,7 +45,7 @@ const Login = () => {
           <FormGroup row>
             <Label for="password">
               Password
-              <Link className="forgotPass" to="forget-password">
+              <Link className="forgotPass" to="forgot-password">
                 Forgot Password?
               </Link>
             </Label>
