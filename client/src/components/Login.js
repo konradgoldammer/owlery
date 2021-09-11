@@ -45,8 +45,8 @@ const Login = () => {
           <FormGroup row>
             <Label for="password">
               Password
-              <Link className="forgotPass" to="/">
-                Forgot Password
+              <Link className="forgotPass" to="forget-password">
+                Forgot Password?
               </Link>
             </Label>
             <Col sm={12}>
@@ -69,7 +69,7 @@ const Login = () => {
           </Button>
           <p className="createAccount">
             New to owlery?{" "}
-            <Link to="/login" className="createAccount">
+            <Link to="/create-account" className="createAccount">
               Create an account.
             </Link>
           </p>
