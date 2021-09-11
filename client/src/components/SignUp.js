@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input, Col, Alert } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { register } from "../actions/authActions";
 import { useSelector } from "react-redux";
 import store from "../store";
@@ -13,6 +13,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const error = useSelector((state) => state.error);
+  const auth = useSelector((state) => state.auth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -155,6 +156,7 @@ const SignUp = () => {
           </div>
         </div>
       </div>
+      {auth.isAuthenticated && <Redirect to="/" />}
     </div>
   );
 };
