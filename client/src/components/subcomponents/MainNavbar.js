@@ -15,7 +15,8 @@ import {
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaSearch } from "react-icons/fa";
-import "../../css/style.css";
+import store from "../../store";
+import { logout } from "../../actions/authActions";
 
 const MainNavbar = () => {
   const auth = useSelector((state) => state.auth);
@@ -77,7 +78,10 @@ const MainNavbar = () => {
                   <strong>Settings</strong>
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem className="profileDropdownItem text-uppercase">
+                <DropdownItem
+                  className="profileDropdownItem text-uppercase"
+                  onClick={() => store.dispatch(logout())}
+                >
                   <strong>Logout</strong>
                 </DropdownItem>{" "}
               </DropdownMenu>
