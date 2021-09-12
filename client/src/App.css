@@ -170,3 +170,18 @@ h2.privacy-title {
 .privacy-container h3 {
   margin: 1.5% 0;
 }
+
+/***** FORGOT PASSWORD ******/
+
+.forgot-container {
+  color: var(--light-text-color);
+}
+
+.forgotForm {
+  margin: 0;
+  width: 420px;
+  height: 100%;
+  padding: 100px 30px;
+  background: var(--dark-color);
+  border-radius: 5px;
+}

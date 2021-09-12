@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { Form, Col, FormGroup, Label, Input } from "reactstrap";
+import { Form, Col, FormGroup, Label, Input, Button } from "reactstrap";
 import store from "../store";
 
 const ForgotPass = () => {
   const [email, setEmail] = useState("");
+
+  //validation function
+  const validateForm = () => email.length > 0;
 
   const handleEmail = (e) => {
     e.preventDefault();
@@ -27,6 +30,13 @@ const ForgotPass = () => {
             />
           </Col>
         </FormGroup>
+        <Button
+          className="access-btn btn btn-sm text-uppercase my-4"
+          color="primary"
+          disabled={!validateForm()}
+        >
+          <strong>Recover your Password</strong>
+        </Button>
       </Form>
     </div>
   );
