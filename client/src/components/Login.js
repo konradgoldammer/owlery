@@ -1,27 +1,33 @@
-import React, { useState } from "react";
-import { Button, Form, FormGroup, Label, Input, Col } from "reactstrap";
+import React, { useState, useEffect } from "react";
+import { Alert, Button, Form, FormGroup, Label, Input, Col } from "reactstrap";
 import store from "../store";
 import { useSelector } from "react-redux";
 import "../App.css";
 import { Link, Redirect } from "react-router-dom";
 import SmallFooter from "./subcomponents/SmallFooter";
 import { login } from "../actions/authActions";
+import { clearErrors } from "../actions/errorActions";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const error = useSelector((state) => state.error);
   const auth = useSelector((state) => state.auth);
 
+  // Remove errors on page load
+  useEffect(() => {
+    store.dispatch(clearErrors());
+  }, []);
+
   //validation function
-  const validateForm = () => username.length > 0 && password.length > 0;
+  const validateForm = () => email.length > 0 && password.length > 0;
 
   //login call function
   const handleLogin = (e) => {
     e.preventDefault();
 
-    const user = { username, password };
+    const user = { email, password };
 
     store.dispatch(login(user));
   };
@@ -32,7 +38,7 @@ const Login = () => {
         <h2 className="access-title text-center text-lowercase">owlery</h2>
         <div className="inside-access-form">
           <FormGroup row className="mb-2 mt-4">
-            <Label for="email">Username or email address</Label>
+            <Label for="email">Email address</Label>
             <Col sm={12}>
               <Input
                 type="text"
@@ -40,8 +46,8 @@ const Login = () => {
                 id="email"
                 autoFocus
                 required
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </Col>
           </FormGroup>
@@ -66,6 +72,9 @@ const Login = () => {
               />
             </Col>
           </FormGroup>
+          {error.id === "LOGIN_FAIL" && (
+            <Alert color="danger my-3">{error.msg}</Alert>
+          )}
           <Button
             className="access-btn btn btn-sm text-uppercase my-4"
             color="primary"

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Label, Input, Col, Alert } from "reactstrap";
 import { Link, Redirect } from "react-router-dom";
 import { register } from "../actions/authActions";
+import { clearErrors } from "../actions/errorActions";
 import { useSelector } from "react-redux";
 import SmallFooter from "./subcomponents/SmallFooter";
 import store from "../store";
@@ -15,6 +16,11 @@ const SignUp = () => {
 
   const error = useSelector((state) => state.error);
   const auth = useSelector((state) => state.auth);
+
+  // Remove errors on page load
+  useEffect(() => {
+    store.dispatch(clearErrors());
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
