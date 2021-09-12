@@ -5,6 +5,7 @@ import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import Terms from "./components/Terms";
 import Privacy from "./components/Privacy";
+import ForgotPass from "./components/ForgotPass";
 import Home from "./components/Home";
 
 const Routes = () => {
@@ -16,6 +17,7 @@ const Routes = () => {
         <Route path="/login" component={Login}></Route>
         <Route path="/terms" component={Terms}></Route>
         <Route path="/privacy" component={Privacy}></Route>
+        <Route path="/forgot-password" component={ForgotPass}></Route>
       </Switch>
     </Router>
   );
