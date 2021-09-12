@@ -3,7 +3,8 @@ import { Button, Form, FormGroup, Label, Input, Col } from "reactstrap";
 import store from "../store";
 import { useSelector } from "react-redux";
 import "../App.css";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import SmallFooter from "./subcomponents/SmallFooter";
 import { login } from "../actions/authActions";
 
 const Login = () => {
@@ -11,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const error = useSelector((state) => state.error);
+  const auth = useSelector((state) => state.auth);
 
   //validation function
   const validateForm = () => username.length > 0 && password.length > 0;
@@ -23,18 +25,19 @@ const Login = () => {
 
     store.dispatch(login(user));
   };
+
   return (
-    <div className="login-container">
-      <Form className="loginForm" onSubmit={handleLogin}>
-        <h2 className="loginTitle">owlery</h2>
-        <div className="insideLoginForm">
-          <FormGroup row>
-            <Label for="username">Username or email address</Label>
+    <div className="access-container">
+      <Form className="access-form" onSubmit={handleLogin}>
+        <h2 className="access-title text-center text-lowercase">owlery</h2>
+        <div className="inside-access-form">
+          <FormGroup row className="mb-1">
+            <Label for="email">Username or email address</Label>
             <Col sm={12}>
               <Input
                 type="text"
-                name="username"
-                id="username"
+                name="email"
+                id="email"
                 autoFocus
                 required
                 value={username}
@@ -42,10 +45,13 @@ const Login = () => {
               />
             </Col>
           </FormGroup>
-          <FormGroup row>
+          <FormGroup row className="my-1">
             <Label for="password">
               Password
-              <Link className="forgotPass" to="forgot-password">
+              <Link
+                className="forgot-password text-secondary link-secondary text-decoration-none"
+                to="forgot-password"
+              >
                 Forgot Password?
               </Link>
             </Label>
@@ -61,20 +67,25 @@ const Login = () => {
             </Col>
           </FormGroup>
           <Button
-            className="loginBtn btn btn-sm"
+            className="access-btn btn btn-sm text-uppercase my-4"
             color="primary"
             disabled={!validateForm()}
           >
-            Sign In
+            <strong>Sign In</strong>
           </Button>
-          <p className="createAccount">
+          <p className="choose-other-access-option">
             New to owlery?{" "}
-            <Link to="/create-account" className="createAccount">
+            <Link
+              to="/create-account"
+              className="text-secondary link-secondary text-decoration-none"
+            >
               Create an account.
             </Link>
           </p>
         </div>
       </Form>
+      <SmallFooter />
+      {auth.isAuthenticated && <Redirect to="/" />}
     </div>
   );
 };

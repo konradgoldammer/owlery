@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Label, Input, Col, Alert } from "reactstrap";
 import { Link, Redirect } from "react-router-dom";
 import { register } from "../actions/authActions";
 import { useSelector } from "react-redux";
+import SmallFooter from "./subcomponents/SmallFooter";
 import store from "../store";
 import "../App.css";
 
@@ -30,11 +31,11 @@ const SignUp = () => {
   };
 
   return (
-    <div className="signup-container">
-      <Form className="signUpForm" onSubmit={handleSubmit}>
-        <h2 className="signUpTitle text-center text-lowercase">Owlery</h2>
-        <div className="insideSignUpForm">
-          <FormGroup row>
+    <div className="access-container">
+      <Form className="access-form" onSubmit={handleSubmit}>
+        <h2 className="access-title text-center text-lowercase">Owlery</h2>
+        <div className="inside-access-form">
+          <FormGroup row className="mb-1">
             <Label for="email">Email address</Label>
             <Col sm={12}>
               <Input
@@ -47,7 +48,7 @@ const SignUp = () => {
               />
             </Col>
           </FormGroup>
-          <FormGroup row>
+          <FormGroup row className="my-1">
             <Label for="username">Username</Label>
             <Col sm={12}>
               <Input
@@ -60,7 +61,7 @@ const SignUp = () => {
               />
             </Col>
           </FormGroup>
-          <FormGroup row>
+          <FormGroup row className="my-1">
             <Label for="password">Password</Label>
             <Col sm={12}>
               <Input
@@ -73,7 +74,7 @@ const SignUp = () => {
               />
             </Col>
           </FormGroup>
-          <FormGroup row>
+          <FormGroup row className="mt-1 mb-4">
             <Label for="confirmPassword">Confirm password</Label>
             <Col sm={12}>
               <Input
@@ -86,7 +87,7 @@ const SignUp = () => {
               />
             </Col>
           </FormGroup>
-          <FormGroup check>
+          <FormGroup check className="mb-1">
             <Label check for="chk">
               <Input type="checkbox" />I accept the{" "}
               <Link
@@ -97,7 +98,7 @@ const SignUp = () => {
               </Link>
             </Label>
           </FormGroup>
-          <FormGroup check>
+          <FormGroup check className="mt-1">
             <Label check for="chk">
               <Input type="checkbox" />I accept the{" "}
               <Link
@@ -112,12 +113,12 @@ const SignUp = () => {
             <Alert color="danger my-3">{error.msg}</Alert>
           )}
           <Button
-            className="signupBtn btn btn-sm text-uppercase"
+            className="access-btn btn btn-sm text-uppercase my-4"
             color="primary"
           >
             <strong>Create Account</strong>
           </Button>
-          <p className="createAccount">
+          <p className="choose-other-access-option my-1">
             Already have an account?{" "}
             <Link
               to="/login"
@@ -128,34 +129,7 @@ const SignUp = () => {
           </p>
         </div>
       </Form>
-      <div className="smallFooter my-4">
-        <div className="row text-center">
-          <div className="col-sm">
-            <Link
-              to="/terms"
-              className="text-decoration-none text-secondary-text-color"
-            >
-              Terms
-            </Link>
-          </div>
-          <div className="col-sm">
-            <Link
-              to="/privacy"
-              className="text-decoration-none text-secondary-text-color"
-            >
-              Privacy
-            </Link>
-          </div>
-          <div className="col-sm">
-            <Link
-              to="#"
-              className="text-decoration-none text-secondary-text-color"
-            >
-              Contact
-            </Link>
-          </div>
-        </div>
-      </div>
+      <SmallFooter />
       {auth.isAuthenticated && <Redirect to="/" />}
     </div>
   );
