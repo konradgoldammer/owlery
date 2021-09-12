@@ -31,7 +31,7 @@ const Login = () => {
       <Form className="access-form" onSubmit={handleLogin}>
         <h2 className="access-title text-center text-lowercase">owlery</h2>
         <div className="inside-access-form">
-          <FormGroup row className="mb-1">
+          <FormGroup row className="mb-2 mt-4">
             <Label for="email">Username or email address</Label>
             <Col sm={12}>
               <Input
@@ -45,7 +45,7 @@ const Login = () => {
               />
             </Col>
           </FormGroup>
-          <FormGroup row className="my-1">
+          <FormGroup row className="my-2">
             <Label for="password">
               Password
               <Link

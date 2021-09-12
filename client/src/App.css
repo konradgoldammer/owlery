@@ -120,13 +120,8 @@ label[for="email"],
 [for="username"],
 [for="password"],
 [for="confirmPassword"] {
-  margin-left: 10px;
-  padding: 5px 0;
   font-size: 16px;
-}
-
-label[for="email"] {
-  margin-top: 20px;
+  position: relative;
 }
 
 .form-check {
@@ -150,9 +145,11 @@ p.choose-other-access-option {
 }
 
 .forgot-password {
-  float: right;
   font-size: 13px;
-  margin-right: 5%;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-45%);
 }
 
 /***** T&C & PP ******/

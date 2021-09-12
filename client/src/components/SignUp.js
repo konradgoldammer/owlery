@@ -35,7 +35,7 @@ const SignUp = () => {
       <Form className="access-form" onSubmit={handleSubmit}>
         <h2 className="access-title text-center text-lowercase">Owlery</h2>
         <div className="inside-access-form">
-          <FormGroup row className="mb-1">
+          <FormGroup row className="mb-2 mt-4">
             <Label for="email">Email address</Label>
             <Col sm={12}>
               <Input
@@ -48,7 +48,7 @@ const SignUp = () => {
               />
             </Col>
           </FormGroup>
-          <FormGroup row className="my-1">
+          <FormGroup row className="my-2">
             <Label for="username">Username</Label>
             <Col sm={12}>
               <Input
@@ -61,7 +61,7 @@ const SignUp = () => {
               />
             </Col>
           </FormGroup>
-          <FormGroup row className="my-1">
+          <FormGroup row className="my-2">
             <Label for="password">Password</Label>
             <Col sm={12}>
               <Input
@@ -74,7 +74,7 @@ const SignUp = () => {
               />
             </Col>
           </FormGroup>
-          <FormGroup row className="mt-1 mb-4">
+          <FormGroup row className="mt-2 mb-4">
             <Label for="confirmPassword">Confirm password</Label>
             <Col sm={12}>
               <Input
