@@ -50,7 +50,7 @@ const Login = () => {
               Password
               <Link
                 className="forgot-password text-secondary link-secondary text-decoration-none"
-                to="forgot-password"
+                to="/forgot-password"
               >
                 Forgot Password?
               </Link>
