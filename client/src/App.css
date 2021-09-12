@@ -192,3 +192,20 @@ h2.privacy-title {
   background: var(--dark-color);
   border-radius: 5px;
 }
+
+
+
+.rs-nav-item-content{
+  color: white !important;
+  font-weight: bold;
+}
+.rs-nav-item-content:hover{
+  color: black !important;
+}
+
+
+.profile-pic{
+  height: 80px;
+  width: auto;
+  border-radius: 100%;
+}
