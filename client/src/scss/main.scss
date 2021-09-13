@@ -26,4 +26,9 @@ $secondary-text-color: #c4c4c4;
   }
 }
 
+.profile-dropdown-item:last-child:hover {
+  background-color: map-get($theme-colors, "danger");
+  color: var(--light-text-color);
+}
+
 @import "../../node_modules/bootstrap/scss/bootstrap";

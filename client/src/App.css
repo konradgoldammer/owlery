@@ -65,6 +65,8 @@ body {
 
 .profile-dropdown-menu {
   background-color: var(--main-background-color);
+  padding: 0;
+  overflow: hidden;
 }
 
 .profile-dropdown-item {
