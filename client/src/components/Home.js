@@ -7,7 +7,6 @@ const Home = () => {
   return (
     <div>
       <MainNavbar />
-      <ProfileInfo />
     </div>
   );
 };
