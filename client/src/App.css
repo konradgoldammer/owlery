@@ -20,7 +20,7 @@
   --font-family: "Roboto", sans-serif;
 }
 
-.navbarBrand {
+.navbar-brand {
   font-family: "Righteous";
 }
 
@@ -45,44 +45,44 @@ body {
   transform: translate(-50%);
 }
 
-.navbarLink {
+.navbar-link {
   font-size: 0.875rem;
 }
 
-.searchbarInput {
+.searchbar-input {
   background-color: var(--light-text-color);
   border-top-left-radius: 0.2em;
   border-bottom-left-radius: 0.2em;
   border-right-width: 0ch;
 }
 
-.searchbarSpan {
+.searchbar-span {
   background-color: var(--light-text-color);
   border-radius: 0;
   border-top-right-radius: 0.2em;
   border-bottom-right-radius: 0.2em;
 }
 
-.profileDropdownMenu {
+.profile-dropdown-menu {
   background-color: var(--main-background-color);
 }
 
-.profileDropdownItem {
+.profile-dropdown-item {
   font-size: 0.875rem;
   color: var(--light-text-color);
   text-align: center;
 }
 
-.profileDropdownItem:hover {
+.profile-dropdown-item:hover {
   background-color: var(--primary-color);
 }
 
-.profileDropdownToggle {
+.profile-dropdown-toggle {
   color: var(--light-text-color);
   font-size: 0.875rem;
 }
 
-.profileDropdownToggle:hover {
+.profile-dropdown-toggle:hover {
   color: var(--primary-color);
 }
 
@@ -184,7 +184,7 @@ h2.privacy-title {
   min-width: 20%;
 }
 
-.forgotForm {
+.forgot-form {
   margin: 0;
   width: 100%;
   height: 100%;
@@ -193,18 +193,15 @@ h2.privacy-title {
   border-radius: 5px;
 }
 
-
-
-.rs-nav-item-content{
+.rs-nav-item-content {
   color: white !important;
   font-weight: bold;
 }
-.rs-nav-item-content:hover{
+.rs-nav-item-content:hover {
   color: black !important;
 }
 
-
-.profile-pic{
+.profile-pic {
   height: 80px;
   width: auto;
   border-radius: 100%;

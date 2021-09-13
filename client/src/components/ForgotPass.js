@@ -13,7 +13,7 @@ const ForgotPass = () => {
   };
   return (
     <div className="forgot-container">
-      <Form className="forgotForm" onSubmit={handleEmail}>
+      <Form className="forgot-form" onSubmit={handleEmail}>
         <FormGroup row>
           <Label for="email">
             Enter the email address associated with your account
