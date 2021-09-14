@@ -95,7 +95,7 @@ const SignUp = () => {
           </FormGroup>
           <FormGroup check className="mb-1">
             <Label check for="chk">
-              <Input type="checkbox" />I accept the{" "}
+              <Input type="checkbox" required />I accept the{" "}
               <Link
                 to="/terms"
                 className="text-secondary link-secondary text-decoration-none"
@@ -106,7 +106,7 @@ const SignUp = () => {
           </FormGroup>
           <FormGroup check className="mt-1">
             <Label check for="chk">
-              <Input type="checkbox" />I accept the{" "}
+              <Input type="checkbox" required />I accept the{" "}
               <Link
                 to="/privacy"
                 className="text-secondary link-secondary text-decoration-none"
