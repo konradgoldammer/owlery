@@ -22,6 +22,16 @@ const SignUp = () => {
     store.dispatch(clearErrors());
   }, []);
 
+  // Validation function
+  const validateForm = () => {
+    return (
+      email.length === 0 ||
+      username.length === 0 ||
+      password.length === 0 ||
+      confirmPassword.length === 0
+    );
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -132,6 +142,7 @@ const SignUp = () => {
           <Button
             className="access-btn btn btn-sm text-uppercase my-4"
             color="primary"
+            disabled={validateForm()}
           >
             <strong>Create Account</strong>
           </Button>

@@ -20,11 +20,12 @@ const Login = () => {
     store.dispatch(clearErrors());
   }, []);
 
-  //validation function
-  const validateForm = () => email.length > 0 && password.length > 0;
+  // Validation function
+  const validateForm = () => {
+    return email.length === 0 || password.length === 0;
+  };
 
-  //login call function
-  const handleLogin = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const user = { email, password };
@@ -34,7 +35,7 @@ const Login = () => {
 
   return (
     <div className="access-container">
-      <Form className="access-form" onSubmit={handleLogin}>
+      <Form className="access-form" onSubmit={handleSubmit}>
         <h2 className="access-title text-center text-lowercase">owlery</h2>
         <div className="inside-access-form">
           <FormGroup row className="mb-2 mt-4">
@@ -78,7 +79,7 @@ const Login = () => {
           <Button
             className="access-btn btn btn-sm text-uppercase my-4"
             color="primary"
-            disabled={!validateForm()}
+            disabled={validateForm()}
           >
             <strong>Sign In</strong>
           </Button>
