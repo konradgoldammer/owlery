@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const SmallFooter = () => {
   return (
-    <div className="small-footer my-4">
+    <div className="small-footer my-3">
       <div className="row text-center">
         <div className="col-sm">
           <Link

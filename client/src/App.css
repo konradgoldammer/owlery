@@ -98,7 +98,7 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  min-width: 20%;
+  width: 400px;
 }
 
 .access-form {
@@ -106,7 +106,7 @@ body {
   height: 100%;
   background: var(--dark-color);
   border-radius: 5px;
-  padding: 25px 40px;
+  padding: 15px 40px;
 }
 
 .access-title {
@@ -122,16 +122,17 @@ label[for="email"],
 [for="username"],
 [for="password"],
 [for="confirmPassword"] {
-  font-size: 16px;
+  font-size: 14px;
   position: relative;
 }
 
 .form-check {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 input {
   max-height: 30px;
+  width: 100%;
 }
 
 .access-btn {
@@ -139,19 +140,23 @@ input {
 }
 
 p.choose-other-access-option {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .small-footer {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .forgot-password {
-  font-size: 13px;
+  font-size: 12px;
   position: absolute;
   right: 12px;
   top: 50%;
-  transform: translateY(-45%);
+  transform: translateY(-40%);
+}
+
+.error-msg-alert {
+  font-size: 12px;
 }
 
 /***** T&C & PP ******/

@@ -74,10 +74,10 @@ const Login = () => {
             </Col>
           </FormGroup>
           {error.id === "LOGIN_FAIL" && (
-            <Alert color="danger my-3">{error.msg}</Alert>
+            <Alert color="danger p-2 error-msg-alert">{error.msg}</Alert>
           )}
           <Button
-            className="access-btn btn btn-sm text-uppercase my-4"
+            className="access-btn btn btn-sm text-uppercase my-3"
             color="primary"
             disabled={validateForm()}
           >

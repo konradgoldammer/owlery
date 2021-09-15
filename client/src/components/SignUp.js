@@ -50,11 +50,6 @@ const SignUp = () => {
     const newUser = { username, email, password };
 
     store.dispatch(register(newUser));
-
-    setEmail("");
-    setUsername("");
-    setPassword("");
-    setConfirmPassword("");
   };
 
   return (
@@ -101,7 +96,7 @@ const SignUp = () => {
               />
             </Col>
           </FormGroup>
-          <FormGroup row className="mt-2 mb-4">
+          <FormGroup row className="mt-2 mb-1">
             <Label for="confirmPassword">Confirm password</Label>
             <Col sm={12}>
               <Input
@@ -114,7 +109,10 @@ const SignUp = () => {
               />
             </Col>
           </FormGroup>
-          <FormGroup check className="mb-1">
+          {error.id === "REGISTER_FAIL" && (
+            <Alert color="danger p-2 error-msg-alert">{error.msg}</Alert>
+          )}
+          <FormGroup check className="mt-3">
             <Label check for="chk">
               <Input type="checkbox" required />I accept the{" "}
               <Link
@@ -125,7 +123,7 @@ const SignUp = () => {
               </Link>
             </Label>
           </FormGroup>
-          <FormGroup check className="mt-1">
+          <FormGroup check>
             <Label check for="chk">
               <Input type="checkbox" required />I accept the{" "}
               <Link
@@ -136,17 +134,14 @@ const SignUp = () => {
               </Link>
             </Label>
           </FormGroup>
-          {error.id === "REGISTER_FAIL" && (
-            <Alert color="danger my-3">{error.msg}</Alert>
-          )}
           <Button
-            className="access-btn btn btn-sm text-uppercase my-4"
+            className="access-btn btn btn-sm text-uppercase my-3"
             color="primary"
             disabled={validateForm()}
           >
             <strong>Create Account</strong>
           </Button>
-          <p className="choose-other-access-option my-1">
+          <p className="choose-other-access-option">
             Already have an account?{" "}
             <Link
               to="/login"
