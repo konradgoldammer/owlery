@@ -7,6 +7,7 @@ $theme-colors: (
 );
 
 $secondary-text-color: #c4c4c4;
+$main-background-color: #252525;
 
 .text-secondary-text-color {
   color: $secondary-text-color;
@@ -26,8 +27,17 @@ $secondary-text-color: #c4c4c4;
   }
 }
 
+.profile-dropdown-item:active {
+  background-color: $main-background-color !important;
+}
+
+.profile-dropdown-item:hover {
+  color: map-get($theme-colors, "light") !important;
+  background-color: lighten($main-background-color, 20%) !important;
+}
+
 .profile-dropdown-item:last-child:hover {
-  background-color: map-get($theme-colors, "danger");
+  background-color: map-get($theme-colors, "danger") !important;
   color: var(--light-text-color);
 }
 

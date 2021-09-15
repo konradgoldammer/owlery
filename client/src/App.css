@@ -75,10 +75,6 @@ body {
   text-align: center;
 }
 
-.profile-dropdown-item:hover {
-  background-color: var(--primary-color);
-}
-
 .profile-dropdown-toggle {
   color: var(--light-text-color);
   font-size: 0.875rem;
