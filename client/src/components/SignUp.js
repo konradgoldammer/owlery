@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Label, Input, Col, Alert } from "reactstrap";
 import { Link, Redirect } from "react-router-dom";
 import { register } from "../actions/authActions";
-import { clearErrors } from "../actions/errorActions";
+import { returnErrors, clearErrors } from "../actions/errorActions";
 import { useSelector } from "react-redux";
 import SmallFooter from "./subcomponents/SmallFooter";
 import store from "../store";
@@ -24,6 +24,17 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Check if password and password confirmation match
+    if (password !== confirmPassword) {
+      return store.dispatch(
+        returnErrors(
+          "Password and the password confirmation do not match",
+          400,
+          "REGISTER_FAIL"
+        )
+      );
+    }
 
     // Create new user object
     const newUser = { username, email, password };
