@@ -21,9 +21,7 @@ const Login = () => {
   }, []);
 
   // Validation function
-  const validateForm = () => {
-    return email.length === 0 || password.length === 0;
-  };
+  const validateForm = () => email.length === 0 || password.length === 0;
 
   const handleSubmit = (e) => {
     e.preventDefault();
