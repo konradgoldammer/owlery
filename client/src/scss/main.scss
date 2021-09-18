@@ -41,4 +41,8 @@ $main-background-color: #252525;
   color: var(--light-text-color);
 }
 
+.input-error {
+  border: map-get($theme-colors, "danger") 2px solid !important;
+}
+
 @import "../../node_modules/bootstrap/scss/bootstrap";

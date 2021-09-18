@@ -31,6 +31,10 @@
   color: var(--light-text-color);
 }
 
+.input-error {
+  border: #ff4136 2px solid !important;
+}
+
 /*!
  * Bootstrap v5.1.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
