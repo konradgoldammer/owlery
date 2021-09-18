@@ -9,10 +9,19 @@ import store from "../store";
 import "../App.css";
 
 const SignUp = () => {
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const initialState = {
+    email: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+  };
+
+  const [email, setEmail] = useState(initialState.email);
+  const [username, setUsername] = useState(initialState.username);
+  const [password, setPassword] = useState(initialState.password);
+  const [confirmPassword, setConfirmPassword] = useState(
+    initialState.confirmPassword
+  );
 
   const error = useSelector((state) => state.error);
   const auth = useSelector((state) => state.auth);
@@ -45,6 +54,12 @@ const SignUp = () => {
         )
       );
     }
+
+    // Clear form
+    setEmail(initialState.email);
+    setUsername(initialState.username);
+    setPassword(initialState.password);
+    setConfirmPassword(initialState.confirmPassword);
 
     // Create new user object
     const newUser = { username, email, password };

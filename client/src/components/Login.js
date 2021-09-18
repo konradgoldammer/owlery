@@ -9,8 +9,10 @@ import { login } from "../actions/authActions";
 import { clearErrors } from "../actions/errorActions";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const initialState = { email: "", password: "" };
+
+  const [email, setEmail] = useState(initialState.email);
+  const [password, setPassword] = useState(initialState.password);
 
   const error = useSelector((state) => state.error);
   const auth = useSelector((state) => state.auth);
