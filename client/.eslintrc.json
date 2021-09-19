@@ -8,5 +8,8 @@
     "plugin:react/recommended",
     "react-app",
     "plugin:prettier/recommended"
-  ]
+  ],
+  "rules": {
+    "no-useless-escape": "off"
+  }
 }
