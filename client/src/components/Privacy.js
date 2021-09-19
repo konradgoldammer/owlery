@@ -1,7 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from "react";
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 
-const Privacy = () => {
+const Privacy = (props) => {
+  useEffect(() => {
+    // Set page title
+    document.title = props.title;
+  }, [props.title]);
+
   return (
     <div className="privacy-container">
       <h2 className="privacy-title">
@@ -247,6 +253,10 @@ const Privacy = () => {
       </p>
     </div>
   );
+};
+
+Privacy.propTypes = {
+  title: PropTypes.string,
 };
 
 export default Privacy;

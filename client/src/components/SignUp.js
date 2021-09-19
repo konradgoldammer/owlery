@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { Button, Form, FormGroup, Label, Input, Col, Alert } from "reactstrap";
 import { Link, Redirect } from "react-router-dom";
 import { register } from "../actions/authActions";
@@ -8,7 +9,7 @@ import SmallFooter from "./subcomponents/SmallFooter";
 import store from "../store";
 import "../App.css";
 
-const SignUp = () => {
+const SignUp = (props) => {
   const initialState = {
     email: "",
     username: "",
@@ -31,10 +32,13 @@ const SignUp = () => {
   const error = useSelector((state) => state.error);
   const auth = useSelector((state) => state.auth);
 
-  // Remove errors on page load
   useEffect(() => {
+    // Remove errors on page load
     store.dispatch(clearErrors());
-  }, []);
+
+    // Set page title
+    document.title = props.title;
+  }, [props.title]);
 
   // Validation function
   const validateForm = () => {
@@ -318,6 +322,10 @@ const SignUp = () => {
       {auth.isAuthenticated && <Redirect to="/" />}
     </div>
   );
+};
+
+SignUp.propTypes = {
+  title: PropTypes.string,
 };
 
 export default SignUp;

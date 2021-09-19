@@ -12,12 +12,21 @@ const Routes = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={Home}></Route>
-        <Route path="/create-account" component={SignUp}></Route>
-        <Route path="/login" component={Login}></Route>
-        <Route path="/terms" component={Terms}></Route>
-        <Route path="/privacy" component={Privacy}></Route>
-        <Route path="/forgot-password" component={ForgotPass}></Route>
+        <Route exact path="/" component={() => <Home title="Owlery" />} />
+        <Route
+          path="/create-account"
+          component={() => <SignUp title="Create Account" />}
+        />
+        <Route path="/login" component={() => <Login title="Login" />} />
+        <Route path="/terms" component={() => <Terms title="Terms of Use" />} />
+        <Route
+          path="/privacy"
+          component={() => <Privacy title="Privacy Policy" />}
+        />
+        <Route
+          path="/forgot-password"
+          component={() => <ForgotPass title="Recover Account" />}
+        />
       </Switch>
     </Router>
   );

@@ -1,8 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 
-import React from "react";
+const Terms = (props) => {
+  useEffect(() => {
+    // Set page title
+    document.title = props.title;
+  }, [props.title]);
 
-const Terms = () => {
   return (
     <div className="terms-container">
       <h2 className="terms-title">
@@ -318,6 +323,10 @@ const Terms = () => {
       </p>
     </div>
   );
+};
+
+Terms.propTypes = {
+  title: PropTypes.string,
 };
 
 export default Terms;

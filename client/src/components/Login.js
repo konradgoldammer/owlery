@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { Alert, Button, Form, FormGroup, Label, Input, Col } from "reactstrap";
 import store from "../store";
 import { useSelector } from "react-redux";
@@ -8,7 +9,7 @@ import SmallFooter from "./subcomponents/SmallFooter";
 import { login } from "../actions/authActions";
 import { clearErrors } from "../actions/errorActions";
 
-const Login = () => {
+const Login = (props) => {
   const initialState = { email: "", password: "" };
 
   const [email, setEmail] = useState(initialState.email);
@@ -17,10 +18,13 @@ const Login = () => {
   const error = useSelector((state) => state.error);
   const auth = useSelector((state) => state.auth);
 
-  // Remove errors on page load
   useEffect(() => {
+    // Remove errors on page load
     store.dispatch(clearErrors());
-  }, []);
+
+    // Set page title
+    document.title = props.title;
+  }, [props.title]);
 
   // Validation function
   const validateForm = () => email.length === 0 || password.length === 0;
@@ -98,6 +102,10 @@ const Login = () => {
       {auth.isAuthenticated && <Redirect to="/" />}
     </div>
   );
+};
+
+Login.propTypes = {
+  title: PropTypes.string,
 };
 
 export default Login;
