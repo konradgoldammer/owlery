@@ -8,12 +8,81 @@ const config = require("config");
 const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
 
-const isValidEmail = (email) => {
-  let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  if (email.match(regexEmail)) {
-    return true;
+// Email validation
+const validateEmail = (email) => {
+  const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+  if (!email) {
+    return { msg: "'Email' field cannot be empty" };
   }
-  return false;
+
+  if (typeof email !== "string") {
+    return { msg: "'Email' has to be a string" };
+  }
+
+  if (email.length > 50) {
+    return { msg: "Your email cannot be longer than 50 characters" };
+  }
+
+  if (!email.match(regexEmail)) {
+    return { msg: "Please enter a valid email" };
+  }
+
+  return null;
+};
+
+// Username validation
+const validateUsername = (username) => {
+  const regexUsername = /^(\w|\.|-)+$/;
+
+  if (!username) {
+    return { msg: "'Username' field cannot be empty" };
+  }
+
+  if (typeof username !== "string") {
+    return { msg: "'Username' has to be a string" };
+  }
+
+  if (username.length < 3) {
+    return { msg: "Your username has to have at least 3 characters" };
+  }
+
+  if (username.length > 30) {
+    return { msg: "Your username cannot be longer than 30 characters" };
+  }
+
+  if (!username.match(regexUsername)) {
+    return {
+      msg: "Your username can only include letters, numbers, dots, underscores or dashes",
+    };
+  }
+
+  if (username.toUpperCase() === username.toLowerCase()) {
+    return { msg: "Your username has to include at least 1 letter" };
+  }
+
+  return null;
+};
+
+// Password validation
+const validatePassword = (password) => {
+  if (!password) {
+    return { msg: "'Password' field cannot be empty" };
+  }
+
+  if (typeof password !== "string") {
+    return { msg: "'Password' has to be a string" };
+  }
+
+  if (password.length < 6) {
+    return { msg: "Your password has to have at least 6 characters" };
+  }
+
+  if (password.length > 50) {
+    return { msg: "Your password cannot be longer than 50 characters" };
+  }
+
+  return null;
 };
 
 // @route    POST "/"
@@ -26,20 +95,31 @@ router.post("/", (req, res) => {
       ? req.body.username.toLowerCase()
       : undefined;
 
-  // Simple validation
-  if (!username || !email || !password) {
-    return res.status(400).json({ msg: "Please enter all fields" });
+  // Validate email
+  const emailError = validateEmail(email);
+  if (emailError) {
+    return res.status(400).json(emailError);
   }
 
-  if (!isValidEmail(email)) {
-    return res.status(400).json({ msg: "Please enter a valid email" });
+  // Validate username
+  const usernameError = validateUsername(username);
+  if (usernameError) {
+    return res.status(400).json(usernameError);
   }
 
+  // Validate password
+  const passwordError = validatePassword(password);
+  if (passwordError) {
+    return res.status(400).json(passwordError);
+  }
+
+  // Check if username is already taken
   User.findOne({ username }).then((user) => {
     if (user) {
       return res.status(400).json({ msg: "Username is already taken" });
     }
 
+    // Check if user with that email already exists
     User.findOne({ email }).then((user) => {
       if (user) {
         return res
