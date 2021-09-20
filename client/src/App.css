@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
 
 /***** RESET ******/
 
@@ -82,6 +83,26 @@ body {
 
 .profile-dropdown-toggle:hover {
   color: var(--primary-color);
+}
+
+.header {
+  background-color: var(--dark-color);
+  height: 100vh;
+  position: relative;
+}
+
+.header-text {
+  color: var(--light-text-color);
+  font-family: "Playfair Display", serif;
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+}
+
+mark {
+  color: var(--primary-color);
+  background: none;
 }
 
 /***** SIGN UP / LOGIN ******/

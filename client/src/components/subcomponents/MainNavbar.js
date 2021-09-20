@@ -32,7 +32,7 @@ const MainNavbar = () => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div>
+    <div className="fixed-top">
       <Navbar color="dark" dark expand="md" className="px-4">
         <NavbarBrand href="/" className="navbar-brand text-lowercase">
           Owlery
