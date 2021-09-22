@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
 
 /***** RESET ******/
 
@@ -18,9 +19,10 @@
   --light-text-color: #fafafa;
   --secondary-text-color: #c4c4c4;
   --font-family: "Roboto", sans-serif;
+  --heading-font-family: "Playfair Display", serif;
 }
 
-.navbarBrand {
+.navbar-brand {
   font-family: "Righteous";
 }
 
@@ -45,45 +47,62 @@ body {
   transform: translate(-50%);
 }
 
-.navbarLink {
+.navbar-link {
   font-size: 0.875rem;
 }
 
-.searchbarInput {
+.searchbar-input {
   background-color: var(--light-text-color);
   border-top-left-radius: 0.2em;
   border-bottom-left-radius: 0.2em;
   border-right-width: 0ch;
 }
 
-.searchbarSpan {
+.searchbar-span {
   background-color: var(--light-text-color);
   border-radius: 0;
   border-top-right-radius: 0.2em;
   border-bottom-right-radius: 0.2em;
 }
 
-.profileDropdownMenu {
+.profile-dropdown-menu {
   background-color: var(--main-background-color);
+  padding: 0;
+  overflow: hidden;
 }
 
-.profileDropdownItem {
+.profile-dropdown-item {
   font-size: 0.875rem;
   color: var(--light-text-color);
   text-align: center;
 }
 
-.profileDropdownItem:hover {
-  background-color: var(--primary-color);
-}
-
-.profileDropdownToggle {
+.profile-dropdown-toggle {
   color: var(--light-text-color);
   font-size: 0.875rem;
 }
 
-.profileDropdownToggle:hover {
+.profile-dropdown-toggle:hover {
   color: var(--primary-color);
+}
+
+.header {
+  background-color: var(--dark-color);
+  height: 100vh;
+  position: relative;
+}
+
+.header-text {
+  color: var(--light-text-color);
+  font-family: var(--heading-font-family);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+mark {
+  color: var(--primary-color);
+  background: none;
 }
 
 /***** SIGN UP / LOGIN ******/
@@ -96,7 +115,7 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  min-width: 20%;
+  width: 400px;
 }
 
 .access-form {
@@ -104,7 +123,7 @@ body {
   height: 100%;
   background: var(--dark-color);
   border-radius: 5px;
-  padding: 25px 40px;
+  padding: 15px 40px;
 }
 
 .access-title {
@@ -120,16 +139,17 @@ label[for="email"],
 [for="username"],
 [for="password"],
 [for="confirmPassword"] {
-  font-size: 16px;
+  font-size: 14px;
   position: relative;
 }
 
 .form-check {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 input {
   max-height: 30px;
+  width: 100%;
 }
 
 .access-btn {
@@ -137,19 +157,23 @@ input {
 }
 
 p.choose-other-access-option {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .small-footer {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .forgot-password {
-  font-size: 13px;
+  font-size: 12px;
   position: absolute;
   right: 12px;
   top: 50%;
-  transform: translateY(-45%);
+  transform: translateY(-40%);
+}
+
+.error-msg-alert {
+  font-size: 12px;
 }
 
 /***** T&C & PP ******/
@@ -184,7 +208,7 @@ h2.privacy-title {
   min-width: 20%;
 }
 
-.forgotForm {
+.forgot-form {
   margin: 0;
   width: 100%;
   height: 100%;
@@ -193,16 +217,13 @@ h2.privacy-title {
   border-radius: 5px;
 }
 
-
-
-.rs-nav-item-content{
+.rs-nav-item-content {
   color: white !important;
   font-weight: bold;
 }
-.rs-nav-item-content:hover{
+.rs-nav-item-content:hover {
   color: black !important;
 }
-
 
 .profile-pic{
   height: 120px;

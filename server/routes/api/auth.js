@@ -17,6 +17,12 @@ router.post("/", (req, res) => {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
+  if (typeof email !== "string" || typeof password !== "string") {
+    return res
+      .status(400)
+      .json({ msg: "'Username' and 'Password' have to be strings" });
+  }
+
   User.findOne({ email }).then((user) => {
     if (!user) {
       return res

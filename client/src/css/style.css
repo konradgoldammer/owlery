@@ -10,11 +10,29 @@
   color: #b9ff1d !important;
 }
 
-.searchbarIcon {
+.searchbar-icon {
   color: #0d0d0d;
 }
-.searchbarIcon:hover {
+.searchbar-icon:hover {
   color: #404040 !important;
+}
+
+.profile-dropdown-item:active {
+  background-color: #252525 !important;
+}
+
+.profile-dropdown-item:hover {
+  color: #fafafa !important;
+  background-color: #585858 !important;
+}
+
+.profile-dropdown-item:last-child:hover {
+  background-color: #ff4136 !important;
+  color: var(--light-text-color);
+}
+
+.input-error {
+  border: #ff4136 2px solid !important;
 }
 
 /*!

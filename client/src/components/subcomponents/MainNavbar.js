@@ -32,26 +32,26 @@ const MainNavbar = () => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div>
+    <div className="fixed-top">
       <Navbar color="dark" dark expand="md" className="px-4">
-        <NavbarBrand href="/" className="navbarBrand text-lowercase">
+        <NavbarBrand href="/" className="navbar-brand text-lowercase">
           Owlery
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/podcasts" className="text-uppercase navbarLink">
+              <NavLink href="/podcasts" className="text-uppercase navbar-link">
                 <strong>Podcasts</strong>
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/lists" className="text-uppercase navbarLink">
+              <NavLink href="/lists" className="text-uppercase navbar-link">
                 <strong>Lists</strong>
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/members" className="text-uppercase navbarLink">
+              <NavLink href="/members" className="text-uppercase navbar-link">
                 <strong>Members</strong>
               </NavLink>
             </NavItem>
@@ -66,20 +66,20 @@ const MainNavbar = () => {
               <DropdownToggle
                 nav
                 caret
-                className="text-uppercase profileDropdownToggle"
+                className="text-uppercase profile-dropdown-toggle"
               >
                 <strong>{auth.user.username}</strong>
               </DropdownToggle>
-              <DropdownMenu right className="profileDropdownMenu">
-                <DropdownItem className="profileDropdownItem text-uppercase">
+              <DropdownMenu right className="profile-dropdown-menu">
+                <DropdownItem className="profile-dropdown-item text-uppercase">
                   <strong>Profile</strong>
                 </DropdownItem>
-                <DropdownItem className="profileDropdownItem text-uppercase">
+                <DropdownItem className="profile-dropdown-item text-uppercase">
                   <strong>Settings</strong>
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem
-                  className="profileDropdownItem text-uppercase"
+                  className="profile-dropdown-item text-uppercase"
                   onClick={() => store.dispatch(logout())}
                 >
                   <strong>Logout</strong>
@@ -105,7 +105,7 @@ const MainNavbar = () => {
         {!isOpen && (
           <div className="input-group searchbar">
             <input
-              className="form-control my-0 py-1 searchbarInput"
+              className="form-control my-0 py-1 searchbar-input"
               type="text"
               placeholder="Search"
               aria-label="Search"
@@ -113,8 +113,8 @@ const MainNavbar = () => {
             />
             <div>
               <a href="/">
-                <span className="input-group-text searchbarSpan">
-                  <FaSearch className="searchbarIcon"></FaSearch>
+                <span className="input-group-text searchbar-span">
+                  <FaSearch className="searchbar-icon"></FaSearch>
                 </span>
               </a>
             </div>

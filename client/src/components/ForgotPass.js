@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { Form, Col, FormGroup, Label, Input, Button } from "reactstrap";
-import store from "../store";
 
-const ForgotPass = () => {
+const ForgotPass = (props) => {
   const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    document.title = props.title;
+  }, [props.title]);
 
   //validation function
   const validateForm = () => email.length > 0;
@@ -11,9 +15,10 @@ const ForgotPass = () => {
   const handleEmail = (e) => {
     e.preventDefault();
   };
+
   return (
     <div className="forgot-container">
-      <Form className="forgotForm" onSubmit={handleEmail}>
+      <Form className="forgot-form" onSubmit={handleEmail}>
         <FormGroup row>
           <Label for="email">
             Enter the email address associated with your account
@@ -40,6 +45,10 @@ const ForgotPass = () => {
       </Form>
     </div>
   );
+};
+
+ForgotPass.propTypes = {
+  title: PropTypes.string,
 };
 
 export default ForgotPass;
