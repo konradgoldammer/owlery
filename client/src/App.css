@@ -19,6 +19,7 @@
   --light-text-color: #fafafa;
   --secondary-text-color: #c4c4c4;
   --font-family: "Roboto", sans-serif;
+  --heading-font-family: "Playfair Display", serif;
 }
 
 .navbar-brand {
@@ -93,10 +94,9 @@ body {
 
 .header-text {
   color: var(--light-text-color);
-  font-family: "Playfair Display", serif;
+  font-family: var(--heading-font-family);
   position: absolute;
   top: 50%;
-  left: 10%;
   transform: translateY(-50%);
 }
 
