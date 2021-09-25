@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import profilePic from "./images/profile.png";
 import { Container } from "reactstrap";
 import { Row, Col } from "reactstrap";
@@ -9,9 +10,17 @@ import Diary from "./shared/Diary";
 import Reviews from "./shared/Reviews";
 import Lists from "./shared/Lists";
 import Likes from "./shared/Likes";
-import { useState, initialState } from "react";
+import { useState, initialState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 function Profile(props) {
+  const { userId } = useParams();
+
+  useEffect(() => {
+    // Set page title
+    document.title = userId;
+  }, [props.title]);
+
   var [state, setState] = useState(initialState);
 
   state = {
@@ -187,5 +196,9 @@ function Profile(props) {
     </div>
   );
 }
+
+Profile.propTypes = {
+  title: PropTypes.string,
+};
 
 export default Profile;
