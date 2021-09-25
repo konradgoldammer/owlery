@@ -5,7 +5,7 @@ import store from "../store";
 import { useSelector } from "react-redux";
 import "../App.css";
 import { Link, Redirect } from "react-router-dom";
-import SmallFooter from "./subcomponents/SmallFooter";
+import SmallFooter from "./shared/SmallFooter";
 import { login } from "../actions/authActions";
 import { clearErrors } from "../actions/errorActions";
 

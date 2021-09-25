@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import MainNavbar from "./subcomponents/MainNavbar";
-import Header from "./subcomponents/Header";
-import "../App.css";
+import MainNavbar from "../shared/MainNavbar";
+import Header from "../Home/Header";
+import "../../App.css";
 
 const Home = (props) => {
   useEffect(() => {
