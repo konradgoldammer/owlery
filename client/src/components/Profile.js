@@ -13,7 +13,7 @@ import Lists from "./subcomponents/Lists";
 import Likes from "./subcomponents/Likes";
 import { useState, initialState } from "react";
 
-function ProfileInfo(props) {
+function Profile(props) {
   var [state, setState] = useState(initialState);
 
   state = {
@@ -190,4 +190,4 @@ function ProfileInfo(props) {
   );
 }
 
-export default ProfileInfo;
+export default Profile;
