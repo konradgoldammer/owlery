@@ -9,6 +9,8 @@ import ForgotPass from "./components/ForgotPass";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 
+import { titleSuffix } from "./vars";
+
 const Routes = () => {
   return (
     <Router>
@@ -16,21 +18,29 @@ const Routes = () => {
         <Route exact path="/" component={() => <Home title="Owlery" />} />
         <Route
           path="/create-account"
-          component={() => <SignUp title="Create Account" />}
+          component={() => <SignUp title={"Create Account" + titleSuffix} />}
         />
-        <Route path="/login" component={() => <Login title="Login" />} />
-        <Route path="/terms" component={() => <Terms title="Terms of Use" />} />
+        <Route
+          path="/login"
+          component={() => <Login title={"Login" + titleSuffix} />}
+        />
+        <Route
+          path="/terms"
+          component={() => <Terms title={"Terms of Use" + titleSuffix} />}
+        />
         <Route
           path="/privacy"
-          component={() => <Privacy title="Privacy Policy" />}
+          component={() => <Privacy title={"Privacy Policy" + titleSuffix} />}
         />
         <Route
           path="/forgot-password"
-          component={() => <ForgotPass title="Recover Account" />}
+          component={() => (
+            <ForgotPass title={"Recover Account" + titleSuffix} />
+          )}
         />
         <Route
           path="/:username"
-          component={() => <Profile title="Profile" />}
+          component={() => <Profile title={"Profile" + titleSuffix} />}
         />
       </Switch>
     </Router>
