@@ -12,14 +12,33 @@ import Lists from "./shared/Lists";
 import Likes from "./shared/Likes";
 import { useState, initialState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { titleSuffix } from "../vars";
+import axios from "axios";
 
 function Profile(props) {
   const { username } = useParams();
 
+  // User object
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
     // Set page title
-    document.title = username;
-  }, [username]);
+    document.title = props.title;
+
+    // Fetch user
+    axios
+      .get(`/api/users/${username}`)
+      .then((res) => {
+        setUser(res.data);
+
+        // Update page title
+        document.title = res.data.username + titleSuffix;
+      })
+      .catch((err) => {
+        // TODO: Handle error
+        console.log(err);
+      });
+  }, [props.title, username]);
 
   var [state, setState] = useState(initialState);
 
