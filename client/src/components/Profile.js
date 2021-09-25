@@ -10,7 +10,7 @@ import Diary from "./shared/Diary";
 import Reviews from "./shared/Reviews";
 import Lists from "./shared/Lists";
 import Likes from "./shared/Likes";
-import { useState, initialState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { titleSuffix } from "../vars";
 import axios from "axios";
@@ -40,82 +40,8 @@ function Profile(props) {
       });
   }, [props.title, username]);
 
-  var [state, setState] = useState(initialState);
-
-  state = {
-    overviewShown: false,
-    podcastsShown: false,
-    diaryShown: false,
-    reviewsShown: false,
-    listsShown: false,
-    likesShown: false,
-  };
-
-  const handleOverview = () => {
-    setState({
-      overviewShown: true,
-      podcastsShown: false,
-      diaryShown: false,
-      reviewsShown: false,
-      listsShown: false,
-      likesShown: false,
-    });
-  };
-
-  const handlePodcasts = () => {
-    setState({
-      overviewShown: false,
-      podcastsShown: true,
-      diaryShown: false,
-      reviewsShown: false,
-      listsShown: false,
-      likesShown: false,
-    });
-  };
-
-  const handleDiary = () => {
-    setState({
-      overviewShown: false,
-      podcastsShown: false,
-      diaryShown: true,
-      reviewsShown: false,
-      listsShown: false,
-      likesShown: false,
-    });
-  };
-
-  const handleReviews = () => {
-    setState({
-      overviewShown: false,
-      podcastsShown: false,
-      diaryShown: false,
-      reviewsShown: true,
-      listsShown: false,
-      likesShown: false,
-    });
-  };
-
-  const handleLists = () => {
-    setState({
-      overviewShown: false,
-      podcastsShown: false,
-      diaryShown: false,
-      reviewsShown: false,
-      listsShown: true,
-      likesShown: false,
-    });
-  };
-
-  const handleLikes = () => {
-    setState({
-      overviewShown: false,
-      podcastsShown: false,
-      diaryShown: false,
-      reviewsShown: false,
-      listsShown: false,
-      likesShown: true,
-    });
-  };
+  // Stores the subpage that the user is on
+  const [subpage, setSubpage] = useState("overview");
 
   return (
     <div>
@@ -158,42 +84,42 @@ function Profile(props) {
                 <Button
                   className="toggle-button"
                   color="white"
-                  onClick={handleOverview}
+                  onClick={() => setSubpage("overview")}
                 >
                   Overview
                 </Button>
                 <Button
                   className="toggle-button"
                   color="white"
-                  onClick={handlePodcasts}
+                  onClick={() => setSubpage("podcasts")}
                 >
                   Podcasts
                 </Button>
                 <Button
                   className="toggle-button"
                   color="white"
-                  onClick={handleDiary}
+                  onClick={() => setSubpage("diary")}
                 >
                   Diary
                 </Button>
                 <Button
                   className="toggle-button"
                   color="white"
-                  onClick={handleReviews}
+                  onClick={() => setSubpage("reviews")}
                 >
                   Reviews
                 </Button>
                 <Button
                   className="toggle-button"
                   color="white"
-                  onClick={handleLists}
+                  onClick={() => setSubpage("lists")}
                 >
                   Lists
                 </Button>
                 <Button
                   className="toggle-button"
                   color="white"
-                  onClick={handleLikes}
+                  onClick={() => setSubpage("likes")}
                 >
                   Likes
                 </Button>
@@ -203,15 +129,14 @@ function Profile(props) {
         </Container>
       </div>
       <Container className="container-fluid">
-        {state.overviewShown ? <Overview /> : null}
-        {state.podcastsShown ? <Podcasts /> : null}
-        {state.diaryShown ? <Diary /> : null}
-        {state.reviewsShown ? <Reviews /> : null}
-        {state.listsShown ? <Lists /> : null}
-        {state.likesShown ? <Likes /> : null}
+        {subpage === "overview" && <Overview />}
+        {subpage === "podcasts" && <Podcasts />}
+        {subpage === "diary" && <Diary />}
+        {subpage === "reviews" && <Reviews />}
+        {subpage === "lists" && <Lists />}
+        {subpage === "likes" && <Likes />}
         <Overview />
       </Container>
-      {/* <SmallFooter /> */}
     </div>
   );
 }
