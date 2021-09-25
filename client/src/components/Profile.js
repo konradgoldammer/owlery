@@ -135,7 +135,6 @@ function Profile(props) {
         {subpage === "reviews" && <Reviews />}
         {subpage === "lists" && <Lists />}
         {subpage === "likes" && <Likes />}
-        <Overview />
       </Container>
     </div>
   );
