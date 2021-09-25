@@ -225,8 +225,159 @@ h2.privacy-title {
   color: black !important;
 }
 
-.profile-pic {
-  height: 80px;
+.profile-pic{
+  height: 120px;
   width: auto;
   border-radius: 100%;
+}
+
+.profile-container{
+  width: 100%;
+  background-color: #0d0d0d;
+}
+
+
+
+.profile-name{
+  color: white;
+}
+
+.white{
+  color: white !important;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+.txt-center{
+  text-align: center;
+}
+
+.vert-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-follow{
+  padding: .5% 5%;
+}
+.toggle-div{
+  text-align: center;
+  margin: 2% auto;
+}
+
+.toggle-button{
+  color:white;
+  background-color: transparent;
+  margin: 0 1% 0;
+  outline: none;
+  width: auto;
+  border-radius: 0;
+  text-transform: uppercase;
+}
+
+.toggle-button:hover{
+  color: white;
+  background-color:transparent;
+  outline: none;
+  border-bottom:1px solid white;
+}
+
+.toggle-button:visited{
+  outline: none;
+}
+
+.toggle-button:focus{
+  outline: none;
+}
+
+.horizontal-line{
+  border-top:2px solid white;
+}
+
+.overview-image{
+  margin: 0 2%;
+}
+
+.second-section{
+  margin: 4% 0;
+}
+
+.black-bg{
+  background-color:#0d0d0d;
+  margin: 3% 0;
+  border-radius: 5px;
+}
+
+.black-card{
+  padding: 3% 2%;
+}
+
+.small-profile{
+  height: 30px;
+  width: auto;
+  border-radius: 100%;
+}
+
+.small-name{
+  font-size: 14px;
+  margin: 4% 0;
+}
+
+.no-margin{
+  margin: 0;
+}
+
+.small-stars{
+  margin: 5% 0;
+}
+
+.like-icon{
+  margin: 10% 0 0;
+}
+
+.small-icon{
+  height: 30px;
+  width: auto;
+}
+
+.date-ago{
+  color: #fafafa;
+  font-weight: lighter;
+}
+
+.author{
+  margin: 5% 0;
+}
+
+.hearlist{
+  margin: 0 0 5% 0;
+}
+.right-list{
+  padding: 3%;
+}
+
+.btn-load-more{
+  width: 100%;
+  margin: 0;
+  padding: 1% 0;
+  font-weight: bold;
+}
+
+.dairy-div{
+  padding: 3%;
+}
+.dairy{
+  margin: 13% 0 0;
+}
+
+.calendar{
+  width: 90%;
+  margin: 5%;
+}
+
+.light{
+  font-weight: lighter;
 }
