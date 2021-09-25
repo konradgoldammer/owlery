@@ -4,13 +4,13 @@ import "../App.css";
 import { Container } from "reactstrap";
 import { Row, Col } from "reactstrap";
 import { Button } from "reactstrap";
-// import SmallFooter from "./subcomponents/SmallFooter";
-import Overview from "./subcomponents/Overview";
-import Podcasts from "./subcomponents/Podcasts";
-import Diary from "./subcomponents/Diary";
-import Reviews from "./subcomponents/Reviews";
-import Lists from "./subcomponents/Lists";
-import Likes from "./subcomponents/Likes";
+// import SmallFooter from "./shared/SmallFooter";
+import Overview from "./shared/Overview";
+import Podcasts from "./shared/Podcasts";
+import Diary from "./shared/Diary";
+import Reviews from "./shared/Reviews";
+import Lists from "./shared/Lists";
+import Likes from "./shared/Likes";
 import { useState, initialState } from "react";
 
 function Profile(props) {
