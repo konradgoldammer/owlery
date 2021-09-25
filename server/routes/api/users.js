@@ -163,16 +163,20 @@ router.post("/", (req, res) => {
 // @route    GET "/:username"
 // @desc.    Get user data by username
 // @access   Public
-router.get(":username", (req, res) => {
+router.get("/:username", (req, res) => {
   const username = req.params.username;
 
   // Fetch user data from the database
   User.findOne({ username })
     .select("-password")
-    .then((user) => res.json(user))
-    .catch((err) =>
-      res.status(404).json({ msg: "Could not find users with that username" })
-    );
+    .then((user) => {
+      if (!user) {
+        return res
+          .status(404)
+          .json({ msg: "Could not find user with that username" });
+      }
+      res.json(user);
+    });
 });
 
 // @route    PUT "/follow"
