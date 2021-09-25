@@ -14,12 +14,12 @@ import { useState, initialState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 function Profile(props) {
-  const { userId } = useParams();
+  const { username } = useParams();
 
   useEffect(() => {
     // Set page title
-    document.title = userId;
-  }, [props.title]);
+    document.title = username;
+  }, [username]);
 
   var [state, setState] = useState(initialState);
 

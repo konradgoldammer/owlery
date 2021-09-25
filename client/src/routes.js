@@ -28,7 +28,10 @@ const Routes = () => {
           path="/forgot-password"
           component={() => <ForgotPass title="Recover Account" />}
         />
-        <Route path="/:userId" component={() => <Profile title="Profile" />} />
+        <Route
+          path="/:username"
+          component={() => <Profile title="Profile" />}
+        />
       </Switch>
     </Router>
   );
