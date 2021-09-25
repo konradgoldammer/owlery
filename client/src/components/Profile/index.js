@@ -4,15 +4,15 @@ import profilePic from "./images/profile.png";
 import { Container } from "reactstrap";
 import { Row, Col } from "reactstrap";
 import { Button } from "reactstrap";
-import Overview from "./shared/Overview";
-import Podcasts from "./shared/Podcasts";
-import Diary from "./shared/Diary";
-import Reviews from "./shared/Reviews";
-import Lists from "./shared/Lists";
-import Likes from "./shared/Likes";
+import Overview from "../shared/Overview";
+import Podcasts from "../shared/Podcasts";
+import Diary from "../shared/Diary";
+import Reviews from "../shared/Reviews";
+import Lists from "../shared/Lists";
+import Likes from "../shared/Likes";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { titleSuffix } from "../vars";
+import { titleSuffix } from "../../vars";
 import axios from "axios";
 
 function Profile(props) {
