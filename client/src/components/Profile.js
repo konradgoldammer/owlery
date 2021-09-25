@@ -1,10 +1,8 @@
 import React from "react";
 import profilePic from "./images/profile.png";
-import "../App.css";
 import { Container } from "reactstrap";
 import { Row, Col } from "reactstrap";
 import { Button } from "reactstrap";
-// import SmallFooter from "./shared/SmallFooter";
 import Overview from "./shared/Overview";
 import Podcasts from "./shared/Podcasts";
 import Diary from "./shared/Diary";
