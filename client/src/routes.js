@@ -7,6 +7,7 @@ import Terms from "./components/Terms";
 import Privacy from "./components/Privacy";
 import ForgotPass from "./components/ForgotPass";
 import Home from "./components/Home";
+import Profile from "./components/Profile";
 
 const Routes = () => {
   return (
@@ -27,6 +28,7 @@ const Routes = () => {
           path="/forgot-password"
           component={() => <ForgotPass title="Recover Account" />}
         />
+        <Route path="/:userId" component={() => <Profile title="Profile" />} />
       </Switch>
     </Router>
   );
