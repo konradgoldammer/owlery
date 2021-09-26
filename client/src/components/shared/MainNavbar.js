@@ -76,17 +76,32 @@ const MainNavbar = () => {
                 </DropdownToggle>
                 <DropdownMenu right className="profile-dropdown-menu">
                   <DropdownItem className="profile-dropdown-item text-uppercase">
-                    <strong>Profile</strong>
+                    <Link
+                      to={`/${auth.user.username}`}
+                      className="profile-dropdown-link text-decoration-none"
+                    >
+                      <strong>Profile</strong>
+                    </Link>
                   </DropdownItem>
                   <DropdownItem className="profile-dropdown-item text-uppercase">
-                    <strong>Settings</strong>
+                    <Link
+                      to=""
+                      className="profile-dropdown-link text-decoration-none"
+                    >
+                      <strong>Settings</strong>
+                    </Link>{" "}
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem
                     className="profile-dropdown-item text-uppercase"
                     onClick={() => store.dispatch(logout())}
                   >
-                    <strong>Logout</strong>
+                    <Link
+                      to=""
+                      className="profile-dropdown-link text-decoration-none"
+                    >
+                      <strong>Logout</strong>
+                    </Link>{" "}
                   </DropdownItem>{" "}
                 </DropdownMenu>
               </UncontrolledDropdown>

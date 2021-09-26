@@ -22,13 +22,19 @@
 }
 
 .profile-dropdown-item:hover {
-  color: #fafafa !important;
   background-color: #585858 !important;
 }
 
 .profile-dropdown-item:last-child:hover {
   background-color: #ff4136 !important;
-  color: var(--light-text-color);
+  color: #fafafa;
+}
+
+.profile-dropdown-link {
+  color: #fafafa;
+}
+.profile-dropdown-link:hover {
+  color: #fafafa;
 }
 
 .input-error {
