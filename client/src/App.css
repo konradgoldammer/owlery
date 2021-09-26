@@ -41,6 +41,10 @@ body {
 
 /***** HOME ******/
 
+.main-navbar {
+  background-color: var(--dark-color);
+}
+
 .searchbar {
   position: absolute;
   width: 30%;
