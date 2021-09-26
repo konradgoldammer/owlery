@@ -45,4 +45,10 @@ $main-background-color: #252525;
   border: map-get($theme-colors, "danger") 2px solid !important;
 }
 
+.profile-header-nav-unselected {
+  &:hover {
+    background-color: lighten($main-background-color, 20%) !important;
+  }
+}
+
 @import "../../node_modules/bootstrap/scss/bootstrap";

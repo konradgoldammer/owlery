@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import MainNavbar from "../shared/MainNavbar";
 import profilePic from "../images/profile.png";
-import { Container } from "reactstrap";
-import { Row, Col } from "reactstrap";
 import { Button } from "reactstrap";
 import Overview from "./Overview";
 import Podcasts from "./Podcasts";
@@ -10,13 +9,18 @@ import Diary from "./Diary";
 import Reviews from "./Reviews";
 import Lists from "./Lists";
 import Likes from "./Likes";
+import Followers from "./Followers";
+import Following from "./Following";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { titleSuffix } from "../../vars";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
 const Profile = (props) => {
   const { username } = useParams();
+
+  const auth = useSelector((state) => state.auth);
 
   // User object
   const [user, setUser] = useState(null);
@@ -45,97 +49,155 @@ const Profile = (props) => {
 
   return (
     <div>
-      <div className="profile-container">
-        <Container className="container-fluid">
-          {" "}
-          <Row className="vert-center">
-            <Col xs="2">
-              {" "}
-              <img
-                src={profilePic}
-                alt="profilepicture"
-                className="profile-pic"
-              />
-            </Col>
-            <Col xs="7">
-              {" "}
-              <h6 className="profile-name">Konrad Goldammer</h6>
-              <p className="white">Leipzig, Germany</p>
-              <button className="btn btn-sm btn-primary text-uppercase bold btn-follow">
-                follow
-              </button>
-            </Col>
-            <Col>
-              <h6 className="white txt-center">100</h6>
-              <p className="white txt-center">podcasts</p>
-            </Col>
-            <Col>
-              <h6 className="white txt-center">100</h6>
-              <p className="white txt-center">podcasts</p>
-            </Col>
-            <Col>
-              <h6 className="white txt-center">100</h6>
-              <p className="white txt-center">podcasts</p>
-            </Col>
-          </Row>{" "}
-          <Container>
-            <Row className="toggle-div">
-              <Container>
-                <Button
-                  className="toggle-button"
-                  color="white"
-                  onClick={() => setSubpage("overview")}
-                >
-                  Overview
-                </Button>
-                <Button
-                  className="toggle-button"
-                  color="white"
+      <MainNavbar />
+      <div className="profile-header w-100">
+        <div className="container-md">
+          <div className="row mt-2">
+            <div className="col-md-8 p-0">
+              <div className="profile-header-info">
+                <img
+                  src={profilePic}
+                  alt="profilepicture"
+                  className="profile-pic mb-3"
+                />
+                <div className="ms-4 w-100 position-relative">
+                  <h3 className="profile-name">
+                    {user ? user.username : "loading..."}
+                  </h3>
+                  <p className="profile-location m-0">Leipzig, Germany</p>
+                  <Button
+                    className="btn btn-sm text-uppercase mt-2 px-5"
+                    color="primary"
+                    disabled={
+                      !auth.isAuthenticated ||
+                      !user ||
+                      user._id === auth.user._id
+                    }
+                  >
+                    <strong>
+                      {user &&
+                      user.followers.find(
+                        (follower) => follower._id === auth.user._id
+                      )
+                        ? "Unfollow"
+                        : "Follow"}
+                    </strong>
+                  </Button>
+                  <div className="profile-header-nav row w-100 m-0">
+                    <button
+                      onClick={() => setSubpage("overview")}
+                      className={`profile-header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
+                        subpage === "overview"
+                          ? "profile-header-nav-selected"
+                          : "profile-header-nav-unselected"
+                      }`}
+                    >
+                      Overview
+                    </button>
+                    <button
+                      onClick={() => setSubpage("podcasts")}
+                      className={`profile-header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
+                        subpage === "podcasts"
+                          ? "profile-header-nav-selected"
+                          : "profile-header-nav-unselected"
+                      }`}
+                    >
+                      Podcasts
+                    </button>
+                    <button
+                      onClick={() => setSubpage("diary")}
+                      className={`profile-header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
+                        subpage === "diary"
+                          ? "profile-header-nav-selected"
+                          : "profile-header-nav-unselected"
+                      }`}
+                    >
+                      Diary
+                    </button>
+                    <button
+                      onClick={() => setSubpage("reviews")}
+                      className={`profile-header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
+                        subpage === "reviews"
+                          ? "profile-header-nav-selected"
+                          : "profile-header-nav-unselected"
+                      }`}
+                    >
+                      Reviews
+                    </button>
+                    <button
+                      onClick={() => setSubpage("lists")}
+                      className={`profile-header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
+                        subpage === "lists"
+                          ? "profile-header-nav-selected"
+                          : "profile-header-nav-unselected"
+                      }`}
+                    >
+                      Lists
+                    </button>
+                    <button
+                      onClick={() => setSubpage("likes")}
+                      className={`profile-header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
+                        subpage === "likes"
+                          ? "profile-header-nav-selected"
+                          : "profile-header-nav-unselected"
+                      }`}
+                    >
+                      Likes
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4 position-relative">
+              <div className="profile-header-numbers">
+                <button
+                  className="profile-header-numbers-element px-2"
                   onClick={() => setSubpage("podcasts")}
                 >
-                  Podcasts
-                </Button>
-                <Button
-                  className="toggle-button"
-                  color="white"
-                  onClick={() => setSubpage("diary")}
+                  <h3 className="text-center m-0">
+                    {user && user.episodes ? user.episodes.length : "0"}
+                  </h3>
+                  <p className="profile-header-numbers-text-bottom txt-center m-0">
+                    Podcasts
+                  </p>
+                </button>
+                <button
+                  className="profile-header-numbers-element px-2"
+                  onClick={() => setSubpage("followers")}
                 >
-                  Diary
-                </Button>
-                <Button
-                  className="toggle-button"
-                  color="white"
-                  onClick={() => setSubpage("reviews")}
+                  <h3 className="text-center m-0">
+                    {user && user.followers ? user.followers.length : "0"}
+                  </h3>
+                  <p className="profile-header-numbers-text-bottom txt-center m-0">
+                    Followers
+                  </p>
+                </button>
+                <button
+                  className="profile-header-numbers-element px-2"
+                  onClick={() => setSubpage("following")}
                 >
-                  Reviews
-                </Button>
-                <Button
-                  className="toggle-button"
-                  color="white"
-                  onClick={() => setSubpage("lists")}
-                >
-                  Lists
-                </Button>
-                <Button
-                  className="toggle-button"
-                  color="white"
-                  onClick={() => setSubpage("likes")}
-                >
-                  Likes
-                </Button>
-              </Container>
-            </Row>
-          </Container>
-        </Container>
+                  <h3 className="text-center m-0">
+                    {user && user.following ? user.following.length : "0"}
+                  </h3>
+                  <p className="profile-header-numbers-text-bottom txt-center m-0">
+                    Following
+                  </p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <Container className="container-fluid">
+      <div className="container-md">
         {subpage === "overview" && <Overview />}
         {subpage === "podcasts" && <Podcasts />}
         {subpage === "diary" && <Diary />}
         {subpage === "reviews" && <Reviews />}
         {subpage === "lists" && <Lists />}
         {subpage === "likes" && <Likes />}
-      </Container>
+        {subpage === "followers" && <Followers />}
+        {subpage === "following" && <Following />}
+      </div>
     </div>
   );
 };

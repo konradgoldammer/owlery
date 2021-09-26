@@ -35,6 +35,10 @@
   border: #ff4136 2px solid !important;
 }
 
+.profile-header-nav-unselected:hover {
+  background-color: #585858 !important;
+}
+
 /*!
  * Bootstrap v5.1.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors

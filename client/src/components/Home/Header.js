@@ -3,7 +3,7 @@ import React from "react";
 const Header = () => {
   return (
     <div className="header">
-      <div className="container">
+      <div className="container-md">
         <h2 className="header-text">
           Track the <mark>podcasts</mark> you&apos;ve heard. <br />
           Save those you want to hear. <br />

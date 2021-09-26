@@ -35,6 +35,7 @@ body {
   overflow-x: hidden;
   background-color: var(--main-background-color);
   font-family: var(--font-family);
+  color: var(--light-text-color);
   position: relative;
 }
 
@@ -217,6 +218,14 @@ h2.privacy-title {
   border-radius: 5px;
 }
 
+/***** PROFILE PAGE ******/
+
+.profile-header {
+  padding-top: 56px;
+  background-color: var(--dark-color);
+  color: var(--light-text-color);
+}
+
 .rs-nav-item-content {
   color: white !important;
   font-weight: bold;
@@ -225,51 +234,78 @@ h2.privacy-title {
   color: black !important;
 }
 
-.profile-pic{
-  height: 120px;
+.profile-pic {
+  height: 150px;
   width: auto;
   border-radius: 100%;
+  border: 2px var(--light-text-color) solid;
 }
 
-.profile-container{
-  width: 100%;
-  background-color: #0d0d0d;
+.profile-header-numbers {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
 }
 
-
-
-.profile-name{
-  color: white;
+.profile-header-numbers-element {
+  background-color: var(--dark-color);
+  color: var(--secondary-text-color);
 }
 
-.white{
+.profile-header-numbers-element:hover {
+  color: var(--light-text-color);
+}
+
+.profile-header-numbers-text-bottom {
+  font-size: 12px;
+}
+
+.profile-header-info {
+  display: flex;
+}
+
+.profile-name {
+  font-family: var(--heading-font-family);
+}
+
+.profile-location {
+  font-size: 12px;
+}
+
+.profile-header-nav {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.profile-header-nav-element {
+  font-size: 14px;
+  color: var(--light-text-color);
+  background-color: var(--dark-color);
+  border-start-end-radius: 5px;
+  border-start-start-radius: 5px;
+}
+
+.profile-header-nav-selected {
+  background-color: var(--main-background-color);
+}
+
+.white {
   color: white !important;
 }
 
-.bold{
+.bold {
   font-weight: bold;
 }
 
-.txt-center{
+.txt-center {
   text-align: center;
 }
 
-.vert-center{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.btn-follow{
-  padding: .5% 5%;
-}
-.toggle-div{
-  text-align: center;
-  margin: 2% auto;
-}
-
-.toggle-button{
-  color:white;
+.toggle-button {
+  color: white;
   background-color: transparent;
   margin: 0 1% 0;
   outline: none;
@@ -278,106 +314,106 @@ h2.privacy-title {
   text-transform: uppercase;
 }
 
-.toggle-button:hover{
+.toggle-button:hover {
   color: white;
-  background-color:transparent;
+  background-color: transparent;
   outline: none;
-  border-bottom:1px solid white;
+  border-bottom: 1px solid white;
 }
 
-.toggle-button:visited{
-  outline: none;
-}
-
-.toggle-button:focus{
+.toggle-button:visited {
   outline: none;
 }
 
-.horizontal-line{
-  border-top:2px solid white;
+.toggle-button:focus {
+  outline: none;
 }
 
-.overview-image{
+.horizontal-line {
+  border-top: 2px solid white;
+}
+
+.overview-image {
   margin: 0 2%;
 }
 
-.second-section{
+.second-section {
   margin: 4% 0;
 }
 
-.black-bg{
-  background-color:#0d0d0d;
+.black-bg {
+  background-color: #0d0d0d;
   margin: 3% 0;
   border-radius: 5px;
 }
 
-.black-card{
+.black-card {
   padding: 3% 2%;
 }
 
-.small-profile{
+.small-profile {
   height: 30px;
   width: auto;
   border-radius: 100%;
 }
 
-.small-name{
+.small-name {
   font-size: 14px;
   margin: 4% 0;
 }
 
-.no-margin{
+.no-margin {
   margin: 0;
 }
 
-.small-stars{
+.small-stars {
   margin: 5% 0;
 }
 
-.like-icon{
+.like-icon {
   margin: 10% 0 0;
 }
 
-.small-icon{
+.small-icon {
   height: 30px;
   width: auto;
 }
 
-.date-ago{
+.date-ago {
   color: #fafafa;
   font-weight: lighter;
 }
 
-.author{
+.author {
   margin: 5% 0;
 }
 
-.hearlist{
+.hearlist {
   margin: 0 0 5% 0;
 }
-.right-list{
+.right-list {
   padding: 3%;
 }
 
-.btn-load-more{
+.btn-load-more {
   width: 100%;
   margin: 0;
   padding: 1% 0;
   font-weight: bold;
 }
 
-.dairy-div{
+.dairy-div {
   padding: 3%;
 }
-.dairy{
+.dairy {
   margin: 13% 0 0;
 }
 
-.calendar{
+.calendar {
   width: 90%;
   margin: 5%;
 }
 
-.light{
+.light {
   font-weight: lighter;
 }
