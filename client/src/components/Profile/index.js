@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import profilePic from "./images/profile.png";
+import profilePic from "../images/profile.png";
 import { Container } from "reactstrap";
 import { Row, Col } from "reactstrap";
 import { Button } from "reactstrap";
