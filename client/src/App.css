@@ -83,12 +83,16 @@ body {
 }
 
 .profile-dropdown-toggle {
-  color: var(--light-text-color);
+  color: var(--secondary-text-color);
   font-size: 0.875rem;
 }
 
 .profile-dropdown-toggle:hover {
-  color: var(--primary-color);
+  color: var(--light-text-color);
+}
+
+.profile-dropdown-toggle:focus {
+  color: var(--secondary-text-color);
 }
 
 .header {
