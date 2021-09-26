@@ -47,6 +47,53 @@ const Profile = (props) => {
   // Stores the subpage that the user is on
   const [subpage, setSubpage] = useState("overview");
 
+  // Is true when follow button should be disabled
+  const validateFollow = () => {
+    if (!user || !auth.user) {
+      return true;
+    }
+    return !auth.isAuthenticated || user._id === auth.user._id;
+  };
+
+  // Is false for follow and true for unfollow
+  const followOrUnfollow = () => {
+    if (!user || !auth.user) {
+      return false;
+    }
+    return user.followers.find((follower) => follower === auth.user._id);
+  };
+
+  // Follow/Unfollow user
+  const handleFollow = () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": auth.token,
+      },
+    };
+
+    if (followOrUnfollow()) {
+      return axios
+        .put("/api/users/unfollow", { userId: user._id }, config)
+        .then((res) => {
+          setUser({
+            ...user,
+            followers: user.followers.filter(
+              (follower) => follower !== auth.user._id
+            ),
+          });
+        })
+        .catch((err) => console.log(err));
+    } else {
+      return axios
+        .put("/api/users/follow", { userId: user._id }, config)
+        .then((res) => {
+          setUser({ ...user, followers: [...user.followers, auth.user._id] });
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
   return (
     <div>
       <MainNavbar />
@@ -68,19 +115,11 @@ const Profile = (props) => {
                   <Button
                     className="btn btn-sm text-uppercase mt-2 px-5"
                     color="primary"
-                    disabled={
-                      !auth.isAuthenticated ||
-                      !user ||
-                      user._id === auth.user._id
-                    }
+                    onClick={handleFollow}
+                    disabled={validateFollow()}
                   >
                     <strong>
-                      {user &&
-                      user.followers.find(
-                        (follower) => follower._id === auth.user._id
-                      )
-                        ? "Unfollow"
-                        : "Follow"}
+                      {followOrUnfollow() ? "Unfollow" : "Follow"}
                     </strong>
                   </Button>
                   <div className="profile-header-nav row w-100 m-0">
