@@ -1,9 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 
-export class Lists extends Component {
-  render() {
-    return <div>Lists</div>;
-  }
-}
+const Lists = () => {
+  return <div>Lists</div>;
+};
 
 export default Lists;

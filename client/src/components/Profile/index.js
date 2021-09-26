@@ -4,18 +4,18 @@ import profilePic from "./images/profile.png";
 import { Container } from "reactstrap";
 import { Row, Col } from "reactstrap";
 import { Button } from "reactstrap";
-import Overview from "../shared/Overview";
-import Podcasts from "../shared/Podcasts";
-import Diary from "../shared/Diary";
-import Reviews from "../shared/Reviews";
-import Lists from "../shared/Lists";
-import Likes from "../shared/Likes";
+import Overview from "./Overview";
+import Podcasts from "./Podcasts";
+import Diary from "./Diary";
+import Reviews from "./Reviews";
+import Lists from "./Lists";
+import Likes from "./Likes";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { titleSuffix } from "../../vars";
 import axios from "axios";
 
-function Profile(props) {
+const Profile = (props) => {
   const { username } = useParams();
 
   // User object
@@ -138,7 +138,7 @@ function Profile(props) {
       </Container>
     </div>
   );
-}
+};
 
 Profile.propTypes = {
   title: PropTypes.string,

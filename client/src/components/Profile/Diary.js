@@ -1,9 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 
-export class Diary extends Component {
-  render() {
-    return <div>Diary</div>;
-  }
-}
+const Diary = () => {
+  return <div>Diary</div>;
+};
 
 export default Diary;
