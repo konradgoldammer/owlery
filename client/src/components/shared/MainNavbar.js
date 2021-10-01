@@ -133,7 +133,7 @@ const MainNavbar = () => {
               <div>
                 <a href="/">
                   <span className="input-group-text searchbar-span">
-                    <FaSearch className="searchbar-icon"></FaSearch>
+                    <FaSearch className="searchbar-icon" />
                   </span>
                 </a>
               </div>
