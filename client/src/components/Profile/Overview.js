@@ -1,9 +1,7 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
-import PodcastImage from "../images/podcast1.png";
-import PlanetMoney from "../images/planetmoney1.png";
-import LexFridman from "../images/lexfridmanpodcast.png";
-import TheDaily from "../images/thedailypodcast.png";
+import LexFridman from "../images/lex.jpg";
+import { FaHeadphones, FaHeart } from "react-icons/fa";
 import TheAmercianLife from "../images/theAmericanLife.png";
 import circularProfile from "../images/profile.png";
 import Stars from "../images/stars.png";
@@ -15,22 +13,49 @@ import Calendar from "../images/calendar.png";
 
 const Overview = () => {
   return (
-    <div>
-      <h6 className="white txt-center">Favorite Podcasts</h6>
-      <hr className="white horizontal-line" />
-      <Row>
-        <Col xs="6">
-          <img className="overview-image" alt="podcast" src={PodcastImage} />
-          <img className="overview-image" alt="podcast" src={PlanetMoney} />
-        </Col>
-        <Col xs="6">
-          <img className="overview-image" alt="podcast" src={LexFridman} />
-          <img className="overview-image" alt="podcast" src={TheDaily} />
-        </Col>
-      </Row>
+    <div className="container-md">
+      <h4 className="section-heading txt-center mt-5 mb-0">
+        Favorite Podcasts
+      </h4>
+      <hr className="section-separator mt-1" />
+      <div className="row mt-2">
+        <div className="col-md py-0 pe-1">
+          <div className="favorite-podcast">
+            <img className="favorite-podcast-image" src={LexFridman} alt="" />
+            <div className="row">
+              <div className="col favorite-podcast-listeners">
+                <p className="d-inline">
+                  <FaHeadphones />
+                </p>
+                <p className="d-inline ms-1">8439</p>
+              </div>
+              <div className="col favorite-podcast-likes">
+                <div className="float-end">
+                  <p className="d-inline">
+                    <FaHeart />
+                  </p>
+                  <p className="d-inline ms-1">8439</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-md py-0 px-1">
+          <img className="favorite-podcast-image" src={LexFridman} alt="" />
+        </div>
+        <div className="col-md py-0 px-1">
+          <img className="favorite-podcast-image" src={LexFridman} alt="" />
+        </div>
+        <div className="col-md py-0 px-1">
+          <img className="favorite-podcast-image" src={LexFridman} alt="" />
+        </div>
+        b
+        <div className="col-md py-0 ps-1">
+          <img className="favorite-podcast-image" src={LexFridman} alt="" />
+        </div>
+      </div>
       <Row className="second-section">
         <Col x="6">
-          {" "}
           <h6 className="white txt-center">Recent Reviews</h6>
           <hr className="white horizontal-line" />
           <Row className="black-bg black-card">

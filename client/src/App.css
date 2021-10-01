@@ -314,6 +314,34 @@ h2.privacy-title {
   background-color: var(--main-background-color);
 }
 
+.section-heading {
+  font-size: 1.25rem;
+}
+
+.section-separator {
+  border: 1px var(--secondary-text-color) solid;
+}
+
+.favorite-podcast {
+  height: auto;
+  width: 100%;
+}
+
+.favorite-podcast-image {
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  border: 2px var(--light-text-color) solid;
+}
+
+.favorite-podcast-listeners {
+  color: var(--second-color);
+}
+
+.favorite-podcast-likes {
+  color: var(--primary-color);
+}
+
 .white {
   color: white !important;
 }
@@ -349,14 +377,6 @@ h2.privacy-title {
 
 .toggle-button:focus {
   outline: none;
-}
-
-.horizontal-line {
-  border-top: 2px solid white;
-}
-
-.overview-image {
-  margin: 0 2%;
 }
 
 .second-section {

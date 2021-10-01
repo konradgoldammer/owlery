@@ -228,16 +228,14 @@ const Profile = (props) => {
           </div>
         </div>
       </div>
-      <div className="container-md">
-        {subpage === "overview" && <Overview />}
-        {subpage === "podcasts" && <Podcasts />}
-        {subpage === "diary" && <Diary />}
-        {subpage === "reviews" && <Reviews />}
-        {subpage === "lists" && <Lists />}
-        {subpage === "likes" && <Likes />}
-        {subpage === "followers" && <Followers />}
-        {subpage === "following" && <Following />}
-      </div>
+      {subpage === "overview" && <Overview />}
+      {subpage === "podcasts" && <Podcasts />}
+      {subpage === "diary" && <Diary />}
+      {subpage === "reviews" && <Reviews />}
+      {subpage === "lists" && <Lists />}
+      {subpage === "likes" && <Likes />}
+      {subpage === "followers" && <Followers />}
+      {subpage === "following" && <Following />}
       <MainFooter />
     </div>
   );
