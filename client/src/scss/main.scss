@@ -57,4 +57,23 @@ $main-background-color: #252525;
   }
 }
 
+.footer-nav-link {
+  color: map-get($theme-colors, "dark");
+  font-size: 14px;
+  &:hover {
+    color: lighten(map-get($theme-colors, "dark"), 20%);
+  }
+}
+
+.footer-socials-element {
+  font-size: 1.25rem;
+}
+
+.footer-socials-icon {
+  color: map-get($theme-colors, "dark");
+  &:hover {
+    color: lighten(map-get($theme-colors, "dark"), 20%) !important;
+  }
+}
+
 @import "../../node_modules/bootstrap/scss/bootstrap";

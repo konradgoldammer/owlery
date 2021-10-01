@@ -22,8 +22,22 @@
   --heading-font-family: "Playfair Display", serif;
 }
 
+/***** SHARED COMPONENTS ******/
+
 .navbar-brand {
   font-family: "Righteous";
+}
+
+.main-footer {
+  background-color: var(--secondary-text-color);
+  height: 150px;
+  color: var(--dark-color);
+  font-size: 14px !important;
+}
+
+.footer-brand {
+  font-family: "Righteous";
+  font-size: 1.25rem !important;
 }
 
 /***** MAIN VALUES ******/

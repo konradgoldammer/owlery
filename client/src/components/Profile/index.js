@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import MainNavbar from "../shared/MainNavbar";
+import MainFooter from "../shared/MainFooter";
 import profilePic from "../images/profile.png";
 import { Button } from "reactstrap";
 import Overview from "./Overview";
@@ -237,6 +238,7 @@ const Profile = (props) => {
         {subpage === "followers" && <Followers />}
         {subpage === "following" && <Following />}
       </div>
+      <MainFooter />
     </div>
   );
 };
