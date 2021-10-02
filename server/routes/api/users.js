@@ -7,6 +7,10 @@ const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
+const { Client } = require("podcast-api");
+
+// Init podcast API client; See documentation: https://www.listennotes.com/api/docs/
+const client = Client({ apiKey: config.get("listenApiKey") });
 
 // Email validation
 const validateEmail = (email) => {
@@ -341,6 +345,57 @@ router.get("/most-popular-reviewers", (req, res) => {
         .catch((err) => {
           return console.log(err);
         });
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+});
+
+// @route    Put "/add-favorite-podcast"
+// @desc.    Add new favorite podcast
+// @access   Private
+router.put("/add-favorite-podcast", auth, (req, res) => {
+  const { podcastId } = req.body;
+
+  // Check if user has already reached the maximum of 5 favorite podcasts
+  User.findOne({ _id: req.user.id })
+    .then((user) => {
+      if (user.favoritePodcasts.length >= 5) {
+        return res
+          .status(403)
+          .json({ msg: "You can have max. 5 favorite podcasts" });
+      }
+
+      // Fetch podcast data
+      client
+        .fetchPodcastById({ id: podcastId })
+        .then((response) => {
+          const podcast = {
+            id: response.data.id,
+            thumbnail: response.data.thumbnail,
+            title: response.data.title,
+          };
+
+          // Add podcast to favoritePodcasts array in the database
+          User.findOneAndUpdate(
+            { _id: req.user.id },
+            { $push: { favoritePodcasts: podcast } }
+          )
+            .then(() => {
+              return res.json(podcast);
+            })
+            .catch((err) => {
+              return console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+          return res
+            .status(404)
+            .json({ msg: `Couldn't find podcast with the ID ${podcastId}` });
+        });
+
+      User.updateOne({});
     })
     .catch((err) => {
       return console.log(err);
