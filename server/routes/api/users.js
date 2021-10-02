@@ -419,7 +419,7 @@ router.put("/add-favorite-podcast", auth, (req, res) => {
 // @route    Put "/remove-favorite-podcast"
 // @desc.    Remove favorite podcast
 // @access   Private
-router.put("/add-favorite-podcast", auth, (req, res) => {
+router.put("/remove-favorite-podcast", auth, (req, res) => {
   const { podcastId } = req.body;
 
   // Simple validation
