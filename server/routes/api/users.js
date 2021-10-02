@@ -364,6 +364,17 @@ router.put("/add-favorite-podcast", auth, (req, res) => {
 
   User.findOne({ _id: req.user.id })
     .then((user) => {
+      // Check if user has already marked this podcast as favorite
+      if (
+        user.favoritePodcasts.find(
+          (favoritePodcast) => favoritePodcast.id === podcastId
+        )
+      ) {
+        return res.status(400).json({
+          msg: `You have already marked the podcast with the ID ${podcastId} as one of your favorite podcasts`,
+        });
+      }
+
       // Check if user has already reached the maximum of 5 favorite podcasts
       if (user.favoritePodcasts.length >= 5) {
         return res
