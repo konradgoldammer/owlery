@@ -71,6 +71,7 @@ router.post("/", auth, (req, res) => {
         podcast: {
           id: response.data.podcast.id,
           title: response.data.podcast.title,
+          thumbnail: response.data.podcast.thumbnail,
         },
       };
 

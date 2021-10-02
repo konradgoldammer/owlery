@@ -107,6 +107,7 @@ router.put("/listen", auth, (req, res) => {
           podcast: {
             id: response.data.podcast.id,
             title: response.data.podcast.title,
+            thumbnail: response.data.podcast.thumbnail,
           },
         };
 
@@ -209,6 +210,7 @@ router.put("/like", auth, (req, res) => {
             podcast: {
               id: response.data.podcast.id,
               title: response.data.podcast.title,
+              thumbnail: response.data.podcast.thumbnail,
             },
           };
 
@@ -367,6 +369,7 @@ router.put("/rate", auth, (req, res) => {
             podcast: {
               id: response.data.podcast.id,
               title: response.data.podcast.title,
+              thumbnail: response.data.podcast.thumbnail,
             },
           };
 
