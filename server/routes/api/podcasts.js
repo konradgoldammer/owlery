@@ -67,6 +67,15 @@ const addMetaData = (episodes) => {
   });
 };
 
+// Returns the total number of reviews of an podcast
+const countLikesOfPodcast = (podcastId) => {
+  return new Promise((resolve, reject) => {
+    User.countDocuments({ "likedPodcasts.id": podcastId })
+      .then((num) => resolve(num))
+      .catch((err) => reject(err));
+  });
+};
+
 // @route    GET "/most-popular"
 // @desc.    Get most popular podcasts of all time (based on how often episodes of them got reviewed)
 // @access   Public
@@ -83,7 +92,16 @@ router.get("/most-popular", (req, res) => {
     { $sort: { totalReviews: -1 } },
   ])
     .then((podcasts) => {
-      return res.json(podcasts);
+      Promise.all(
+        podcasts.map((podcast) => countLikesOfPodcast(podcast._id))
+      ).then((totalLikesArray) => {
+        return res.json(
+          podcasts.map((podcast, index) => ({
+            ...podcast,
+            totalLikes: totalLikesArray[index],
+          }))
+        );
+      });
     })
     .catch((err) => {
       return console.log(err);
@@ -110,7 +128,16 @@ router.get("/trending", (req, res) => {
     { $sort: { totalReviews: -1 } },
   ])
     .then((podcasts) => {
-      return res.json(podcasts);
+      Promise.all(
+        podcasts.map((podcast) => countLikesOfPodcast(podcast._id))
+      ).then((totalLikesArray) => {
+        return res.json(
+          podcasts.map((podcast, index) => ({
+            ...podcast,
+            totalLikes: totalLikesArray[index],
+          }))
+        );
+      });
     })
     .catch((err) => {
       return console.log(err);
@@ -138,6 +165,7 @@ router.get("/:podcastId", (req, res) => {
     .then(async (response) => {
       const podcast = response.data;
       podcast.totalReviews = await countReviewsOfPodcast(podcastId);
+      podcast.totalLikes = await countLikesOfPodcast(podcastId);
       podcast.episodes = await addMetaData(podcast.episodes);
       return res.json(podcast);
     })
