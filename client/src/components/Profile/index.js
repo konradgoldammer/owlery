@@ -232,7 +232,7 @@ const Profile = (props) => {
           </div>
         </div>
       </div>
-      {subpage === "overview" && <Overview />}
+      {subpage === "overview" && user && <Overview user={user} />}
       {subpage === "podcasts" && <Podcasts />}
       {subpage === "diary" && <Diary />}
       {subpage === "reviews" && <Reviews />}

@@ -334,6 +334,10 @@ h2.privacy-title {
   border: 2px var(--light-text-color) solid;
 }
 
+.favorite-podcast-image:hover {
+  opacity: 0.8;
+}
+
 .favorite-podcast-listeners {
   color: var(--second-color);
 }

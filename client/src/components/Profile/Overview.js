@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { Row, Col } from "reactstrap";
-import LexFridman from "../images/lex.jpg";
-import { FaHeadphones, FaHeart } from "react-icons/fa";
+import PodcastColumn from "../shared/PodcastColumn";
 import TheAmercianLife from "../images/theAmericanLife.png";
 import circularProfile from "../images/profile.png";
 import Stars from "../images/stars.png";
@@ -11,49 +11,31 @@ import Comment from "../images/comment.png";
 import Author from "../images/author.png";
 import Calendar from "../images/calendar.png";
 
-const Overview = () => {
+const Overview = (props) => {
+  const [user, setUser] = useState(props.user);
+
+  useEffect(() => {
+    for (let i = user.favoritePodcasts.length; i <= 5; i++) {
+      setUser({ ...user, favoritePodcasts: [...user.favoritePodcasts, null] });
+    }
+  }, [user]);
+
   return (
     <div className="container-md">
-      <h4 className="section-heading txt-center mt-5 mb-0">
-        Favorite Podcasts
-      </h4>
-      <hr className="section-separator mt-1" />
-      <div className="row mt-2">
-        <div className="col-md py-0 pe-1">
-          <div className="favorite-podcast">
-            <img className="favorite-podcast-image" src={LexFridman} alt="" />
-            <div className="row">
-              <div className="col favorite-podcast-listeners">
-                <p className="d-inline">
-                  <FaHeadphones />
-                </p>
-                <p className="d-inline ms-1">8439</p>
-              </div>
-              <div className="col favorite-podcast-likes">
-                <div className="float-end">
-                  <p className="d-inline">
-                    <FaHeart />
-                  </p>
-                  <p className="d-inline ms-1">8439</p>
-                </div>
-              </div>
-            </div>
+      {user && user.favoritePodcasts.length !== 0 && (
+        <div className="favorite-podcasts-section">
+          <h4 className="section-heading txt-center mt-5 mb-0">
+            Favorite Podcasts
+          </h4>
+          <hr className="section-separator mt-1" />
+          <div className="row mt-2">
+            {user.favoritePodcasts.map((favoritePodcast, index) => (
+              <PodcastColumn key={index} podcast={favoritePodcast} />
+            ))}
           </div>
         </div>
-        <div className="col-md py-0 px-1">
-          <img className="favorite-podcast-image" src={LexFridman} alt="" />
-        </div>
-        <div className="col-md py-0 px-1">
-          <img className="favorite-podcast-image" src={LexFridman} alt="" />
-        </div>
-        <div className="col-md py-0 px-1">
-          <img className="favorite-podcast-image" src={LexFridman} alt="" />
-        </div>
-        b
-        <div className="col-md py-0 ps-1">
-          <img className="favorite-podcast-image" src={LexFridman} alt="" />
-        </div>
-      </div>
+      )}
+
       <Row className="second-section">
         <Col x="6">
           <h6 className="white txt-center">Recent Reviews</h6>
@@ -481,6 +463,10 @@ const Overview = () => {
       </Row>
     </div>
   );
+};
+
+Overview.propTypes = {
+  user: PropTypes.object,
 };
 
 export default Overview;
