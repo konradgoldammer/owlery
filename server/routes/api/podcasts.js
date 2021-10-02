@@ -177,6 +177,17 @@ router.get("/:podcastId", (req, res) => {
     });
 });
 
+// @route    GET "/stats/:podcastId"
+// @desc.    Get stats of podcast
+// @access   Public
+router.get("/stats/:podcastId", async (req, res) => {
+  const podcastId = req.params.podcastId;
+  return res.json({
+    totalReviews: await countReviewsOfPodcast(podcastId),
+    totalLikes: await countLikesOfPodcast(podcastId),
+  });
+});
+
 // @route    Put "/like"
 // @desc.    Like podcast
 // @access   Private
