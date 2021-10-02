@@ -11,7 +11,10 @@ const PodcastColumn = (props) => {
   useEffect(() => {
     if (!podcast) return;
 
-    if (!podcast.totalReviews || !podcast.totalLikes) {
+    if (
+      typeof podcast.totalReviews !== "number" ||
+      typeof podcast.totalLikes !== "number"
+    ) {
       axios.get(`/api/podcasts/stats/${podcast.id}`).then((res) => {
         setPodcast({
           ...podcast,
