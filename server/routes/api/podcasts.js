@@ -204,4 +204,45 @@ router.put("/like", auth, (req, res) => {
     });
 });
 
+// @route    Put "/unlike"
+// @desc.    Unlike podcast
+// @access   Private
+router.put("/unlike", auth, (req, res) => {
+  const { podcastId } = req.body;
+
+  // Simple validation
+  if (!podcastId) {
+    return res.status(400).json({ msg: "The podcastId cannot be undefined" });
+  }
+
+  User.findOne({ _id: req.user.id })
+    .then((user) => {
+      const podcastToUnlike = user.likedPodcasts.find(
+        (podcast) => podcast.id === podcastId
+      );
+
+      // Check if user hasn't liked the podcast
+      if (!podcastToUnlike) {
+        return res.status(403).json({
+          msg: `You have not liked the podcast with the ID ${podcastId}`,
+        });
+      }
+
+      // Remove podcast from likedPodcasts array in the database
+      User.findOneAndUpdate(
+        { _id: req.user.id },
+        { $pull: { likedPodcasts: podcastToUnlike } }
+      )
+        .then(() => {
+          return res.json(podcastToUnlike);
+        })
+        .catch((err) => {
+          return console.log(err);
+        });
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+});
+
 module.exports = router;
