@@ -148,4 +148,60 @@ router.get("/:podcastId", (req, res) => {
     });
 });
 
+// @route    Put "/like"
+// @desc.    Like podcast
+// @access   Private
+router.put("/like", auth, (req, res) => {
+  const { podcastId } = req.body;
+
+  // Simple validation
+  if (!podcastId) {
+    return res.status(400).json({ msg: "The podcastId cannot be undefined" });
+  }
+
+  User.findOne({ _id: req.user.id })
+    .then((user) => {
+      // Check if user has already liked this podcast
+      if (
+        user.likedPodcasts.find((likedPodcast) => likedPodcast.id === podcastId)
+      ) {
+        return res.status(400).json({
+          msg: `You have already liked the podcast with the ID ${podcastId}`,
+        });
+      }
+
+      // Fetch podcast data
+      client
+        .fetchPodcastById({ id: podcastId })
+        .then((response) => {
+          const podcast = {
+            id: response.data.id,
+            thumbnail: response.data.thumbnail,
+            title: response.data.title,
+          };
+
+          // Add podcast to likedPodcasts array in the database
+          User.findOneAndUpdate(
+            { _id: req.user.id },
+            { $push: { likedPodcasts: podcast } }
+          )
+            .then(() => {
+              return res.json(podcast);
+            })
+            .catch((err) => {
+              return console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+          return res
+            .status(404)
+            .json({ msg: `Couldn't find podcast with the ID ${podcastId}` });
+        });
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+});
+
 module.exports = router;
