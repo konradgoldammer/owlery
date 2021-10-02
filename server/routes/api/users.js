@@ -357,6 +357,11 @@ router.get("/most-popular-reviewers", (req, res) => {
 router.put("/add-favorite-podcast", auth, (req, res) => {
   const { podcastId } = req.body;
 
+  // Simple validation
+  if (!podcastId) {
+    return res.status(400).json({ msg: "The podcastId cannot be undefined" });
+  }
+
   User.findOne({ _id: req.user.id })
     .then((user) => {
       // Check if user has already reached the maximum of 5 favorite podcasts
@@ -405,6 +410,11 @@ router.put("/add-favorite-podcast", auth, (req, res) => {
 // @access   Private
 router.put("/add-favorite-podcast", auth, (req, res) => {
   const { podcastId } = req.body;
+
+  // Simple validation
+  if (!podcastId) {
+    return res.status(400).json({ msg: "The podcastId cannot be undefined" });
+  }
 
   User.findOne({ _id: req.user.id })
     .then((user) => {
