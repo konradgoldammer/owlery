@@ -357,9 +357,9 @@ router.get("/most-popular-reviewers", (req, res) => {
 router.put("/add-favorite-podcast", auth, (req, res) => {
   const { podcastId } = req.body;
 
-  // Check if user has already reached the maximum of 5 favorite podcasts
   User.findOne({ _id: req.user.id })
     .then((user) => {
+      // Check if user has already reached the maximum of 5 favorite podcasts
       if (user.favoritePodcasts.length >= 5) {
         return res
           .status(403)
@@ -394,8 +394,42 @@ router.put("/add-favorite-podcast", auth, (req, res) => {
             .status(404)
             .json({ msg: `Couldn't find podcast with the ID ${podcastId}` });
         });
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+});
 
-      User.updateOne({});
+// @route    Put "/remove-favorite-podcast"
+// @desc.    Remove favorite podcast
+// @access   Private
+router.put("/add-favorite-podcast", auth, (req, res) => {
+  const { podcastId } = req.body;
+
+  User.findOne({ _id: req.user.id })
+    .then((user) => {
+      const podcastToRemove = user.favoritePodcasts.find(
+        (podcast) => podcast.id === podcastId
+      );
+
+      // Check if user has marked the podcast as favorite
+      if (!podcastToRemove) {
+        return res.status(403).json({
+          msg: `You have not marked the podcast with the ID ${podcastId} as one of your favorite podcasts`,
+        });
+      }
+
+      // Remove podcast from favoritePodcasts array in the database
+      User.findOneAndUpdate(
+        { _id: req.user.id },
+        { $pull: { favoritePodcasts: podcastToRemove } }
+      )
+        .then(() => {
+          return res.json(podcastToRemove);
+        })
+        .catch((err) => {
+          return console.log(err);
+        });
     })
     .catch((err) => {
       return console.log(err);
