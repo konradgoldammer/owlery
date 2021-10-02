@@ -86,7 +86,7 @@ router.get("/most-popular", (req, res) => {
       $group: {
         _id: "$episode.podcast.id",
         totalReviews: { $sum: 1 },
-        podcast: { $first: "$episode.podcast" },
+        title: { $first: "$episode.podcast.title" },
       },
     },
     { $sort: { totalReviews: -1 } },
@@ -122,7 +122,7 @@ router.get("/trending", (req, res) => {
       $group: {
         _id: "$episode.podcast.id",
         totalReviews: { $sum: 1 },
-        podcast: { $first: "$episode.podcast" },
+        title: { $first: "$episode.podcast.title" },
       },
     },
     { $sort: { totalReviews: -1 } },
