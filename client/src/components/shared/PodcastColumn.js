@@ -26,7 +26,7 @@ const PodcastColumn = (props) => {
   }, [podcast]);
 
   return (
-    <div className="col-md py-0 pe-1">
+    <div className="col-md py-0 px-1">
       {podcast ? (
         <Link to={`/podcast/${podcast.id}`} className="text-decoration-none">
           <div className="favorite-podcast">
@@ -37,15 +37,15 @@ const PodcastColumn = (props) => {
               alt=""
             />
             <div className="row mt-1">
-              <div className="col favorite-podcast-listeners">
-                <p title={`${podcast.totalReviews} Reviews`}>
+              <div className="col favorite-podcast-listeners py-0">
+                <p title={`${podcast.totalReviews} Reviews`} className="mb-0">
                   <MdRateReview className="me-2" />
                   {podcast.totalReviews}
                 </p>
               </div>
               <div className="col favorite-podcast-likes">
                 <div className="float-end">
-                  <p title={`${podcast.totalLikes} Likes`}>
+                  <p title={`${podcast.totalLikes} Likes`} className="mb-0">
                     <FaHeart className="me-2" />
                     {podcast.totalLikes}
                   </p>
