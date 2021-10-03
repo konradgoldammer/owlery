@@ -48,11 +48,6 @@
   border: 1px var(--dark-color) solid;
 }
 
-.review-card:hover {
-  border: 1px var(--primary-color) solid;
-  opacity: 0.8;
-}
-
 .review-card-image {
   border: 1px var(--light-text-color) solid;
   border-radius: 5px;
@@ -61,6 +56,11 @@
 .review-card-title {
   font-size: 1.25rem;
   font-family: var(--heading-font-family);
+  color: var(--light-text-color);
+}
+
+.review-card-title:hover {
+  text-decoration: underline;
 }
 
 .review-card-content {
