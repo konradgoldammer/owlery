@@ -239,4 +239,98 @@ router.get("/user/:userId", (req, res) => {
     });
 });
 
+// @route    PUT "/like"
+// @desc.    Like review
+// @access   Private
+router.put("/like", auth, (req, res) => {
+  const { reviewId } = req.body;
+
+  // Simple validation
+  if (!reviewId) {
+    return res.status(400).json({ msg: "ReviewId cannot be undfined" });
+  }
+
+  if (!mongoose.isValidObjectId(reviewId)) {
+    return res
+      .status(400)
+      .json({ msg: "The ID of the review you want to like is invalid" });
+  }
+
+  Review.findById(reviewId)
+    .then((review) => {
+      if (!review) {
+        return res
+          .status(404)
+          .json({ msg: `Could not find the review with the ID ${reviewId}` });
+      }
+
+      if (review.likers && review.likers.includes(req.user.id)) {
+        return res
+          .status(400)
+          .json({ msg: "You have already liked this review" });
+      }
+
+      Review.findOneAndUpdate(
+        { _id: reviewId },
+        { $push: { likers: req.user.id } }
+      )
+        .then((response) => {
+          return res.json(response.data);
+        })
+        .catch((err) => {
+          return console.log(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+// @route    PUT "/unlike"
+// @desc.    Like unlike
+// @access   Private
+router.put("/unlike", auth, (req, res) => {
+  const { reviewId } = req.body;
+
+  // Simple validation
+  if (!reviewId) {
+    return res.status(400).json({ msg: "ReviewId cannot be undfined" });
+  }
+
+  if (!mongoose.isValidObjectId(reviewId)) {
+    return res
+      .status(400)
+      .json({ msg: "The ID of the review you want to unlike is invalid" });
+  }
+
+  Review.findById(reviewId)
+    .then((review) => {
+      if (!review) {
+        return res
+          .status(404)
+          .json({ msg: `Could not find the review with the ID ${reviewId}` });
+      }
+
+      if (review.likers && !review.likers.includes(req.user.id)) {
+        return res.status(400).json({
+          msg: "You have not liked this review, therefore you can not unlike it",
+        });
+      }
+
+      Review.findOneAndUpdate(
+        { _id: reviewId },
+        { $pull: { likers: req.user.id } }
+      )
+        .then((response) => {
+          return res.json(response.data);
+        })
+        .catch((err) => {
+          return console.log(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 module.exports = router;
