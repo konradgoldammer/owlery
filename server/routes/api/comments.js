@@ -68,7 +68,6 @@ router.post("/", auth, (req, res) => {
       reviewId,
       content,
       authorId: req.user.id,
-      date: new Date(),
     });
 
     // Add comment to database
