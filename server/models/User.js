@@ -29,7 +29,7 @@ const userSchema = new Schema({
   },
   date: {
     type: Date,
-    default: new Date(),
+    default: () => new Date(),
   },
   episodes: {
     type: Array,
