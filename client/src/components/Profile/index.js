@@ -114,13 +114,13 @@ const Profile = (props) => {
                     {user ? user.username : "loading..."}
                   </h3>
                   {user && (
-                    <p className="profile-location m-0">
+                    <p className="profile-header-info-element m-0">
                       <FaMapMarkerAlt className="me-2" />
                       Leipzig, Germany
                     </p>
                   )}
                   {user && (
-                    <p className="profile-location m-0">
+                    <p className="profile-header-info-element m-0">
                       <FaCalendarAlt className="me-2" />
                       {`Member since ${new Date(
                         user.date

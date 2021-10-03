@@ -327,7 +327,8 @@ h2.privacy-title {
   font-family: var(--heading-font-family);
 }
 
-.profile-location {
+.profile-header-info-element {
+  color: var(--secondary-text-color);
   font-size: 12px;
 }
 
