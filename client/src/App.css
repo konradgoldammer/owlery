@@ -14,7 +14,7 @@
 :root {
   --main-background-color: #252525;
   --primary-color: #ffda14;
-  --second-color: #00e6ff;
+  --secondary-color: #00e6ff;
   --dark-color: #0d0d0d;
   --light-text-color: #fafafa;
   --secondary-text-color: #c4c4c4;
@@ -72,7 +72,7 @@
 }
 
 .review-show-more-button {
-  color: var(--second-color);
+  color: var(--secondary-color);
 }
 
 .review-show-more-button:hover {
@@ -370,16 +370,16 @@ h2.privacy-title {
 }
 
 .podcast-column-image:hover {
-  border: 2px var(--primary-color) solid;
+  border: 2px var(--secondary-text-color) solid;
   opacity: 0.8;
 }
 
 .podcast-column-listeners {
-  color: var(--second-color);
+  color: var(--light-text-color);
 }
 
 .podcast-column-likes {
-  color: var(--primary-color);
+  color: var(--light-text-color);
 }
 
 .white {
