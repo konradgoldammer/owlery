@@ -178,7 +178,7 @@ router.get("/", (req, res) => {
   Review.find(
     { date: { $gte: new Date(new Date() - 7 * 60 * 60 * 24 * 1000) } },
     {},
-    { skip, limit: 10, sort: { totalLikes: -1 } }
+    { skip, limit: 5, sort: { totalLikes: -1 } }
   )
     .then((reviews) => {
       // Add author objects to review objects for the response JSON
@@ -204,7 +204,7 @@ router.get("/:episodeId", (req, res) => {
   Review.find(
     { "episode.id": episodeId },
     {},
-    { skip, limit: 10, sort: { totalLikes: -1 } }
+    { skip, limit: 5, sort: { totalLikes: -1 } }
   )
     .then((reviews) => {
       // Add author objects to review objects for the response JSON
@@ -227,7 +227,7 @@ router.get("/user/:userId", (req, res) => {
     skip = 0;
   }
 
-  Review.find({ authorId: userId }, {}, { skip, limit: 10, sort: { date: -1 } })
+  Review.find({ authorId: userId }, {}, { skip, limit: 5, sort: { date: -1 } })
     .then((reviews) => {
       // Add author objects to review objects for the response JSON
       addAuthorObjects(reviews).then((reviewsWithAuthorObject) => {
