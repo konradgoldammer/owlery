@@ -190,6 +190,11 @@ router.put("/follow", auth, (req, res) => {
   const { userId } = req.body;
 
   // Simple validation
+  if (!userId) {
+    return res.status(400).status({ msg: "UserId cannot be undefined" });
+  }
+
+  // Check if user wants to follow himself
   if (userId === req.user.id) {
     return res.status(400).json({ msg: "You can not follow yourself" });
   }
@@ -204,32 +209,35 @@ router.put("/follow", auth, (req, res) => {
     .then((user) => {
       if (!user) {
         return res
-          .status(400)
-          .json({ msg: "The user you want to follow does not exist" });
+          .status(404)
+          .json({ msg: `Could not find the user with the ID ${userId}` });
       }
+
       if (user.followers && user.followers.includes(req.user.id)) {
-        return res.status(400).json({ msg: "You already follow that user" });
+        return res.status(400).json({ msg: "You already follow this user" });
       }
 
       User.findOneAndUpdate(
         { _id: req.user.id },
-        { $push: { following: userId } },
-        (err) => {
-          if (err) {
-            return console.log(err);
-          }
+        { $push: { following: userId } }
+      )
+        .then(() => {
           User.findOneAndUpdate(
             { _id: userId },
-            { $push: { followers: req.user.id } },
-            (err) => {
-              if (err) {
-                return console.log(err);
-              }
-              res.json({ msg: `Successfully followed user with id ${userId}` });
-            }
-          );
-        }
-      );
+            { $push: { followers: req.user.id } }
+          )
+            .then(() => {
+              return res.json({
+                msg: `Successfully followed the user with the ID ${userId}`,
+              });
+            })
+            .catch((err) => {
+              return console.log(err);
+            });
+        })
+        .catch((err) => {
+          return console.log(err);
+        });
     })
     .catch((err) => {
       console.log(err);
@@ -243,6 +251,11 @@ router.put("/unfollow", auth, (req, res) => {
   const { userId } = req.body;
 
   // Simple validation
+  if (!userId) {
+    return res.status(400).json({ msg: "UserId cannot be undefined" });
+  }
+
+  // Check if user wants to unfollow himself
   if (userId === req.user.id) {
     return res.status(400).json({ msg: "You can not unfollow yourself" });
   }
@@ -257,36 +270,37 @@ router.put("/unfollow", auth, (req, res) => {
     .then((user) => {
       if (!user) {
         return res
-          .status(400)
-          .json({ msg: "The user you want to unfollow does not exist" });
+          .status(404)
+          .json({ msg: `Could not find the user with the ID ${userId}` });
       }
+
       if (user.followers && !user.followers.includes(req.user.id)) {
-        return res
-          .status(400)
-          .json({ msg: "You do not follow the user you want to unfollow" });
+        return res.status(400).json({
+          msg: "You do not follow this user, therefore you can not unfollow",
+        });
       }
 
       User.findOneAndUpdate(
         { _id: req.user.id },
-        { $pull: { following: userId } },
-        (err) => {
-          if (err) {
-            return console.log(err);
-          }
+        { $pull: { following: userId } }
+      )
+        .then(() => {
           User.findOneAndUpdate(
             { _id: userId },
-            { $pull: { followers: req.user.id } },
-            (err) => {
-              if (err) {
-                return console.log(err);
-              }
-              res.json({
+            { $pull: { followers: req.user.id } }
+          )
+            .then(() => {
+              return res.json({
                 msg: `Successfully unfollowed user with id ${userId}`,
               });
-            }
-          );
-        }
-      );
+            })
+            .catch((err) => {
+              return console.log(err);
+            });
+        })
+        .catch((err) => {
+          return console.log(err);
+        });
     })
     .catch((err) => {
       console.log(err);
