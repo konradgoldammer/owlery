@@ -16,7 +16,7 @@ const ReviewCard = (props) => {
 
   return (
     <Link to={`/review/${review._id}`} className="text-decoration-none">
-      <div className="review-card w-100 p-3" title={review.episode.title}>
+      <div className="review-card w-100 p-3 mb-2" title={review.episode.title}>
         <div className="row">
           <div className="col-3">
             <img

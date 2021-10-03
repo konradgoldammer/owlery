@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Row, Col } from "reactstrap";
+import { Row, Col, Button } from "reactstrap";
 import PodcastColumn from "../shared/PodcastColumn";
 import ReviewCard from "../shared/ReviewCard";
 import TheAmercianLife from "../images/theAmericanLife.png";
@@ -17,6 +17,8 @@ const Overview = (props) => {
   const [user, setUser] = useState(props.user);
   const [recentReviews, setRecentReviews] = useState([]);
   const [recentReviewsSkip, setRecentReviewsSkip] = useState(0);
+  const [showRecentReviewsShowMore, setShowRecentReviewsShowMore] =
+    useState(true);
 
   useEffect(() => {
     for (let i = user.favoritePodcasts.length; i <= 5; i++) {
@@ -27,7 +29,11 @@ const Overview = (props) => {
     axios
       .get(`/api/reviews/user/${user._id}?skip=${recentReviewsSkip}`)
       .then((res) => {
-        setRecentReviews(res.data);
+        if (res.data.length === 0) {
+          setShowRecentReviewsShowMore(false);
+          return;
+        }
+        setRecentReviews([...recentReviews, ...res.data]);
       })
       .catch((err) => {
         // TODO: Handle error
@@ -63,6 +69,15 @@ const Overview = (props) => {
             {recentReviews.map((recentReview, index) => (
               <ReviewCard key={index} review={recentReview} />
             ))}
+            {showRecentReviewsShowMore && (
+              <Button
+                className="w-100 btn btn-sm text-uppercase"
+                color="dark"
+                onClick={() => setRecentReviewsSkip(recentReviewsSkip + 1)}
+              >
+                <strong>load more...</strong>
+              </Button>
+            )}
           </div>
         </div>
         <div className="col-md">djk</div>
