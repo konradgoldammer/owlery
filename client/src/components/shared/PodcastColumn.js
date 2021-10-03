@@ -26,7 +26,7 @@ const PodcastColumn = (props) => {
   }, [podcast]);
 
   return (
-    <div className="col-md py-0 px-1">
+    <div className={`col-md p-0 ${!props.first && "ms-2"}`}>
       {podcast ? (
         <Link to={`/podcast/${podcast.id}`} className="text-decoration-none">
           <div className="favorite-podcast">
@@ -61,6 +61,7 @@ const PodcastColumn = (props) => {
 
 PodcastColumn.propTypes = {
   podcast: PropTypes.object,
+  first: PropTypes.bool,
 };
 
 export default PodcastColumn;

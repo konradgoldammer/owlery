@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "reactstrap";
 import PodcastColumn from "../shared/PodcastColumn";
+import ReviewCard from "../shared/ReviewCard";
 import TheAmercianLife from "../images/theAmericanLife.png";
 import circularProfile from "../images/profile.png";
 import Stars from "../images/stars.png";
@@ -27,14 +28,28 @@ const Overview = (props) => {
           <h4 className="section-heading txt-center mt-5 mb-0">
             Favorite Podcasts
           </h4>
-          <hr className="section-separator mt-1" />
-          <div className="row mt-2">
+          <hr className="section-separator mt-1 mb-3" />
+          <div className="row m-0">
             {user.favoritePodcasts.map((favoritePodcast, index) => (
-              <PodcastColumn key={index} podcast={favoritePodcast} />
+              <PodcastColumn
+                key={index}
+                podcast={favoritePodcast}
+                first={index === 0}
+              />
             ))}
           </div>
         </div>
       )}
+      <div className="row mt-4">
+        <div className="col-md">
+          <div className="recent-reviews-section">
+            <h4 className="section-heading txt-center mb-0">Recent Reviews</h4>
+            <hr className="section-separator mt-1 mb-3" />
+            <ReviewCard />
+          </div>
+        </div>
+        <div className="col-md">djk</div>
+      </div>
 
       <Row className="second-section">
         <Col x="6">

@@ -37,10 +37,14 @@ const Home = (props) => {
           <h4 className="section-heading txt-center mt-5 mb-0">
             Most Popular Podcasts
           </h4>
-          <hr className="section-separator mt-1" />
-          <div className="row mt-2">
+          <hr className="section-separator mt-1 mb-3" />
+          <div className="row m-0">
             {mostPopularPodcasts.map((mostPopularPodcast, index) => (
-              <PodcastColumn key={index} podcast={mostPopularPodcast} />
+              <PodcastColumn
+                key={index}
+                podcast={mostPopularPodcast}
+                first={index === 0}
+              />
             ))}
           </div>
         </div>
