@@ -73,7 +73,7 @@ const Overview = (props) => {
               <Button
                 className="w-100 btn btn-sm text-uppercase"
                 color="dark"
-                onClick={() => setRecentReviewsSkip(recentReviewsSkip + 1)}
+                onClick={() => setRecentReviewsSkip(recentReviewsSkip + 5)}
               >
                 <strong>load more...</strong>
               </Button>
