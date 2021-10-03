@@ -4,7 +4,7 @@ import MainNavbar from "../shared/MainNavbar";
 import MainFooter from "../shared/MainFooter";
 import profilePic from "../images/profile.png";
 import { Button } from "reactstrap";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaCalendarAlt } from "react-icons/fa";
 import Overview from "./Overview";
 import Podcasts from "./Podcasts";
 import Diary from "./Diary";
@@ -113,12 +113,22 @@ const Profile = (props) => {
                   <h3 className="profile-name">
                     {user ? user.username : "loading..."}
                   </h3>
-                  <p className="profile-location m-0">
-                    <FaMapMarkerAlt className="me-2" />
-                    Leipzig, Germany
-                  </p>
+                  {user && (
+                    <p className="profile-location m-0">
+                      <FaMapMarkerAlt className="me-2" />
+                      Leipzig, Germany
+                    </p>
+                  )}
+                  {user && (
+                    <p className="profile-location m-0">
+                      <FaCalendarAlt className="me-2" />
+                      {`Member since ${new Date(
+                        user.date
+                      ).toLocaleDateString()}`}
+                    </p>
+                  )}
                   <Button
-                    className="btn btn-sm text-uppercase mt-2 px-5"
+                    className="btn btn-sm text-uppercase mt-2 px-5 mb-5"
                     color="primary"
                     onClick={handleFollow}
                     disabled={validateFollow()}
