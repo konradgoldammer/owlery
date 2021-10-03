@@ -108,7 +108,7 @@ const ReviewCard = (props) => {
               </p>
               <p className="d-inline ms-4">
                 <FaComment className="me-1" />
-                100
+                {review.totalComments}
               </p>
               <p className="d-inline float-end mb-0">
                 {`${timeSince(new Date(review.date))} ago`}
