@@ -21,10 +21,15 @@ const Overview = (props) => {
     useState(true);
 
   useEffect(() => {
-    for (let i = user.favoritePodcasts.length; i <= 5; i++) {
-      setUser({ ...user, favoritePodcasts: [...user.favoritePodcasts, null] });
+    const newUser = props.user;
+    for (let i = newUser.favoritePodcasts.length; i < 5; i++) {
+      newUser.favoritePodcasts.push(null);
     }
+    setUser(newUser);
+    setRecentReviews([]);
+  }, [props.user]);
 
+  useEffect(() => {
     // Fetch recent reviews
     axios
       .get(`/api/reviews/user/${user._id}?skip=${recentReviewsSkip}`)
@@ -41,7 +46,7 @@ const Overview = (props) => {
         console.log(err);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recentReviewsSkip, user]);
+  }, [recentReviewsSkip, user._id]);
 
   return (
     <div className="container-md">
@@ -52,13 +57,20 @@ const Overview = (props) => {
           </h4>
           <hr className="section-separator mt-1 mb-3" />
           <div className="row m-0">
-            {user.favoritePodcasts.map((favoritePodcast, index) => (
-              <PodcastColumn
-                key={index}
-                podcast={favoritePodcast}
-                first={index === 0}
-              />
-            ))}
+            {user.favoritePodcasts.map((favoritePodcast, index) =>
+              favoritePodcast ? (
+                <PodcastColumn
+                  key={favoritePodcast.id}
+                  podcast={favoritePodcast}
+                  first={index === 0}
+                />
+              ) : (
+                <div
+                  key={index}
+                  className={`col-md p-0 ${index !== 0 && "ms-2"}`}
+                />
+              )
+            )}
           </div>
         </div>
       )}
@@ -67,8 +79,8 @@ const Overview = (props) => {
           <div className="recent-reviews-section">
             <h4 className="section-heading txt-center mb-0">Recent Reviews</h4>
             <hr className="section-separator mt-1 mb-3" />
-            {recentReviews.map((recentReview, index) => (
-              <ReviewCard key={index} review={recentReview} />
+            {recentReviews.map((recentReview) => (
+              <ReviewCard key={recentReview._id} review={recentReview} />
             ))}
             {showRecentReviewsShowMore && (
               <Button

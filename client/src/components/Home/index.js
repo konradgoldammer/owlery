@@ -18,11 +18,9 @@ const Home = (props) => {
     axios.get("/api/podcasts/most-popular").then((res) => {
       const podcasts = res.data;
 
-      for (let i = podcasts.length; i <= 5; i++) {
+      for (let i = podcasts.length; i < 5; i++) {
         podcasts.push(null);
       }
-
-      console.log(podcasts);
 
       setMostPopularPodcasts(podcasts);
     });
@@ -39,13 +37,20 @@ const Home = (props) => {
           </h4>
           <hr className="section-separator mt-1 mb-3" />
           <div className="row m-0">
-            {mostPopularPodcasts.map((mostPopularPodcast, index) => (
-              <PodcastColumn
-                key={index}
-                podcast={mostPopularPodcast}
-                first={index === 0}
-              />
-            ))}
+            {mostPopularPodcasts.map((mostPopularPodcast, index) =>
+              mostPopularPodcast ? (
+                <PodcastColumn
+                  key={mostPopularPodcast._id}
+                  podcast={mostPopularPodcast}
+                  first={index === 0}
+                />
+              ) : (
+                <div
+                  key={index}
+                  className={`col-md p-0 ${index !== 0 && "ms-2"}`}
+                />
+              )
+            )}
           </div>
         </div>
       </div>
