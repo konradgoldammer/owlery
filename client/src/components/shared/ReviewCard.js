@@ -104,7 +104,7 @@ const ReviewCard = (props) => {
             <div className="review-card-stats">
               <p className="d-inline">
                 <FaHeart className="me-1" />
-                {review.totalLikes}
+                {review.likers.length}
               </p>
               <p className="d-inline ms-4">
                 <FaComment className="me-1" />

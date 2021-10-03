@@ -14,10 +14,6 @@ const reviewSchema = new Schema({
     type: String,
     required: true,
   },
-  totalLikes: {
-    type: Number,
-    default: 0,
-  },
   likers: {
     type: Array,
     default: [],
