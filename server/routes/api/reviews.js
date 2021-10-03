@@ -218,7 +218,7 @@ router.get("/:episodeId", (req, res) => {
     });
 });
 
-// @route    GET "/:episodeId?skip=xxx"
+// @route    GET "/user/:userId?skip=xxx"
 // @desc.    Get reviews of a user (sorted by date)
 // @access   Public
 router.get("/user/:userId", (req, res) => {
