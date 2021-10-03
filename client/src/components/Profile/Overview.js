@@ -11,15 +11,30 @@ import Like from "../images/whiteHeart.png";
 import Comment from "../images/comment.png";
 import Author from "../images/author.png";
 import Calendar from "../images/calendar.png";
+import axios from "axios";
 
 const Overview = (props) => {
   const [user, setUser] = useState(props.user);
+  const [recentReviews, setRecentReviews] = useState([]);
+  const [recentReviewsSkip, setRecentReviewsSkip] = useState(0);
 
   useEffect(() => {
     for (let i = user.favoritePodcasts.length; i <= 5; i++) {
       setUser({ ...user, favoritePodcasts: [...user.favoritePodcasts, null] });
     }
-  }, [user]);
+
+    // Fetch recent reviews
+    axios
+      .get(`/api/reviews/user/${user._id}?skip=${recentReviewsSkip}`)
+      .then((res) => {
+        setRecentReviews(res.data);
+      })
+      .catch((err) => {
+        // TODO: Handle error
+
+        console.log(err);
+      });
+  }, [recentReviewsSkip, user]);
 
   return (
     <div className="container-md">
@@ -45,7 +60,9 @@ const Overview = (props) => {
           <div className="recent-reviews-section">
             <h4 className="section-heading txt-center mb-0">Recent Reviews</h4>
             <hr className="section-separator mt-1 mb-3" />
-            <ReviewCard />
+            {recentReviews.map((recentReview, index) => (
+              <ReviewCard key={index} review={recentReview} />
+            ))}
           </div>
         </div>
         <div className="col-md">djk</div>

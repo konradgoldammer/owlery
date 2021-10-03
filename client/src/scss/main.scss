@@ -73,4 +73,11 @@ $main-background-color: #252525;
   }
 }
 
+.review-card-author {
+  color: map-get($theme-colors, "light");
+  &:hover {
+    color: darken(map-get($theme-colors, "light"), 20%);
+  }
+}
+
 @import "../../node_modules/bootstrap/scss/bootstrap";

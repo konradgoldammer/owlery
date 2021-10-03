@@ -29,21 +29,21 @@ const PodcastColumn = (props) => {
     <div className={`col-md p-0 ${!props.first && "ms-2"}`}>
       {podcast ? (
         <Link to={`/podcast/${podcast.id}`} className="text-decoration-none">
-          <div className="favorite-podcast">
+          <div className="podcast-column">
             <img
-              className="favorite-podcast-image"
+              className="podcast-column-image"
               src={podcast.thumbnail}
               title={podcast.title}
               alt=""
             />
             <div className="row mt-1">
-              <div className="col favorite-podcast-listeners py-0">
+              <div className="col podcast-column-listeners py-0">
                 <p title={`${podcast.totalReviews} Reviews`} className="mb-0">
                   <MdRateReview className="me-2" />
                   {podcast.totalReviews}
                 </p>
               </div>
-              <div className="col favorite-podcast-likes">
+              <div className="col podcast-column-likes">
                 <div className="float-end">
                   <p title={`${podcast.totalLikes} Likes`} className="mb-0">
                     <FaHeart className="me-2" />
