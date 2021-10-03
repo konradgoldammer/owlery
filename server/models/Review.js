@@ -6,10 +6,6 @@ const reviewSchema = new Schema({
     type: Object,
     required: true,
   },
-  title: {
-    type: String,
-    required: true,
-  },
   authorId: {
     type: String,
     required: true,

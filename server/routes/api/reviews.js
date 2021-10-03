@@ -46,10 +46,10 @@ const addAuthorObjects = (reviews) => {
 // @desc.    Add new review
 // @access   Private
 router.post("/", auth, (req, res) => {
-  const { title, content, episodeId } = req.body;
+  const { content, episodeId } = req.body;
 
   // Simple validation of body data
-  if (!title || !content) {
+  if (!content) {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
@@ -78,7 +78,6 @@ router.post("/", auth, (req, res) => {
       // Create review object
       const newReview = new Review({
         episode,
-        title,
         content,
         authorId: req.user.id,
       });
