@@ -4,6 +4,7 @@ const config = require("config");
 const mongoose = require("mongoose");
 const Review = require("../../models/Review");
 const User = require("../../models/User");
+const Comment = require("../../models/Comment");
 const auth = require("../../middleware/auth");
 const { Client } = require("podcast-api");
 
@@ -32,7 +33,7 @@ const addAuthorObjects = (reviews) => {
       .then((authors) => {
         resolve(
           reviews.map((review, index) => {
-            return { ...review.toObject(), author: authors[index] };
+            return { ...review, author: authors[index] };
           })
         );
       })
@@ -166,6 +167,15 @@ router.delete("/:reviewId", auth, (req, res) => {
     });
 });
 
+// Returns the total number of comments
+const countComments = (reviewId) => {
+  return new Promise((resolve, reject) => {
+    Comment.countDocuments({ reviewId })
+      .then((num) => resolve(num))
+      .catch((err) => reject(err));
+  });
+};
+
 // @route    GET "/?skip=xxx"
 // @desc.    Get last week's reviews (sorted by totalLikes)
 // @access   Public
@@ -181,9 +191,24 @@ router.get("/", (req, res) => {
     { skip, limit: 5, sort: { totalLikes: -1 } }
   )
     .then((reviews) => {
-      // Add author objects to review objects for the response JSON
-      addAuthorObjects(reviews).then((reviewsWithAuthorObject) => {
-        return res.json(reviewsWithAuthorObject);
+      // Convert Mongo objects to regular objects
+      const reviewObjects = reviews.map((review) => review.toObject());
+
+      Promise.all(
+        reviewObjects.map((reviewObject) => countComments(reviewObject._id))
+      ).then((totalCommentsArray) => {
+        // Add 'totalComments' property to review objects
+        const reviewsWithTotalComments = reviewObjects.map((review, index) => ({
+          ...review,
+          totalComments: totalCommentsArray[index],
+        }));
+
+        // Add author objects to review objects for the response JSON
+        addAuthorObjects(reviewsWithTotalComments).then(
+          (reviewsWithAuthorObject) => {
+            return res.json(reviewsWithAuthorObject);
+          }
+        );
       });
     })
     .catch((err) => {
@@ -207,9 +232,24 @@ router.get("/:episodeId", (req, res) => {
     { skip, limit: 5, sort: { totalLikes: -1 } }
   )
     .then((reviews) => {
-      // Add author objects to review objects for the response JSON
-      addAuthorObjects(reviews).then((reviewsWithAuthorObject) => {
-        return res.json(reviewsWithAuthorObject);
+      // Convert Mongo objects to regular objects
+      const reviewObjects = reviews.map((review) => review.toObject());
+
+      Promise.all(
+        reviewObjects.map((reviewObject) => countComments(reviewObject._id))
+      ).then((totalCommentsArray) => {
+        // Add 'totalComments' property to review objects
+        const reviewsWithTotalComments = reviewObjects.map((review, index) => ({
+          ...review,
+          totalComments: totalCommentsArray[index],
+        }));
+
+        // Add author objects to review objects for the response JSON
+        addAuthorObjects(reviewsWithTotalComments).then(
+          (reviewsWithAuthorObject) => {
+            return res.json(reviewsWithAuthorObject);
+          }
+        );
       });
     })
     .catch((err) => {
@@ -229,9 +269,24 @@ router.get("/user/:userId", (req, res) => {
 
   Review.find({ authorId: userId }, {}, { skip, limit: 5, sort: { date: -1 } })
     .then((reviews) => {
-      // Add author objects to review objects for the response JSON
-      addAuthorObjects(reviews).then((reviewsWithAuthorObject) => {
-        return res.json(reviewsWithAuthorObject);
+      // Convert Mongo objects to regular objects
+      const reviewObjects = reviews.map((review) => review.toObject());
+
+      Promise.all(
+        reviewObjects.map((reviewObject) => countComments(reviewObject._id))
+      ).then((totalCommentsArray) => {
+        // Add 'totalComments' property to review objects
+        const reviewsWithTotalComments = reviewObjects.map((review, index) => ({
+          ...review,
+          totalComments: totalCommentsArray[index],
+        }));
+
+        // Add author objects to review objects for the response JSON
+        addAuthorObjects(reviewsWithTotalComments).then(
+          (reviewsWithAuthorObject) => {
+            return res.json(reviewsWithAuthorObject);
+          }
+        );
       });
     })
     .catch((err) => {
