@@ -301,7 +301,7 @@ const SignUp = (props) => {
             </Label>
           </FormGroup>
           <Button
-            className="access-btn btn btn-sm text-uppercase my-3"
+            className="btn btn-sm w-100 text-uppercase my-3"
             color="primary"
             disabled={validateForm()}
           >

@@ -81,7 +81,7 @@ const Login = (props) => {
             <Alert color="danger p-2 error-msg-alert">{error.msg}</Alert>
           )}
           <Button
-            className="access-btn btn btn-sm text-uppercase my-3"
+            className="btn btn-sm w-100 text-uppercase my-3"
             color="primary"
             disabled={validateForm()}
           >
