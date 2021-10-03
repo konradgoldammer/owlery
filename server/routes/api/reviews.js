@@ -272,10 +272,11 @@ router.put("/like", auth, (req, res) => {
 
       Review.findOneAndUpdate(
         { _id: reviewId },
-        { $push: { likers: req.user.id } }
+        { $push: { likers: req.user.id } },
+        { new: true }
       )
-        .then((response) => {
-          return res.json(response.data);
+        .then((updatedReview) => {
+          return res.json(updatedReview);
         })
         .catch((err) => {
           return console.log(err);
@@ -319,10 +320,11 @@ router.put("/unlike", auth, (req, res) => {
 
       Review.findOneAndUpdate(
         { _id: reviewId },
-        { $pull: { likers: req.user.id } }
+        { $pull: { likers: req.user.id } },
+        { new: true }
       )
-        .then((response) => {
-          return res.json(response.data);
+        .then((updatedReview) => {
+          return res.json(updatedReview);
         })
         .catch((err) => {
           return console.log(err);
