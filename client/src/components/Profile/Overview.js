@@ -22,8 +22,10 @@ const Overview = (props) => {
 
   useEffect(() => {
     const newUser = props.user;
-    for (let i = newUser.favoritePodcasts.length; i < 5; i++) {
-      newUser.favoritePodcasts.push(null);
+    if (newUser.favoritePodcasts.length !== 0) {
+      for (let i = newUser.favoritePodcasts.length; i < 5; i++) {
+        newUser.favoritePodcasts.push(null);
+      }
     }
     setUser(newUser);
     setRecentReviews([]);
@@ -50,14 +52,14 @@ const Overview = (props) => {
 
   return (
     <div className="container-md">
-      {user && user.favoritePodcasts.length !== 0 && (
-        <div className="favorite-podcasts-section">
-          <h4 className="section-heading txt-center mt-5 mb-0">
-            Favorite Podcasts
-          </h4>
-          <hr className="section-separator mt-1 mb-3" />
-          <div className="row m-0">
-            {user.favoritePodcasts.map((favoritePodcast, index) =>
+      <div className="favorite-podcasts-section">
+        <h4 className="section-heading txt-center mt-5 mb-0">
+          Favorite Podcasts
+        </h4>
+        <hr className="section-separator mt-1 mb-3" />
+        <div className="row m-0">
+          {user.favoritePodcasts.length !== 0 ? (
+            user.favoritePodcasts.map((favoritePodcast, index) =>
               favoritePodcast ? (
                 <PodcastColumn
                   key={favoritePodcast.id}
@@ -70,10 +72,15 @@ const Overview = (props) => {
                   className={`col-md p-0 ${index !== 0 && "ms-2"}`}
                 />
               )
-            )}
-          </div>
+            )
+          ) : (
+            <p className="m-0 p-0">
+              <mark className="text-capitalize">{user.username}</mark>
+              has not selected any favorite podcasts yet.
+            </p>
+          )}
         </div>
-      )}
+      </div>
       <div className="row mt-4">
         <div className="col-md">
           <div className="recent-reviews-section">
@@ -90,6 +97,12 @@ const Overview = (props) => {
               >
                 <strong>load more...</strong>
               </Button>
+            )}
+            {recentReviews.length === 0 && (
+              <p className="m-0 p-0">
+                <mark className="text-capitalize">{user.username}</mark>
+                has not posted any reviews yet.
+              </p>
             )}
           </div>
         </div>
