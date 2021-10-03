@@ -35,10 +35,7 @@ const ReviewCard = (props) => {
                 </p>
               </Link>
               {rating !== -1 && (
-                <div
-                  className="row d-inline ms-2"
-                  style={{ background: "coral" }}
-                >
+                <div className="row d-inline ms-2">
                   <div className="col d-inline p-0">
                     {rating <= 0 ? (
                       <BsStar />
