@@ -10,24 +10,29 @@ const auth = require("../../middleware/auth");
 // @desc.    Authenticate user
 // @access   Public
 router.post("/", (req, res) => {
-  const { email, password } = req.body;
+  const { data, password } = req.body;
 
   // Simple validation
-  if (!email || !password) {
+  if (!data || !password) {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
-  if (typeof email !== "string" || typeof password !== "string") {
+  if (typeof data !== "string" || typeof password !== "string") {
     return res
       .status(400)
       .json({ msg: "'Username' and 'Password' have to be strings" });
   }
 
-  User.findOne({ email }).then((user) => {
+  const query = data.includes("@") ? { email: data } : { username: data };
+
+  // Login via email / username
+  User.findOne(query).then((user) => {
     if (!user) {
-      return res
-        .status(400)
-        .json({ msg: "User with that email does not exist" });
+      return res.status(400).json({
+        msg: `User with the ${
+          data.includes("@") ? "email" : "username"
+        } ${data} does not exist`,
+      });
     }
 
     // Check if passwords match

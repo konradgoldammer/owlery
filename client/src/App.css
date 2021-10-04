@@ -198,6 +198,7 @@ mark {
 }
 
 label[for="email"],
+[for="data"],
 [for="username"],
 [for="password"],
 [for="confirmPassword"] {

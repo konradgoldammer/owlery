@@ -10,9 +10,9 @@ import { login } from "../actions/authActions";
 import { clearErrors } from "../actions/errorActions";
 
 const Login = (props) => {
-  const initialState = { email: "", password: "" };
+  const initialState = { data: "", password: "" };
 
-  const [email, setEmail] = useState(initialState.email);
+  const [data, setData] = useState(initialState.data);
   const [password, setPassword] = useState(initialState.password);
 
   const error = useSelector((state) => state.error);
@@ -27,12 +27,12 @@ const Login = (props) => {
   }, [props.title]);
 
   // Validation function
-  const validateForm = () => email.length === 0 || password.length === 0;
+  const validateForm = () => data.length === 0 || password.length === 0;
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const user = { email, password };
+    const user = { data, password };
 
     store.dispatch(login(user));
   };
@@ -43,16 +43,16 @@ const Login = (props) => {
         <h2 className="access-title text-center text-lowercase">owlery</h2>
         <div className="inside-access-form">
           <FormGroup row className="mb-2 mt-4">
-            <Label for="email">Email address</Label>
+            <Label for="data">Username or Email address</Label>
             <Col sm={12}>
               <Input
                 type="text"
-                name="email"
-                id="email"
+                name="data"
+                id="data"
                 autoFocus
                 required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={data}
+                onChange={(e) => setData(e.target.value)}
               />
             </Col>
           </FormGroup>
