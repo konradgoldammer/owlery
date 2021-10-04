@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Row, Col, Button } from "reactstrap";
 import PodcastColumn from "../shared/PodcastColumn";
 import ReviewCard from "../shared/ReviewCard";
+import LogCard from "../shared/LogCard";
 import TheAmercianLife from "../images/theAmericanLife.png";
 import circularProfile from "../images/profile.png";
 import Stars from "../images/stars.png";
@@ -19,6 +20,9 @@ const Overview = (props) => {
   const [recentReviewsSkip, setRecentReviewsSkip] = useState(0);
   const [showRecentReviewsShowMore, setShowRecentReviewsShowMore] =
     useState(true);
+  const [recentLogs, setRecentLogs] = useState([]);
+  const [recentLogsSkip, setRecentLogsSkip] = useState(0);
+  const [showRecentLogsShowMore, setShowRecentLogsShowMore] = useState(true);
 
   useEffect(() => {
     const newUser = props.user;
@@ -29,6 +33,7 @@ const Overview = (props) => {
     }
     setUser(newUser);
     setRecentReviews([]);
+    setRecentLogs([]);
   }, [props.user]);
 
   useEffect(() => {
@@ -49,6 +54,25 @@ const Overview = (props) => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recentReviewsSkip, user._id]);
+
+  useEffect(() => {
+    // Fetch recent logs
+    axios
+      .get(`/api/reviews/user/logs/${user._id}?skip=${recentLogsSkip}`)
+      .then((res) => {
+        if (res.data.length === 0) {
+          setShowRecentLogsShowMore(false);
+          return;
+        }
+        setRecentLogs([...recentLogs, ...res.data]);
+      })
+      .catch((err) => {
+        // TODO: Handle error
+
+        console.log(err);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [recentLogsSkip, user._id]);
 
   return (
     <div className="container-md">
@@ -106,7 +130,30 @@ const Overview = (props) => {
             )}
           </div>
         </div>
-        <div className="col-md">djk</div>
+        <div className="col-md">
+          <div className="recent-logs-section">
+            <h4 className="section-heading txt-center mb-0">Diary</h4>
+            <hr className="section-separator mt-1 mb-3" />
+            {recentLogs.map((recentLog) => (
+              <LogCard key={recentLog._id} log={recentLog} />
+            ))}
+            {showRecentLogsShowMore && (
+              <Button
+                className="w-100 btn btn-sm text-uppercase"
+                color="dark"
+                onClick={() => setRecentLogsSkip(recentLogsSkip + 5)}
+              >
+                <strong>load more...</strong>
+              </Button>
+            )}
+            {recentLogs.length === 0 && (
+              <p className="m-0 p-0">
+                <mark className="text-capitalize">{user.username}</mark>
+                has not logged any episodes yet.
+              </p>
+            )}
+          </div>
+        </div>
       </div>
 
       <Row className="second-section">

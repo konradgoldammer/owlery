@@ -15,7 +15,7 @@ const ReviewCard = (props) => {
   const [showMore, setShowMore] = useState(false);
 
   return (
-    <div className="review-card w-100 p-3 mb-2" title={review.episode.title}>
+    <div className="card w-100 p-3 mb-2" title={review.episode.title}>
       <div className="row">
         <div className="col-3">
           <img
@@ -26,11 +26,11 @@ const ReviewCard = (props) => {
         </div>
         <div className="col-9">
           <Link to={`/review/${review._id}`} className="text-decoration-none">
-            <h5 className="review-card-title mb-0">{review.episode.title}</h5>
+            <h5 className="card-title mb-0">{review.episode.title}</h5>
           </Link>
           <div className="review-card-info mt-1">
             <Link className="d-inline text-decoration-none">
-              <p className="review-card-author d-inline">
+              <p className="card-author d-inline">
                 <FaUserCircle className="me-1" />
                 {review.author.username}
               </p>
@@ -102,7 +102,7 @@ const ReviewCard = (props) => {
               </button>
             )}
           </p>
-          <div className="review-card-stats">
+          <div className="card-stats">
             <p className="d-inline">
               <FaHeart className="me-1" />
               {review.likers.length}

@@ -73,7 +73,7 @@ $main-background-color: #252525;
   }
 }
 
-.review-card-author {
+.card-author {
   color: map-get($theme-colors, "light");
   &:hover {
     color: darken(map-get($theme-colors, "light"), 20%);
@@ -81,3 +81,39 @@ $main-background-color: #252525;
 }
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
+
+.log-card-calendar-number {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: $main-background-color;
+  font-family: var(--font-family);
+}
+
+@include media-breakpoint-up(md) {
+  .log-card-calendar-number {
+    top: 0.75rem;
+    font-size: 1rem;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .log-card-calendar-number {
+    top: 1.25rem;
+    font-size: 1.5rem;
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .log-card-calendar-number {
+    top: 1.75rem;
+    font-size: 2rem;
+  }
+}
+
+@include media-breakpoint-up(xxl) {
+  .log-card-calendar-number {
+    top: 2.25rem;
+    font-size: 2.5rem;
+  }
+}
