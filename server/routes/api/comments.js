@@ -63,6 +63,11 @@ router.post("/", auth, (req, res) => {
       });
     }
 
+    // Check if the review is a log
+    if (review.log) {
+      return res.status(400).json({ msg: "You can not comment on a log" });
+    }
+
     // Create comment object
     const newComment = new Comment({
       reviewId,
