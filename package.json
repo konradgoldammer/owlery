@@ -23,7 +23,8 @@
   "homepage": "https://github.com/konradgoldammer/owlery#readme",
   "dependencies": {
     "concurrently": "^6.2.1",
-    "react-icons": "^4.2.0"
+    "react-icons": "^4.2.0",
+    "ansi-regex": ">=5.0.1"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
