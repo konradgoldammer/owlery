@@ -6,21 +6,16 @@ const reviewSchema = new Schema({
     type: Object,
     required: true,
   },
-  title: {
-    type: String,
-    required: true,
-  },
   authorId: {
     type: String,
     required: true,
   },
   content: {
     type: String,
-    required: true,
   },
-  totalLikes: {
-    type: Number,
-    default: 0,
+  log: {
+    type: Boolean,
+    required: true,
   },
   likers: {
     type: Array,
@@ -28,7 +23,7 @@ const reviewSchema = new Schema({
   },
   date: {
     type: Date,
-    default: new Date(),
+    default: () => new Date(),
   },
 });
 

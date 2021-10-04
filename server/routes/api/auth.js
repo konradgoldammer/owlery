@@ -10,18 +10,29 @@ const auth = require("../../middleware/auth");
 // @desc.    Authenticate user
 // @access   Public
 router.post("/", (req, res) => {
-  const { email, password } = req.body;
+  const { data, password } = req.body;
 
   // Simple validation
-  if (!email || !password) {
+  if (!data || !password) {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
-  User.findOne({ email }).then((user) => {
+  if (typeof data !== "string" || typeof password !== "string") {
+    return res
+      .status(400)
+      .json({ msg: "'Username' and 'Password' have to be strings" });
+  }
+
+  const query = data.includes("@") ? { email: data } : { username: data };
+
+  // Login via email / username
+  User.findOne(query).then((user) => {
     if (!user) {
-      return res
-        .status(400)
-        .json({ msg: "User with that email does not exist" });
+      return res.status(400).json({
+        msg: `User with the ${
+          data.includes("@") ? "email" : "username"
+        } ${data} does not exist`,
+      });
     }
 
     // Check if passwords match
@@ -30,20 +41,20 @@ router.post("/", (req, res) => {
         res.status(400).json({ msg: "Wrong credentials" });
       }
 
-      jwt.sign(
-        { id: user.id },
-        config.get("jwtSecret"),
-        { expiresIn: 3600 },
-        (err, token) => {
-          if (err) {
-            throw err;
-          }
-          res.json({
-            token,
-            user: { id: user.id, name: user.name, email: user.email },
-          });
+      jwt.sign({ id: user.id }, config.get("jwtSecret"), (err, token) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ msg: "Could not create JWT token" });
         }
-      );
+
+        // Convert Mongo object to regular object
+        const userObject = user.toObject();
+
+        res.json({
+          token,
+          user: { ...userObject, password: undefined },
+        });
+      });
     });
   });
 });

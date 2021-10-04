@@ -44,7 +44,11 @@ router.get("/", (req, res) => {
         return console.log(err);
       });
   } else if (type === types[2]) {
-    User.find({ name: { $regex: q, $options: "i" } }, {}, { limit: 1, skip })
+    User.find(
+      { username: { $regex: q, $options: "i" } },
+      {},
+      { limit: 1, skip }
+    )
       .then((docs) => {
         return res.json(docs);
       })

@@ -67,6 +67,15 @@ const addMetaData = (episodes) => {
   });
 };
 
+// Returns the total number of reviews of an podcast
+const countLikesOfPodcast = (podcastId) => {
+  return new Promise((resolve, reject) => {
+    User.countDocuments({ "likedPodcasts.id": podcastId })
+      .then((num) => resolve(num))
+      .catch((err) => reject(err));
+  });
+};
+
 // @route    GET "/most-popular"
 // @desc.    Get most popular podcasts of all time (based on how often episodes of them got reviewed)
 // @access   Public
@@ -77,13 +86,23 @@ router.get("/most-popular", (req, res) => {
       $group: {
         _id: "$episode.podcast.id",
         totalReviews: { $sum: 1 },
-        podcast: { $first: "$episode.podcast" },
+        title: { $first: "$episode.podcast.title" },
+        thumbnail: { $first: "$episode.podcast.thumbnail" },
       },
     },
     { $sort: { totalReviews: -1 } },
   ])
     .then((podcasts) => {
-      return res.json(podcasts);
+      Promise.all(
+        podcasts.map((podcast) => countLikesOfPodcast(podcast._id))
+      ).then((totalLikesArray) => {
+        return res.json(
+          podcasts.map((podcast, index) => ({
+            ...podcast,
+            totalLikes: totalLikesArray[index],
+          }))
+        );
+      });
     })
     .catch((err) => {
       return console.log(err);
@@ -104,13 +123,23 @@ router.get("/trending", (req, res) => {
       $group: {
         _id: "$episode.podcast.id",
         totalReviews: { $sum: 1 },
-        podcast: { $first: "$episode.podcast" },
+        title: { $first: "$episode.podcast.title" },
+        thumbnail: { $first: "$episode.podcast.thumbnail" },
       },
     },
     { $sort: { totalReviews: -1 } },
   ])
     .then((podcasts) => {
-      return res.json(podcasts);
+      Promise.all(
+        podcasts.map((podcast) => countLikesOfPodcast(podcast._id))
+      ).then((totalLikesArray) => {
+        return res.json(
+          podcasts.map((podcast, index) => ({
+            ...podcast,
+            totalLikes: totalLikesArray[index],
+          }))
+        );
+      });
     })
     .catch((err) => {
       return console.log(err);
@@ -138,6 +167,7 @@ router.get("/:podcastId", (req, res) => {
     .then(async (response) => {
       const podcast = response.data;
       podcast.totalReviews = await countReviewsOfPodcast(podcastId);
+      podcast.totalLikes = await countLikesOfPodcast(podcastId);
       podcast.episodes = await addMetaData(podcast.episodes);
       return res.json(podcast);
     })
@@ -146,6 +176,114 @@ router.get("/:podcastId", (req, res) => {
       return res
         .status(404)
         .json({ msg: `Couldn't find podcast with the ID ${podcastId}` });
+    });
+});
+
+// @route    GET "/stats/:podcastId"
+// @desc.    Get stats of podcast
+// @access   Public
+router.get("/stats/:podcastId", async (req, res) => {
+  const podcastId = req.params.podcastId;
+  return res.json({
+    totalReviews: await countReviewsOfPodcast(podcastId),
+    totalLikes: await countLikesOfPodcast(podcastId),
+  });
+});
+
+// @route    Put "/like"
+// @desc.    Like podcast
+// @access   Private
+router.put("/like", auth, (req, res) => {
+  const { podcastId } = req.body;
+
+  // Simple validation
+  if (!podcastId) {
+    return res.status(400).json({ msg: "The podcastId cannot be undefined" });
+  }
+
+  User.findOne({ _id: req.user.id })
+    .then((user) => {
+      // Check if user has already liked this podcast
+      if (
+        user.likedPodcasts.find((likedPodcast) => likedPodcast.id === podcastId)
+      ) {
+        return res.status(400).json({
+          msg: `You have already liked the podcast with the ID ${podcastId}`,
+        });
+      }
+
+      // Fetch podcast data
+      client
+        .fetchPodcastById({ id: podcastId })
+        .then((response) => {
+          const podcast = {
+            id: response.data.id,
+            thumbnail: response.data.thumbnail,
+            title: response.data.title,
+          };
+
+          // Add podcast to likedPodcasts array in the database
+          User.findOneAndUpdate(
+            { _id: req.user.id },
+            { $push: { likedPodcasts: podcast } }
+          )
+            .then(() => {
+              return res.json(podcast);
+            })
+            .catch((err) => {
+              return console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+          return res
+            .status(404)
+            .json({ msg: `Couldn't find podcast with the ID ${podcastId}` });
+        });
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+});
+
+// @route    Put "/unlike"
+// @desc.    Unlike podcast
+// @access   Private
+router.put("/unlike", auth, (req, res) => {
+  const { podcastId } = req.body;
+
+  // Simple validation
+  if (!podcastId) {
+    return res.status(400).json({ msg: "The podcastId cannot be undefined" });
+  }
+
+  User.findOne({ _id: req.user.id })
+    .then((user) => {
+      const podcastToUnlike = user.likedPodcasts.find(
+        (podcast) => podcast.id === podcastId
+      );
+
+      // Check if user hasn't liked the podcast
+      if (!podcastToUnlike) {
+        return res.status(403).json({
+          msg: `You have not liked the podcast with the ID ${podcastId}`,
+        });
+      }
+
+      // Remove podcast from likedPodcasts array in the database
+      User.findOneAndUpdate(
+        { _id: req.user.id },
+        { $pull: { likedPodcasts: podcastToUnlike } }
+      )
+        .then(() => {
+          return res.json(podcastToUnlike);
+        })
+        .catch((err) => {
+          return console.log(err);
+        });
+    })
+    .catch((err) => {
+      return console.log(err);
     });
 });
 

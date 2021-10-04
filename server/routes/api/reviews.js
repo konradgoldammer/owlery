@@ -4,6 +4,7 @@ const config = require("config");
 const mongoose = require("mongoose");
 const Review = require("../../models/Review");
 const User = require("../../models/User");
+const Comment = require("../../models/Comment");
 const auth = require("../../middleware/auth");
 const { Client } = require("podcast-api");
 
@@ -32,7 +33,7 @@ const addAuthorObjects = (reviews) => {
       .then((authors) => {
         resolve(
           reviews.map((review, index) => {
-            return { ...review.toObject(), author: authors[index] };
+            return { ...review, author: authors[index] };
           })
         );
       })
@@ -46,17 +47,11 @@ const addAuthorObjects = (reviews) => {
 // @desc.    Add new review
 // @access   Private
 router.post("/", auth, (req, res) => {
-  const { title, content, episodeId } = req.body;
+  const { content, episodeId } = req.body;
 
-  // Simple validation of body data
-  if (!title || !content) {
-    return res.status(400).json({ msg: "Please enter all fields" });
-  }
-
+  // Simple validation
   if (!episodeId) {
-    return res
-      .status(400)
-      .json({ msg: "Did not receive ID of episode you want to review" });
+    return res.status(400).json({ msg: "EpisodeId cannot be undefined" });
   }
 
   // Fetch episode data
@@ -71,14 +66,15 @@ router.post("/", auth, (req, res) => {
         podcast: {
           id: response.data.podcast.id,
           title: response.data.podcast.title,
+          thumbnail: response.data.podcast.thumbnail,
         },
       };
 
       // Create review object
       const newReview = new Review({
         episode,
-        title,
         content,
+        log: !content,
         authorId: req.user.id,
       });
 
@@ -166,6 +162,15 @@ router.delete("/:reviewId", auth, (req, res) => {
     });
 });
 
+// Returns the total number of comments
+const countComments = (reviewId) => {
+  return new Promise((resolve, reject) => {
+    Comment.countDocuments({ reviewId })
+      .then((num) => resolve(num))
+      .catch((err) => reject(err));
+  });
+};
+
 // @route    GET "/?skip=xxx"
 // @desc.    Get last week's reviews (sorted by totalLikes)
 // @access   Public
@@ -176,14 +181,32 @@ router.get("/", (req, res) => {
   }
 
   Review.find(
-    { date: { $gte: new Date(new Date() - 7 * 60 * 60 * 24 * 1000) } },
+    {
+      date: { $gte: new Date(new Date() - 7 * 60 * 60 * 24 * 1000) },
+      log: false,
+    },
     {},
-    { skip, limit: 10, sort: { totalLikes: -1 } }
+    { skip, limit: 5, sort: { totalLikes: -1 } }
   )
     .then((reviews) => {
-      // Add author objects to review objects for the response JSON
-      addAuthorObjects(reviews).then((reviewsWithAuthorObject) => {
-        return res.json(reviewsWithAuthorObject);
+      // Convert Mongo objects to regular objects
+      const reviewObjects = reviews.map((review) => review.toObject());
+
+      Promise.all(
+        reviewObjects.map((reviewObject) => countComments(reviewObject._id))
+      ).then((totalCommentsArray) => {
+        // Add 'totalComments' property to review objects
+        const reviewsWithTotalComments = reviewObjects.map((review, index) => ({
+          ...review,
+          totalComments: totalCommentsArray[index],
+        }));
+
+        // Add author objects to review objects for the response JSON
+        addAuthorObjects(reviewsWithTotalComments).then(
+          (reviewsWithAuthorObject) => {
+            return res.json(reviewsWithAuthorObject);
+          }
+        );
       });
     })
     .catch((err) => {
@@ -202,14 +225,29 @@ router.get("/:episodeId", (req, res) => {
   }
 
   Review.find(
-    { "episode.id": episodeId },
+    { "episode.id": episodeId, log: false },
     {},
-    { skip, limit: 10, sort: { totalLikes: -1 } }
+    { skip, limit: 5, sort: { totalLikes: -1 } }
   )
     .then((reviews) => {
-      // Add author objects to review objects for the response JSON
-      addAuthorObjects(reviews).then((reviewsWithAuthorObject) => {
-        return res.json(reviewsWithAuthorObject);
+      // Convert Mongo objects to regular objects
+      const reviewObjects = reviews.map((review) => review.toObject());
+
+      Promise.all(
+        reviewObjects.map((reviewObject) => countComments(reviewObject._id))
+      ).then((totalCommentsArray) => {
+        // Add 'totalComments' property to review objects
+        const reviewsWithTotalComments = reviewObjects.map((review, index) => ({
+          ...review,
+          totalComments: totalCommentsArray[index],
+        }));
+
+        // Add author objects to review objects for the response JSON
+        addAuthorObjects(reviewsWithTotalComments).then(
+          (reviewsWithAuthorObject) => {
+            return res.json(reviewsWithAuthorObject);
+          }
+        );
       });
     })
     .catch((err) => {
@@ -217,7 +255,7 @@ router.get("/:episodeId", (req, res) => {
     });
 });
 
-// @route    GET "/:episodeId?skip=xxx"
+// @route    GET "/user/:userId?skip=xxx"
 // @desc.    Get reviews of a user (sorted by date)
 // @access   Public
 router.get("/user/:userId", (req, res) => {
@@ -227,15 +265,161 @@ router.get("/user/:userId", (req, res) => {
     skip = 0;
   }
 
-  Review.find({ authorId: userId }, {}, { skip, limit: 10, sort: { date: -1 } })
+  Review.find(
+    { authorId: userId, log: false },
+    {},
+    { skip, limit: 5, sort: { date: -1 } }
+  )
     .then((reviews) => {
+      // Convert Mongo objects to regular objects
+      const reviewObjects = reviews.map((review) => review.toObject());
+
+      Promise.all(
+        reviewObjects.map((reviewObject) => countComments(reviewObject._id))
+      ).then((totalCommentsArray) => {
+        // Add 'totalComments' property to review objects
+        const reviewsWithTotalComments = reviewObjects.map((review, index) => ({
+          ...review,
+          totalComments: totalCommentsArray[index],
+        }));
+
+        // Add author objects to review objects for the response JSON
+        addAuthorObjects(reviewsWithTotalComments).then(
+          (reviewsWithAuthorObject) => {
+            return res.json(reviewsWithAuthorObject);
+          }
+        );
+      });
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+});
+
+// @route    GET "/user/logs/:userId?skip=xxx"
+// @desc.    Get reviews of a user (sorted by date)
+// @access   Public
+router.get("/user/logs/:userId", (req, res) => {
+  const userId = req.params.userId;
+  let skip = Number(req.query.skip) || 0;
+  if (skip === NaN) {
+    skip = 0;
+  }
+
+  Review.find({ authorId: userId }, {}, { skip, limit: 5, sort: { date: -1 } })
+    .then((reviews) => {
+      // Convert Mongo objects to regular objects
+      const reviewObjects = reviews.map((review) => review.toObject());
+
       // Add author objects to review objects for the response JSON
-      addAuthorObjects(reviews).then((reviewsWithAuthorObject) => {
+      addAuthorObjects(reviewObjects).then((reviewsWithAuthorObject) => {
         return res.json(reviewsWithAuthorObject);
       });
     })
     .catch((err) => {
       return console.log(err);
+    });
+});
+
+// @route    PUT "/like"
+// @desc.    Like review
+// @access   Private
+router.put("/like", auth, (req, res) => {
+  const { reviewId } = req.body;
+
+  // Simple validation
+  if (!reviewId) {
+    return res.status(400).json({ msg: "ReviewId cannot be undfined" });
+  }
+
+  if (!mongoose.isValidObjectId(reviewId)) {
+    return res
+      .status(400)
+      .json({ msg: "The ID of the review you want to like is invalid" });
+  }
+
+  Review.findById(reviewId)
+    .then((review) => {
+      if (!review) {
+        return res
+          .status(404)
+          .json({ msg: `Could not find the review with the ID ${reviewId}` });
+      }
+
+      // Check if the review is a log
+      if (review.log) {
+        return res.status(400).json({ msg: "You can not like a log" });
+      }
+
+      // Check if user has already liked this review
+      if (review.likers && review.likers.includes(req.user.id)) {
+        return res
+          .status(400)
+          .json({ msg: "You have already liked this review" });
+      }
+
+      Review.findOneAndUpdate(
+        { _id: reviewId },
+        { $push: { likers: req.user.id } },
+        { new: true }
+      )
+        .then((updatedReview) => {
+          return res.json(updatedReview);
+        })
+        .catch((err) => {
+          return console.log(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+// @route    PUT "/unlike"
+// @desc.    Like unlike
+// @access   Private
+router.put("/unlike", auth, (req, res) => {
+  const { reviewId } = req.body;
+
+  // Simple validation
+  if (!reviewId) {
+    return res.status(400).json({ msg: "ReviewId cannot be undfined" });
+  }
+
+  if (!mongoose.isValidObjectId(reviewId)) {
+    return res
+      .status(400)
+      .json({ msg: "The ID of the review you want to unlike is invalid" });
+  }
+
+  Review.findById(reviewId)
+    .then((review) => {
+      if (!review) {
+        return res
+          .status(404)
+          .json({ msg: `Could not find the review with the ID ${reviewId}` });
+      }
+
+      if (review.likers && !review.likers.includes(req.user.id)) {
+        return res.status(400).json({
+          msg: "You have not liked this review, therefore you can not unlike it",
+        });
+      }
+
+      Review.findOneAndUpdate(
+        { _id: reviewId },
+        { $pull: { likers: req.user.id } },
+        { new: true }
+      )
+        .then((updatedReview) => {
+          return res.json(updatedReview);
+        })
+        .catch((err) => {
+          return console.log(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
     });
 });
 

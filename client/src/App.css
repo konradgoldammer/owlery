@@ -1,0 +1,395 @@
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
+
+/***** RESET ******/
+
+* {
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+/***** GLOBAL VARIABLES ******/
+
+:root {
+  --main-background-color: #252525;
+  --primary-color: #ffda14;
+  --secondary-color: #00e6ff;
+  --dark-color: #0d0d0d;
+  --light-text-color: #fafafa;
+  --secondary-text-color: #c4c4c4;
+  --font-family: "Roboto", sans-serif;
+  --heading-font-family: "Playfair Display", serif;
+}
+
+/***** SHARED COMPONENTS ******/
+
+.navbar-brand {
+  font-family: "Righteous";
+}
+
+.main-footer {
+  background-color: var(--secondary-text-color);
+  height: 150px;
+  color: var(--dark-color);
+  font-size: 14px !important;
+}
+
+.footer-brand {
+  font-family: "Righteous";
+  font-size: 1.25rem !important;
+}
+
+.review-card-image {
+  border: 1px var(--light-text-color) solid;
+  border-radius: 5px;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-family: var(--heading-font-family);
+  color: var(--light-text-color);
+}
+
+.card-title:hover {
+  text-decoration: underline;
+}
+
+.review-card-content {
+  color: var(--secondary-text-color);
+}
+
+.review-show-more-button {
+  color: var(--secondary-color);
+}
+
+.review-show-more-button:hover {
+  text-decoration: underline;
+}
+
+.card {
+  background-color: var(--dark-color);
+  border-radius: 5px;
+  font-size: 12px;
+  color: var(--light-text-color);
+}
+
+.card-stats {
+  font-size: 14px;
+}
+
+.log-card-calendar-image {
+  filter: invert(100%) sepia(35%) saturate(0%) hue-rotate(319deg)
+    brightness(104%) contrast(96%);
+}
+
+.to-bottom {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+/***** MAIN VALUES ******/
+
+html,
+body {
+  min-height: 100vh;
+  max-width: 100%;
+  overflow-x: hidden;
+  background-color: var(--main-background-color);
+  font-family: var(--font-family);
+  color: var(--light-text-color);
+  position: relative;
+}
+
+/***** HOME ******/
+
+.main-navbar {
+  background-color: var(--dark-color);
+}
+
+.searchbar {
+  position: absolute;
+  width: 30%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.navbar-link {
+  font-size: 0.875rem;
+}
+
+.searchbar-input {
+  background-color: var(--light-text-color);
+  border-top-left-radius: 0.2em;
+  border-bottom-left-radius: 0.2em;
+  border-right-width: 0ch;
+}
+
+.searchbar-span {
+  background-color: var(--light-text-color);
+  border-radius: 0;
+  border-top-right-radius: 0.2em;
+  border-bottom-right-radius: 0.2em;
+}
+
+.profile-dropdown-menu {
+  background-color: var(--main-background-color);
+  padding: 0;
+  overflow: hidden;
+}
+
+.profile-dropdown-item {
+  font-size: 0.875rem;
+  color: var(--light-text-color);
+  text-align: center;
+}
+
+.profile-dropdown-toggle {
+  color: var(--secondary-text-color);
+  font-size: 0.875rem;
+}
+
+.profile-dropdown-toggle:hover {
+  color: var(--light-text-color);
+}
+
+.profile-dropdown-toggle:focus {
+  color: var(--secondary-text-color);
+}
+
+.header {
+  background-color: var(--dark-color);
+  height: 100vh;
+  position: relative;
+}
+
+.header-text {
+  color: var(--light-text-color);
+  font-family: var(--heading-font-family);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+mark {
+  color: var(--primary-color);
+  background: none;
+}
+
+/***** SIGN UP / LOGIN ******/
+
+.access-container {
+  color: var(--light-text-color);
+  display: flex;
+  flex-flow: column wrap;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+}
+
+.access-form {
+  width: 100%;
+  height: 100%;
+  background: var(--dark-color);
+  border-radius: 5px;
+  padding: 15px 40px;
+}
+
+.access-title {
+  font-family: "Righteous";
+  font-size: 1.5em;
+}
+
+.inside-access-form {
+  text-align: left;
+}
+
+label[for="email"],
+[for="data"],
+[for="username"],
+[for="password"],
+[for="confirmPassword"] {
+  font-size: 14px;
+  position: relative;
+}
+
+.form-check {
+  font-size: 12px;
+}
+
+input {
+  max-height: 30px;
+  width: 100%;
+}
+
+p.choose-other-access-option {
+  font-size: 12px;
+}
+
+.small-footer {
+  font-size: 12px;
+}
+
+.forgot-password {
+  font-size: 12px;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-40%);
+}
+
+.error-msg-alert {
+  font-size: 12px;
+}
+
+/***** T&C & PP ******/
+
+.terms-container,
+.privacy-container {
+  color: var(--light-text-color);
+  margin: 2%;
+}
+
+h2.terms-title,
+h2.privacy-title {
+  text-align: center;
+  margin-bottom: 3%;
+}
+
+.terms-container h3,
+.privacy-container h3 {
+  margin: 1.5% 0;
+}
+
+/***** FORGOT PASSWORD ******/
+
+.forgot-container {
+  color: var(--light-text-color);
+  display: flex;
+  flex-flow: column wrap;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 20%;
+}
+
+.forgot-form {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  padding: 100px 30px;
+  background: var(--dark-color);
+  border-radius: 5px;
+}
+
+/***** PROFILE PAGE ******/
+
+.profile-header {
+  padding-top: 56px;
+  background-color: var(--dark-color);
+  color: var(--light-text-color);
+}
+
+.rs-nav-item-content {
+  color: white !important;
+  font-weight: bold;
+}
+.rs-nav-item-content:hover {
+  color: black !important;
+}
+
+.profile-pic {
+  height: 150px;
+  width: auto;
+  border-radius: 100%;
+  border: 2px var(--light-text-color) solid;
+}
+
+.profile-header-numbers {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.profile-header-numbers-element {
+  background-color: var(--dark-color);
+  color: var(--secondary-text-color);
+}
+
+.profile-header-numbers-element:hover {
+  color: var(--light-text-color);
+}
+
+.profile-header-numbers-text-bottom {
+  font-size: 12px;
+}
+
+.profile-header-info {
+  display: flex;
+}
+
+.profile-name {
+  font-family: var(--heading-font-family);
+}
+
+.profile-header-info-element {
+  color: var(--secondary-text-color);
+  font-size: 12px;
+}
+
+.profile-header-nav {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.profile-header-nav-element {
+  font-size: 14px;
+  color: var(--light-text-color);
+  background-color: var(--dark-color);
+  border-start-end-radius: 5px;
+  border-start-start-radius: 5px;
+}
+
+.profile-header-nav-selected {
+  background-color: var(--main-background-color);
+}
+
+.section-heading {
+  font-size: 1.25rem;
+}
+
+.section-separator {
+  border: 1px var(--secondary-text-color) solid;
+}
+
+.podcast-column {
+  height: auto;
+  width: 100%;
+}
+
+.podcast-column-image {
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  border: 2px var(--light-text-color) solid;
+}
+
+.podcast-column-image:hover {
+  border: 2px var(--secondary-text-color) solid;
+  opacity: 0.8;
+}
+
+.podcast-column-listeners {
+  color: var(--light-text-color);
+}
+
+.podcast-column-likes {
+  color: var(--light-text-color);
+}

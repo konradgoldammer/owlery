@@ -1,0 +1,119 @@
+$theme-colors: (
+  "primary": #ffda14,
+  "secondary": #00e6ff,
+  "danger": #ff4136,
+  "light": #fafafa,
+  "dark": #0d0d0d,
+);
+
+$secondary-text-color: #c4c4c4;
+$main-background-color: #252525;
+
+.text-secondary-text-color {
+  color: $secondary-text-color;
+  &:hover {
+    color: lighten($secondary-text-color, 20%);
+  }
+}
+
+.link-secondary:hover {
+  color: lighten(map-get($theme-colors, "secondary"), 20%) !important;
+}
+
+.searchbar-icon {
+  color: map-get($theme-colors, "dark");
+  &:hover {
+    color: lighten(map-get($theme-colors, "dark"), 20%) !important;
+  }
+}
+
+.profile-dropdown-item:active {
+  background-color: $main-background-color !important;
+}
+
+.profile-dropdown-item:hover {
+  background-color: lighten($main-background-color, 20%) !important;
+  &:hover {
+    color: map-get($theme-colors, "light");
+  }
+}
+
+.logout {
+  &:hover {
+    background-color: map-get($theme-colors, "danger") !important;
+  }
+}
+
+.input-error {
+  border: map-get($theme-colors, "danger") 2px solid !important;
+}
+
+.profile-header-nav-unselected {
+  &:hover {
+    background-color: lighten($main-background-color, 20%) !important;
+  }
+}
+
+.footer-nav-link {
+  color: map-get($theme-colors, "dark");
+  font-size: 14px;
+  &:hover {
+    color: lighten(map-get($theme-colors, "dark"), 20%);
+  }
+}
+
+.footer-socials-element {
+  font-size: 1.25rem;
+}
+
+.footer-socials-icon {
+  color: map-get($theme-colors, "dark");
+  &:hover {
+    color: lighten(map-get($theme-colors, "dark"), 20%) !important;
+  }
+}
+
+.card-author {
+  color: map-get($theme-colors, "light");
+  &:hover {
+    color: darken(map-get($theme-colors, "light"), 20%);
+  }
+}
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+.log-card-calendar-number {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: $main-background-color;
+  font-family: var(--font-family);
+}
+
+@include media-breakpoint-up(md) {
+  .log-card-calendar-number {
+    top: 0.75rem;
+    font-size: 1rem;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .log-card-calendar-number {
+    top: 1.25rem;
+    font-size: 1.5rem;
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .log-card-calendar-number {
+    top: 1.75rem;
+    font-size: 2rem;
+  }
+}
+
+@include media-breakpoint-up(xxl) {
+  .log-card-calendar-number {
+    top: 2.25rem;
+    font-size: 2.5rem;
+  }
+}
