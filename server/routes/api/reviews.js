@@ -296,6 +296,25 @@ router.get("/user/:userId", (req, res) => {
     });
 });
 
+// @route    GET "/user/logs/:userId?skip=xxx"
+// @desc.    Get reviews of a user (sorted by date)
+// @access   Public
+router.get("/user/logs/:userId", (req, res) => {
+  const userId = req.params.userId;
+  let skip = Number(req.query.skip) || 0;
+  if (skip === NaN) {
+    skip = 0;
+  }
+
+  Review.find({ authorId: userId }, {}, { skip, limit: 5, sort: { date: -1 } })
+    .then((reviews) => {
+      return res.json(reviews.map((review) => review.toObject()));
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+});
+
 // @route    PUT "/like"
 // @desc.    Like review
 // @access   Private
