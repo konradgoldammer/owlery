@@ -12,7 +12,6 @@ const reviewSchema = new Schema({
   },
   content: {
     type: String,
-    required: true,
   },
   log: {
     type: Boolean,

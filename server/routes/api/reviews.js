@@ -49,15 +49,9 @@ const addAuthorObjects = (reviews) => {
 router.post("/", auth, (req, res) => {
   const { content, episodeId } = req.body;
 
-  // Simple validation of body data
-  if (!content) {
-    return res.status(400).json({ msg: "Please enter all fields" });
-  }
-
+  // Simple validation
   if (!episodeId) {
-    return res
-      .status(400)
-      .json({ msg: "Did not receive ID of episode you want to review" });
+    return res.status(400).json({ msg: "EpisodeId cannot be undefined" });
   }
 
   // Fetch episode data
@@ -80,6 +74,7 @@ router.post("/", auth, (req, res) => {
       const newReview = new Review({
         episode,
         content,
+        log: !content,
         authorId: req.user.id,
       });
 
@@ -186,7 +181,10 @@ router.get("/", (req, res) => {
   }
 
   Review.find(
-    { date: { $gte: new Date(new Date() - 7 * 60 * 60 * 24 * 1000) } },
+    {
+      date: { $gte: new Date(new Date() - 7 * 60 * 60 * 24 * 1000) },
+      log: false,
+    },
     {},
     { skip, limit: 5, sort: { totalLikes: -1 } }
   )
@@ -227,7 +225,7 @@ router.get("/:episodeId", (req, res) => {
   }
 
   Review.find(
-    { "episode.id": episodeId },
+    { "episode.id": episodeId, log: false },
     {},
     { skip, limit: 5, sort: { totalLikes: -1 } }
   )
@@ -267,7 +265,11 @@ router.get("/user/:userId", (req, res) => {
     skip = 0;
   }
 
-  Review.find({ authorId: userId }, {}, { skip, limit: 5, sort: { date: -1 } })
+  Review.find(
+    { authorId: userId, log: false },
+    {},
+    { skip, limit: 5, sort: { date: -1 } }
+  )
     .then((reviews) => {
       // Convert Mongo objects to regular objects
       const reviewObjects = reviews.map((review) => review.toObject());
@@ -319,6 +321,12 @@ router.put("/like", auth, (req, res) => {
           .json({ msg: `Could not find the review with the ID ${reviewId}` });
       }
 
+      // Check if the review is a log
+      if (review.log) {
+        return res.status(400).json({ msg: "You can not like a log" });
+      }
+
+      // Check if user has already liked this review
       if (review.likers && review.likers.includes(req.user.id)) {
         return res
           .status(400)
