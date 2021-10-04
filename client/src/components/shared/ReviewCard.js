@@ -29,7 +29,10 @@ const ReviewCard = (props) => {
             <h5 className="card-title mb-0">{review.episode.title}</h5>
           </Link>
           <div className="review-card-info mt-1">
-            <Link className="d-inline text-decoration-none">
+            <Link
+              className="d-inline text-decoration-none"
+              to={`/${review.author.username}`}
+            >
               <p className="card-author d-inline">
                 <FaUserCircle className="me-1" />
                 {review.author.username}

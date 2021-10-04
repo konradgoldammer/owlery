@@ -32,7 +32,10 @@ const LogCard = (props) => {
             <h5 className="card-title mb-0">{log.episode.title}</h5>
           </Link>
           <div className="card-info mt-1">
-            <Link className="d-inline text-decoration-none">
+            <Link
+              to={`/${log.author.username}`}
+              className="d-inline text-decoration-none"
+            >
               <p className="card-author d-inline">
                 <FaUserCircle className="me-1" />
                 {log.author.username}
