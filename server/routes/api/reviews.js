@@ -308,7 +308,13 @@ router.get("/user/logs/:userId", (req, res) => {
 
   Review.find({ authorId: userId }, {}, { skip, limit: 5, sort: { date: -1 } })
     .then((reviews) => {
-      return res.json(reviews.map((review) => review.toObject()));
+      // Convert Mongo objects to regular objects
+      const reviewObjects = reviews.map((review) => review.toObject());
+
+      // Add author objects to review objects for the response JSON
+      addAuthorObjects(reviewObjects).then((reviewsWithAuthorObject) => {
+        return res.json(reviewsWithAuthorObject);
+      });
     })
     .catch((err) => {
       return console.log(err);
