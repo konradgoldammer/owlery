@@ -36,20 +36,20 @@ router.post("/", (req, res) => {
         res.status(400).json({ msg: "Wrong credentials" });
       }
 
-      jwt.sign(
-        { id: user.id },
-        config.get("jwtSecret"),
-        { expiresIn: 3600 },
-        (err, token) => {
-          if (err) {
-            throw err;
-          }
-          res.json({
-            token,
-            user: { id: user.id, username: user.username, email: user.email },
-          });
+      jwt.sign({ id: user.id }, config.get("jwtSecret"), (err, token) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ msg: "Could not create JWT token" });
         }
-      );
+
+        // Convert Mongo object to regular object
+        const userObject = user.toObject();
+
+        res.json({
+          token,
+          user: { ...userObject, password: undefined },
+        });
+      });
     });
   });
 });
