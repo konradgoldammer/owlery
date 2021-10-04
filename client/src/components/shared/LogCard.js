@@ -23,7 +23,7 @@ const LogCard = (props) => {
             alt=""
             className="log-card-calendar-image w-100 p-0"
           />
-          <p className="log-card-calendar-number bold">
+          <p className="log-card-calendar-number fw-bold">
             {new Date(log.date).getDate()}
           </p>
         </div>
