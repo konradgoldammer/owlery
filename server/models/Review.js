@@ -14,6 +14,10 @@ const reviewSchema = new Schema({
     type: String,
     required: true,
   },
+  log: {
+    type: Boolean,
+    required: true,
+  },
   likers: {
     type: Array,
     default: [],
