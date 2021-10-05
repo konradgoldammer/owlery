@@ -43,6 +43,10 @@ const userSchema = new Schema({
     type: Array,
     default: [],
   },
+  location: {
+    type: String,
+    default: null,
+  },
 });
 
 const User = mongoose.model("user", userSchema);
