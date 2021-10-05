@@ -9,6 +9,9 @@ import {
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  USER_UPDATING,
+  USER_UPDATED,
+  USER_UPDATE_ERROR,
 } from "./types";
 
 // Check token and load user
@@ -84,6 +87,20 @@ export const logout = () => {
   return {
     type: LOGOUT_SUCCESS,
   };
+};
+
+// Update user
+export const updateLocation = (newLocation) => (dispatch, getState) => {
+  // User updating
+  dispatch({ type: USER_UPDATING });
+
+  axios
+    .put("/api/users/location", tokenConfig(getState))
+    .then((res) => dispatch({ type: USER_UPDATED, payload: res.data }))
+    .catch((err) => {
+      dispatch(returnErrors(err.response.data.msg, err.response.status));
+      dispatch({ type: USER_UPDATE_ERROR });
+    });
 };
 
 // Setup config/headers and token
