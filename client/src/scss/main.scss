@@ -92,28 +92,28 @@ $main-background-color: #252525;
 
 @include media-breakpoint-up(md) {
   .log-card-calendar-number {
-    top: 0.75rem;
+    top: 12px;
     font-size: 1rem;
   }
 }
 
 @include media-breakpoint-up(lg) {
   .log-card-calendar-number {
-    top: 1.25rem;
+    top: 20px;
     font-size: 1.5rem;
   }
 }
 
 @include media-breakpoint-up(xl) {
   .log-card-calendar-number {
-    top: 1.75rem;
+    top: 26px;
     font-size: 2rem;
   }
 }
 
 @include media-breakpoint-up(xxl) {
   .log-card-calendar-number {
-    top: 2.25rem;
+    top: 32px;
     font-size: 2.5rem;
   }
 }

@@ -10886,25 +10886,25 @@ textarea.form-control-lg {
 
 @media (min-width: 768px) {
   .log-card-calendar-number {
-    top: 0.75rem;
+    top: 12px;
     font-size: 1rem;
   }
 }
 @media (min-width: 992px) {
   .log-card-calendar-number {
-    top: 1.25rem;
+    top: 20px;
     font-size: 1.5rem;
   }
 }
 @media (min-width: 1200px) {
   .log-card-calendar-number {
-    top: 1.75rem;
+    top: 26px;
     font-size: 2rem;
   }
 }
 @media (min-width: 1400px) {
   .log-card-calendar-number {
-    top: 2.25rem;
+    top: 32px;
     font-size: 2.5rem;
   }
 }
