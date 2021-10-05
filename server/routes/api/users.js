@@ -179,7 +179,7 @@ router.get("/:username", (req, res) => {
           .status(404)
           .json({ msg: "Could not find user with that username" });
       }
-      res.json(user);
+      return res.json(user);
     });
 });
 
