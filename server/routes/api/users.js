@@ -471,4 +471,29 @@ router.put("/remove-favorite-podcast", auth, (req, res) => {
     });
 });
 
+// @route    Put "/location"
+// @desc.    Set location of user
+// @access   Private
+router.put("/location", auth, (req, res) => {
+  const { newLocation } = req.body;
+
+  // Simple validation
+  if (!newLocation && newLocation !== null) {
+    return res.status(400).json({ msg: "NewLocation cannot be undefined" });
+  }
+
+  // Update location in database
+  User.findOneAndUpdate(
+    { _id: req.user.id },
+    { location: newLocation },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      return res.json(updatedUser);
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+});
+
 module.exports = router;
