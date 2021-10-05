@@ -39,7 +39,9 @@ const EditProfile = () => {
           </div>
         </FormGroup>
         {error.id === "USER_UPDATE_ERROR" && (
-          <Alert color="danger p-2 error-msg-alert">{error.msg}</Alert>
+          <Alert color="danger p-2 error-msg-alert mt-2 mb-0">
+            {error.msg}
+          </Alert>
         )}
         <Button
           className="btn btn-sm w-100 text-uppercase mt-2"

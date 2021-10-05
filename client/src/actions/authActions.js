@@ -107,7 +107,13 @@ export const updateUser = (changes) => (dispatch, getState) => {
       dispatch({ type: USER_UPDATED, payload: updatedUser });
     })
     .catch((err) => {
-      dispatch(returnErrors(err.response.data.msg, err.response.status));
+      dispatch(
+        returnErrors(
+          err.response.data.msg,
+          err.response.status,
+          "USER_UPDATE_ERROR"
+        )
+      );
       dispatch({ type: USER_UPDATE_ERROR });
     });
 };

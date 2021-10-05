@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import store from "../../store";
 import MainNavbar from "../shared/MainNavbar";
 import MainFooter from "../shared/MainFooter";
 import profilePic from "../images/profile.png";
@@ -19,11 +20,13 @@ import { useParams } from "react-router-dom";
 import { titleSuffix } from "../../vars";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { clearErrors } from "../../actions/errorActions";
 
 const Profile = (props) => {
   const { username } = useParams();
 
   const auth = useSelector((state) => state.auth);
+  const error = useSelector((state) => state.error);
 
   // User object
   const [user, setUser] = useState(undefined);
@@ -36,7 +39,12 @@ const Profile = (props) => {
     }
     if (!auth.user.isUpdatingUser) {
       setShowEditProfile(false);
+
+      if (error.id === "USER_UPDATE_ERROR") {
+        store.dispatch(clearErrors());
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth.user]);
 
   useEffect(() => {
