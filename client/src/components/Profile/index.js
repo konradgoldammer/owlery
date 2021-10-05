@@ -125,7 +125,7 @@ const Profile = (props) => {
                   <h3 className="profile-name">
                     {user ? user.username : "loading..."}
                   </h3>
-                  {user && !showEditProfile && (
+                  {user && user.location && !showEditProfile && (
                     <p className="profile-header-info-element m-0">
                       <FaMapMarkerAlt className="me-2" />
                       {user.location}
