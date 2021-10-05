@@ -94,7 +94,7 @@ const ReviewCard = (props) => {
               "..."}
             {review.content.length > maxReviewContentLength && (
               <button
-                className="review-show-more-button bg-transparent"
+                className="text-secondary hover-underline bg-transparent"
                 title={showMore ? "show less" : "show more"}
                 onClick={(e) => {
                   e.preventDefault();

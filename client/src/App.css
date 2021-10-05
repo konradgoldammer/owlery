@@ -24,6 +24,20 @@
 
 /***** SHARED COMPONENTS ******/
 
+.fs-0 {
+  font-size: 0;
+}
+
+.hover-underline:hover {
+  text-decoration: underline;
+}
+
+.to-bottom {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
 .navbar-brand {
   font-family: "Righteous";
 }
@@ -59,14 +73,6 @@
   color: var(--secondary-text-color);
 }
 
-.review-show-more-button {
-  color: var(--secondary-color);
-}
-
-.review-show-more-button:hover {
-  text-decoration: underline;
-}
-
 .card {
   background-color: var(--dark-color);
   border-radius: 5px;
@@ -83,10 +89,8 @@
     brightness(104%) contrast(96%);
 }
 
-.to-bottom {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+.edit-profile {
+  font-size: 12px;
 }
 
 /***** MAIN VALUES ******/
@@ -211,6 +215,7 @@ label[for="email"],
 [for="data"],
 [for="username"],
 [for="password"],
+[for="location"],
 [for="confirmPassword"] {
   font-size: 14px;
   position: relative;
@@ -340,6 +345,10 @@ h2.privacy-title {
 
 .profile-header-info-element {
   color: var(--secondary-text-color);
+  font-size: 12px;
+}
+
+.profile-header-info-button {
   font-size: 12px;
 }
 

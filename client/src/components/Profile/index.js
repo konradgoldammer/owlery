@@ -4,7 +4,7 @@ import MainNavbar from "../shared/MainNavbar";
 import MainFooter from "../shared/MainFooter";
 import profilePic from "../images/profile.png";
 import { Button } from "reactstrap";
-import { FaMapMarkerAlt, FaCalendarAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaCalendarAlt, FaPen } from "react-icons/fa";
 import Overview from "./Overview";
 import Podcasts from "./Podcasts";
 import Diary from "./Diary";
@@ -13,6 +13,7 @@ import Lists from "./Lists";
 import Likes from "./Likes";
 import Followers from "./Followers";
 import Following from "./Following";
+import EditProfile from "./EditProfile";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { titleSuffix } from "../../vars";
@@ -25,7 +26,18 @@ const Profile = (props) => {
   const auth = useSelector((state) => state.auth);
 
   // User object
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(undefined);
+
+  const [showEditProfile, setShowEditProfile] = useState(false);
+
+  useEffect(() => {
+    if (!auth.user) {
+      return;
+    }
+    if (!auth.user.isUpdatingUser) {
+      setShowEditProfile(false);
+    }
+  }, [auth.user]);
 
   useEffect(() => {
     // Set page title
@@ -44,7 +56,7 @@ const Profile = (props) => {
         // TODO: Handle error
         console.log(err);
       });
-  }, [props.title, username]);
+  }, [props.title, username, auth.user]);
 
   // Stores the subpage that the user is on
   const [subpage, setSubpage] = useState("overview");
@@ -109,17 +121,17 @@ const Profile = (props) => {
                   alt="profilepicture"
                   className="profile-pic mb-3"
                 />
-                <div className="ms-4 w-100 position-relative">
+                <div className="ms-4 w-100 position-relative fs-0">
                   <h3 className="profile-name">
                     {user ? user.username : "loading..."}
                   </h3>
-                  {user && (
+                  {user && !showEditProfile && (
                     <p className="profile-header-info-element m-0">
                       <FaMapMarkerAlt className="me-2" />
-                      Leipzig, Germany
+                      {user.location}
                     </p>
                   )}
-                  {user && (
+                  {user && !showEditProfile && (
                     <p className="profile-header-info-element m-0">
                       <FaCalendarAlt className="me-2" />
                       {`Member since ${new Date(
@@ -127,16 +139,30 @@ const Profile = (props) => {
                       ).toLocaleDateString()}`}
                     </p>
                   )}
-                  <Button
-                    className="btn btn-sm text-uppercase mt-2 px-5 mb-5"
-                    color="primary"
-                    onClick={handleFollow}
-                    disabled={validateFollow()}
-                  >
-                    <strong>
-                      {followOrUnfollow() ? "Unfollow" : "Follow"}
-                    </strong>
-                  </Button>
+                  {user && auth.user && user._id === auth.user._id && (
+                    <button
+                      className={`profile-header-info-button bg-transparent hover-underline p-0 ${
+                        showEditProfile ? "text-danger" : "text-secondary"
+                      }`}
+                      onClick={() => setShowEditProfile(!showEditProfile)}
+                    >
+                      <FaPen className="me-2" />
+                      {showEditProfile ? "Close" : "Edit profile"}
+                    </button>
+                  )}
+                  {showEditProfile && <EditProfile />}
+                  {!showEditProfile && (
+                    <Button
+                      className="btn btn-sm text-uppercase mt-2 px-5 mb-5 d-block"
+                      color="primary"
+                      onClick={handleFollow}
+                      disabled={validateFollow()}
+                    >
+                      <strong>
+                        {followOrUnfollow() ? "Unfollow" : "Follow"}
+                      </strong>
+                    </Button>
+                  )}
                   <div className="profile-header-nav row w-100 m-0">
                     <button
                       onClick={() => setSubpage("overview")}
