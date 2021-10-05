@@ -409,10 +409,12 @@ router.put("/add-favorite-podcast", auth, (req, res) => {
           // Add podcast to favoritePodcasts array in the database
           User.findOneAndUpdate(
             { _id: req.user.id },
-            { $push: { favoritePodcasts: podcast } }
+            { $push: { favoritePodcasts: podcast } },
+            { new: true }
           )
-            .then(() => {
-              return res.json(podcast);
+            .select("-password")
+            .then((updatedUser) => {
+              return res.json(updatedUser);
             })
             .catch((err) => {
               return console.log(err);
@@ -457,10 +459,12 @@ router.put("/remove-favorite-podcast", auth, (req, res) => {
       // Remove podcast from favoritePodcasts array in the database
       User.findOneAndUpdate(
         { _id: req.user.id },
-        { $pull: { favoritePodcasts: podcastToRemove } }
+        { $pull: { favoritePodcasts: podcastToRemove } },
+        { new: true }
       )
-        .then(() => {
-          return res.json(podcastToRemove);
+        .select("-password")
+        .then((updatedUser) => {
+          return res.json(updatedUser);
         })
         .catch((err) => {
           return console.log(err);
