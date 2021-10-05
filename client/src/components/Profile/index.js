@@ -152,7 +152,12 @@ const Profile = (props) => {
                       className={`profile-header-info-button bg-transparent hover-underline p-0 ${
                         showEditProfile ? "text-danger" : "text-secondary"
                       }`}
-                      onClick={() => setShowEditProfile(!showEditProfile)}
+                      onClick={() => {
+                        if (showEditProfile) {
+                          store.dispatch(clearErrors());
+                        }
+                        setShowEditProfile(!showEditProfile);
+                      }}
                     >
                       <FaPen className="me-2" />
                       {showEditProfile ? "Close" : "Edit profile"}
