@@ -478,8 +478,11 @@ router.put("/location", auth, (req, res) => {
   const { newLocation } = req.body;
 
   // Simple validation
-  if (!newLocation && newLocation !== null) {
-    return res.status(400).json({ msg: "NewLocation cannot be undefined" });
+  if (
+    (!newLocation && newLocation !== null) ||
+    typeof newLocation !== "string"
+  ) {
+    return res.status(400).json({ msg: "Please enter a valid location" });
   }
 
   // Update location in database
