@@ -90,13 +90,22 @@ export const logout = () => {
 };
 
 // Update user
-export const updateLocation = (newLocation) => (dispatch, getState) => {
+export const updateUser = (changes) => (dispatch, getState) => {
   // User updating
   dispatch({ type: USER_UPDATING });
 
+  let updatedUser = null;
+
   axios
-    .put("/api/users/location", tokenConfig(getState))
-    .then((res) => dispatch({ type: USER_UPDATED, payload: res.data }))
+    .put(
+      "/api/users/location",
+      { newLocation: changes.newLocation },
+      tokenConfig(getState)
+    )
+    .then((res) => {
+      updatedUser = res.data;
+      dispatch({ type: USER_UPDATED, payload: updatedUser });
+    })
     .catch((err) => {
       dispatch(returnErrors(err.response.data.msg, err.response.status));
       dispatch({ type: USER_UPDATE_ERROR });
