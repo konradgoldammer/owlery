@@ -64,7 +64,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isUpdatingUser: false,
-        user: { ...state.user, location: action.payload },
+        user: action.payload,
       };
     case USER_UPDATE_ERROR:
       return {
