@@ -23,9 +23,12 @@ const Overview = (props) => {
         newUser.favoritePodcasts.push(null);
       }
     }
+    if (user._id !== newUser._id) {
+      setRecentReviews([]);
+      setRecentLogs([]);
+    }
     setUser(newUser);
-    setRecentReviews([]);
-    setRecentLogs([]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.user]);
 
   useEffect(() => {
