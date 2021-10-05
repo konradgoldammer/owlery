@@ -488,6 +488,7 @@ router.put("/location", auth, (req, res) => {
     { location: newLocation },
     { new: true }
   )
+    .select("-password")
     .then((updatedUser) => {
       return res.json(updatedUser);
     })
