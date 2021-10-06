@@ -6,6 +6,7 @@ const Review = require("../../models/Review");
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
+const validator = require("validator");
 const auth = require("../../middleware/auth");
 const { Client } = require("podcast-api");
 
@@ -493,6 +494,32 @@ router.put("/location", auth, (req, res) => {
   User.findOneAndUpdate(
     { _id: req.user.id },
     { location: newLocation },
+    { new: true }
+  )
+    .select("-password")
+    .then((updatedUser) => {
+      return res.json(updatedUser);
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+});
+
+// @route    Put "/website"
+// @desc.    Set website of user
+// @access   Private
+router.put("/location", auth, (req, res) => {
+  const { newWebsite } = req.body;
+
+  // Simple validation
+  if (validator.isURL(newWebsite)) {
+    return res.status(400).json({ msg: "Please enter a valid website" });
+  }
+
+  // Update location in database
+  User.findOneAndUpdate(
+    { _id: req.user.id },
+    { website: newWebsite },
     { new: true }
   )
     .select("-password")
