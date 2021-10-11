@@ -5,7 +5,7 @@ import MainNavbar from "../shared/MainNavbar";
 import MainFooter from "../shared/MainFooter";
 import profilePic from "../images/profile.png";
 import { Button } from "reactstrap";
-import { FaMapMarkerAlt, FaCalendarAlt, FaPen } from "react-icons/fa";
+import { FaMapMarkerAlt, FaCalendarAlt, FaPen, FaLink } from "react-icons/fa";
 import Overview from "./Overview";
 import Podcasts from "./Podcasts";
 import Diary from "./Diary";
@@ -145,6 +145,19 @@ const Profile = (props) => {
                       {`Member since ${new Date(
                         user.date
                       ).toLocaleDateString()}`}
+                    </p>
+                  )}
+                  {user && user.website && !showEditProfile && (
+                    <p className="profile-header-info-element m-0">
+                      <FaLink className="me-2" />
+                      <a
+                        href={user.website}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        className="profile-header-info-link"
+                      >
+                        {user.website}
+                      </a>
                     </p>
                   )}
                   {user && auth.user && user._id === auth.user._id && (

@@ -66,6 +66,15 @@
   color: #c7c7c7;
 }
 
+.profile-header-info-link {
+  color: #c4c4c4;
+  text-decoration: none;
+}
+.profile-header-info-link:hover {
+  color: #c4c4c4;
+  text-decoration: underline;
+}
+
 /*!
  * Bootstrap v5.1.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors

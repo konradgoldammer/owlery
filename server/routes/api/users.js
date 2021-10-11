@@ -484,8 +484,8 @@ router.put("/location", auth, (req, res) => {
 
   // Simple validation
   if (
-    (!newLocation && newLocation !== null) ||
-    typeof newLocation !== "string"
+    (!newLocation || typeof newLocation !== "string") &&
+    newLocation !== null
   ) {
     return res.status(400).json({ msg: "Please enter a valid location" });
   }
@@ -508,11 +508,14 @@ router.put("/location", auth, (req, res) => {
 // @route    Put "/website"
 // @desc.    Set website of user
 // @access   Private
-router.put("/location", auth, (req, res) => {
+router.put("/website", auth, (req, res) => {
   const { newWebsite } = req.body;
 
   // Simple validation
-  if (validator.isURL(newWebsite)) {
+  if (
+    newWebsite !== null &&
+    !validator.isURL(newWebsite, { require_protocol: true })
+  ) {
     return res.status(400).json({ msg: "Please enter a valid website" });
   }
 

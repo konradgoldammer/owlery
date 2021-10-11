@@ -90,13 +90,16 @@ export const logout = () => {
 };
 
 // Update user
-export const updateUser = (changes) => (dispatch, getState) => {
+export const updateUser = (changes) => async (dispatch, getState) => {
   // User updating
   dispatch({ type: USER_UPDATING });
 
   let updatedUser = null;
+  let error = false;
 
-  axios
+  console.log("changes", changes);
+
+  await axios
     .put(
       "/api/users/location",
       { newLocation: changes.newLocation },
@@ -104,9 +107,31 @@ export const updateUser = (changes) => (dispatch, getState) => {
     )
     .then((res) => {
       updatedUser = res.data;
-      dispatch({ type: USER_UPDATED, payload: updatedUser });
     })
     .catch((err) => {
+      error = true;
+      dispatch(
+        returnErrors(
+          err.response.data.msg,
+          err.response.status,
+          "USER_UPDATE_ERROR"
+        )
+      );
+      return dispatch({ type: USER_UPDATE_ERROR });
+    });
+
+  await axios
+    .put(
+      "/api/users/website",
+      { newWebsite: changes.newWebsite },
+      tokenConfig(getState)
+    )
+    .then((res) => {
+      console.log("resdata", res.data);
+      updatedUser = res.data;
+    })
+    .catch((err) => {
+      error = true;
       dispatch(
         returnErrors(
           err.response.data.msg,
@@ -116,6 +141,12 @@ export const updateUser = (changes) => (dispatch, getState) => {
       );
       dispatch({ type: USER_UPDATE_ERROR });
     });
+
+  if (!updatedUser || error) {
+    return;
+  }
+
+  dispatch({ type: USER_UPDATED, payload: updatedUser });
 };
 
 // Setup config/headers and token

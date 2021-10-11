@@ -80,6 +80,15 @@ $main-background-color: #252525;
   }
 }
 
+.profile-header-info-link {
+  color: $secondary-text-color;
+  text-decoration: none;
+  &:hover {
+    color: $secondary-text-color;
+    text-decoration: underline;
+  }
+}
+
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 .log-card-calendar-number {

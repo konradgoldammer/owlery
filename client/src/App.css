@@ -216,6 +216,7 @@ label[for="email"],
 [for="username"],
 [for="password"],
 [for="location"],
+[for="website"],
 [for="confirmPassword"] {
   font-size: 14px;
   position: relative;
