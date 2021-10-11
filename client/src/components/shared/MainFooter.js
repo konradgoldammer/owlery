@@ -9,13 +9,22 @@ const MainFooter = () => {
         <div className="row">
           <div className="col-md-8 mt-4">
             <h4 className="footer-brand text-lowercase d-inline">Owlery</h4>
-            <Link className="footer-nav-link text-decoration-none ms-4">
+            <Link
+              to="/about"
+              className="footer-nav-link text-decoration-none ms-4"
+            >
               <strong>About</strong>
             </Link>
-            <Link className="footer-nav-link text-decoration-none ms-2">
+            <Link
+              to="/help"
+              className="footer-nav-link text-decoration-none ms-2"
+            >
               <strong>Help</strong>
             </Link>
-            <Link className="footer-nav-link text-decoration-none ms-2">
+            <Link
+              to="/contact"
+              className="footer-nav-link text-decoration-none ms-2"
+            >
               <strong>Contact</strong>
             </Link>
             <div className="row">
