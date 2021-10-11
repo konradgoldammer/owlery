@@ -27,6 +27,8 @@ const MainFooter = () => {
               <a
                 href="https://instagram.com"
                 className="footer-socials-element"
+                rel="noopener noreferrer"
+                target="_blank"
                 title="Owlery on Instagram"
               >
                 <FaInstagram className="footer-socials-icon" />
@@ -34,6 +36,8 @@ const MainFooter = () => {
               <a
                 href="https://twitter.com"
                 className="footer-socials-element ms-2"
+                rel="noopener noreferrer"
+                target="_blank"
                 title="Owlery on Twitter"
               >
                 <FaTwitter className="footer-socials-icon" />
@@ -41,6 +45,8 @@ const MainFooter = () => {
               <a
                 href="https://youtube.com"
                 className="footer-socials-element ms-2"
+                rel="noopener noreferrer"
+                target="_blank"
                 title="Owlery on YouTube"
               >
                 <FaYoutube className="footer-socials-icon" />
