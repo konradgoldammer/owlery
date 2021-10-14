@@ -18,6 +18,8 @@ const Overview = (props) => {
   const [showRecentLogsShowMore, setShowRecentLogsShowMore] = useState(true);
   const [isLoadingRecentReviews, setIsLoadingRecentReviews] = useState(false);
   const [recentReviewsFetchError, setRecentReviewsFetchError] = useState(null);
+  const [isLoadingRecentLogs, setIsLoadingRecentLogs] = useState(false);
+  const [recentLogsFetchError, setRecentLogsFetchError] = useState(null);
 
   useEffect(() => {
     const newUser = props.user;
@@ -66,10 +68,17 @@ const Overview = (props) => {
   }, [recentReviewsSkip, user._id]);
 
   useEffect(() => {
+    // Reset fetch recent reviews error
+    setRecentLogsFetchError(null);
+
     // Fetch recent logs
+    setIsLoadingRecentLogs(true);
+
     axios
       .get(`/api/reviews/user/logs/${user._id}?skip=${recentLogsSkip}`)
       .then((res) => {
+        setIsLoadingRecentLogs(false);
+
         if (res.data.length === 0) {
           setShowRecentLogsShowMore(false);
           return;
@@ -77,9 +86,11 @@ const Overview = (props) => {
         setRecentLogs([...recentLogs, ...res.data]);
       })
       .catch((err) => {
-        // TODO: Handle error
-
-        console.log(err);
+        setIsLoadingRecentLogs(false);
+        setRecentLogsFetchError({
+          status: err.response.status,
+          msg: err.response.data.msg,
+        });
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recentLogsSkip, user._id]);
@@ -168,21 +179,40 @@ const Overview = (props) => {
             {recentLogs.map((recentLog) => (
               <LogCard key={recentLog._id} log={recentLog} />
             ))}
-            {showRecentLogsShowMore && (
-              <Button
-                className="w-100 btn btn-sm text-uppercase"
-                color="dark"
-                onClick={() => setRecentLogsSkip(recentLogsSkip + 5)}
-              >
-                <strong>load more...</strong>
-              </Button>
+            {recentLogs.length === 0 &&
+              !recentLogsFetchError &&
+              !isLoadingRecentLogs && (
+                <p className="m-0 p-0">
+                  <mark className="text-capitalize">{user.username}</mark>
+                  has not logged any episodes yet.
+                </p>
+              )}
+            {isLoadingRecentLogs && (
+              <div className="w-100">
+                <img
+                  src={loading1}
+                  alt="loading..."
+                  title="loading..."
+                  className="text-center d-block mx-auto loading-gif"
+                />
+              </div>
             )}
-            {recentLogs.length === 0 && (
-              <p className="m-0 p-0">
-                <mark className="text-capitalize">{user.username}</mark>
-                has not logged any episodes yet.
-              </p>
+            {recentLogsFetchError && (
+              <Alert color="danger fs-small">{`${recentLogsFetchError.status} ${
+                recentLogsFetchError.msg ? recentLogsFetchError.msg : ""
+              }`}</Alert>
             )}
+            {showRecentLogsShowMore &&
+              !recentLogsFetchError &&
+              !isLoadingRecentLogs && (
+                <Button
+                  className="w-100 btn btn-sm text-uppercase"
+                  color="dark"
+                  onClick={() => setRecentLogsSkip(recentLogsSkip + 5)}
+                >
+                  <strong>load more...</strong>
+                </Button>
+              )}
           </div>
         </div>
       </div>
