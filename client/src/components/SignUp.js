@@ -254,27 +254,27 @@ const SignUp = (props) => {
             </Col>
           </FormGroup>
           {error.id === "REGISTER_FAIL" && (
-            <Alert color="danger" className="p-2 mt-1 mb-0 error-msg-alert">
+            <Alert color="danger" className="p-2 mt-1 mb-0 fs-small">
               {error.msg}
             </Alert>
           )}
           {emailError && (
-            <Alert color="danger" className="p-2 mt-1 mb-0 error-msg-alert">
+            <Alert color="danger" className="p-2 mt-1 mb-0 fs-small">
               {emailError}
             </Alert>
           )}
           {usernameError && (
-            <Alert color="danger" className="p-2 mt-1 mb-0 error-msg-alert">
+            <Alert color="danger" className="p-2 mt-1 mb-0 fs-small">
               {usernameError}
             </Alert>
           )}
           {passwordError && (
-            <Alert color="danger" className="p-2 mt-1 mb-0 error-msg-alert">
+            <Alert color="danger" className="p-2 mt-1 mb-0 fs-small">
               {passwordError}
             </Alert>
           )}
           {confirmPasswordError && (
-            <Alert color="danger" className="p-2 mt-1 mb-0 error-msg-alert">
+            <Alert color="danger" className="p-2 mt-1 mb-0 fs-small">
               {confirmPasswordError}
             </Alert>
           )}

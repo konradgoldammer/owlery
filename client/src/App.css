@@ -66,6 +66,10 @@ body {
   right: 0;
 }
 
+.fs-small {
+  font-size: 12px;
+}
+
 /***** SHARED COMPONENTS ******/
 
 .navbar-brand {
@@ -121,6 +125,10 @@ body {
 
 .edit-profile {
   font-size: 12px;
+}
+
+.loading-gif {
+  height: 25px;
 }
 
 /***** HOME ******/
@@ -262,10 +270,6 @@ p.choose-other-access-option {
   right: 12px;
   top: 50%;
   transform: translateY(-40%);
-}
-
-.error-msg-alert {
-  font-size: 12px;
 }
 
 /***** T&C & PP ******/

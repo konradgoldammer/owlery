@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Button } from "reactstrap";
+import { Alert, Button } from "reactstrap";
 import PodcastColumn from "../shared/PodcastColumn";
 import ReviewCard from "../shared/ReviewCard";
 import LogCard from "../shared/LogCard";
+import loading1 from "../images/loading1.gif";
 import axios from "axios";
 
 const Overview = (props) => {
@@ -15,6 +16,8 @@ const Overview = (props) => {
   const [recentLogs, setRecentLogs] = useState([]);
   const [recentLogsSkip, setRecentLogsSkip] = useState(0);
   const [showRecentLogsShowMore, setShowRecentLogsShowMore] = useState(true);
+  const [isLoadingRecentReviews, setIsLoadingRecentReviews] = useState(false);
+  const [recentReviewsFetchError, setRecentReviewsFetchError] = useState(null);
 
   useEffect(() => {
     const newUser = props.user;
@@ -24,7 +27,10 @@ const Overview = (props) => {
       }
     }
     if (user._id !== newUser._id) {
+      // Reset recent reviews
       setRecentReviews([]);
+
+      // Reset recent logs
       setRecentLogs([]);
     }
     setUser(newUser);
@@ -32,10 +38,17 @@ const Overview = (props) => {
   }, [props.user]);
 
   useEffect(() => {
+    // Reset fetch recent reviews error
+    setRecentReviewsFetchError(null);
+
     // Fetch recent reviews
+    setIsLoadingRecentReviews(true);
+
     axios
       .get(`/api/reviews/user/${user._id}?skip=${recentReviewsSkip}`)
       .then((res) => {
+        setIsLoadingRecentReviews(false);
+
         if (res.data.length === 0) {
           setShowRecentReviewsShowMore(false);
           return;
@@ -43,9 +56,11 @@ const Overview = (props) => {
         setRecentReviews([...recentReviews, ...res.data]);
       })
       .catch((err) => {
-        // TODO: Handle error
-
-        console.log(err);
+        setIsLoadingRecentReviews(false);
+        setRecentReviewsFetchError({
+          status: err.response.status,
+          msg: err.response.data.msg,
+        });
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recentReviewsSkip, user._id]);
@@ -108,21 +123,42 @@ const Overview = (props) => {
             {recentReviews.map((recentReview) => (
               <ReviewCard key={recentReview._id} review={recentReview} />
             ))}
-            {showRecentReviewsShowMore && (
-              <Button
-                className="w-100 btn btn-sm text-uppercase"
-                color="dark"
-                onClick={() => setRecentReviewsSkip(recentReviewsSkip + 5)}
-              >
-                <strong>load more...</strong>
-              </Button>
+            {recentReviews.length === 0 &&
+              !recentReviewsFetchError &&
+              !isLoadingRecentReviews && (
+                <p className="m-0 p-0">
+                  <mark className="text-capitalize">{user.username}</mark>
+                  has not posted any reviews yet.
+                </p>
+              )}
+            {isLoadingRecentReviews && (
+              <div className="w-100">
+                <img
+                  src={loading1}
+                  alt="loading..."
+                  title="loading..."
+                  className="text-center d-block mx-auto loading-gif"
+                />
+              </div>
             )}
-            {recentReviews.length === 0 && (
-              <p className="m-0 p-0">
-                <mark className="text-capitalize">{user.username}</mark>
-                has not posted any reviews yet.
-              </p>
+            {recentReviewsFetchError && (
+              <Alert color="danger fs-small">{`${
+                recentReviewsFetchError.status
+              } ${
+                recentReviewsFetchError.msg ? recentReviewsFetchError.msg : ""
+              }`}</Alert>
             )}
+            {showRecentReviewsShowMore &&
+              !recentReviewsFetchError &&
+              !isLoadingRecentReviews && (
+                <Button
+                  className="w-100 btn btn-sm text-uppercase"
+                  color="dark"
+                  onClick={() => setRecentReviewsSkip(recentReviewsSkip + 5)}
+                >
+                  <strong>load more...</strong>
+                </Button>
+              )}
           </div>
         </div>
         <div className="col-md">

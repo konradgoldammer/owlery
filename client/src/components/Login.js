@@ -78,7 +78,7 @@ const Login = (props) => {
             </Col>
           </FormGroup>
           {error.id === "LOGIN_FAIL" && (
-            <Alert color="danger p-2 error-msg-alert">{error.msg}</Alert>
+            <Alert color="danger p-2 fs-small">{error.msg}</Alert>
           )}
           <Button
             className="btn btn-sm w-100 text-uppercase my-3"
