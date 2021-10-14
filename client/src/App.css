@@ -18,11 +18,39 @@
   --dark-color: #0d0d0d;
   --light-text-color: #fafafa;
   --secondary-text-color: #c4c4c4;
+  --danger-color: #ff4136;
   --font-family: "Roboto", sans-serif;
   --heading-font-family: "Playfair Display", serif;
 }
 
-/***** SHARED COMPONENTS ******/
+/***** MAIN VALUES ******/
+
+html,
+body {
+  min-height: 100vh;
+  max-width: 100%;
+  overflow-x: hidden;
+  background-color: var(--main-background-color);
+  font-family: var(--font-family);
+  color: var(--light-text-color);
+  position: relative;
+}
+
+.content {
+  height: 100%;
+  min-height: 100vh;
+  margin-top: 0;
+  padding-top: 0;
+  background-color: var(--secondary-text-color);
+}
+
+.bg-main {
+  background-color: var(--main-background-color);
+}
+
+.pt-56 {
+  padding-top: 56px;
+}
 
 .fs-0 {
   font-size: 0;
@@ -37,6 +65,8 @@
   bottom: 0;
   right: 0;
 }
+
+/***** SHARED COMPONENTS ******/
 
 .navbar-brand {
   font-family: "Righteous";
@@ -91,19 +121,6 @@
 
 .edit-profile {
   font-size: 12px;
-}
-
-/***** MAIN VALUES ******/
-
-html,
-body {
-  min-height: 100vh;
-  max-width: 100%;
-  overflow-x: hidden;
-  background-color: var(--main-background-color);
-  font-family: var(--font-family);
-  color: var(--light-text-color);
-  position: relative;
 }
 
 /***** HOME ******/
@@ -295,7 +312,6 @@ h2.privacy-title {
 /***** PROFILE PAGE ******/
 
 .profile-header {
-  padding-top: 56px;
   background-color: var(--dark-color);
   color: var(--light-text-color);
 }
@@ -402,4 +418,28 @@ h2.privacy-title {
 
 .podcast-column-likes {
   color: var(--light-text-color);
+}
+
+.error-container {
+  min-height: 40vh;
+}
+
+.error-status-code-div {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12rem;
+  height: 12rem;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: var(--danger-color);
+  border: 2px solid var(--light-text-color);
+}
+
+.error-status-code {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5rem;
 }

@@ -27,30 +27,32 @@ const Home = (props) => {
   }, [props.title]);
 
   return (
-    <div>
-      <MainNavbar />
-      <Header />
-      <div className="container-md">
-        <div className="most-popular-podcasts-section">
-          <h4 className="section-heading txt-center mt-5 mb-0">
-            Most Popular Podcasts
-          </h4>
-          <hr className="section-separator mt-1 mb-3" />
-          <div className="row m-0">
-            {mostPopularPodcasts.map((mostPopularPodcast, index) =>
-              mostPopularPodcast ? (
-                <PodcastColumn
-                  key={mostPopularPodcast._id}
-                  podcast={mostPopularPodcast}
-                  first={index === 0}
-                />
-              ) : (
-                <div
-                  key={index}
-                  className={`col-md p-0 ${index !== 0 && "ms-2"}`}
-                />
-              )
-            )}
+    <div className="content">
+      <div className="bg-main pb-5">
+        <MainNavbar />
+        <Header />
+        <div className="container-md">
+          <div className="most-popular-podcasts-section mt-5">
+            <h4 className="section-heading txt-center mb-0">
+              Most Popular Podcasts
+            </h4>
+            <hr className="section-separator mt-1 mb-3" />
+            <div className="row m-0">
+              {mostPopularPodcasts.map((mostPopularPodcast, index) =>
+                mostPopularPodcast ? (
+                  <PodcastColumn
+                    key={mostPopularPodcast._id}
+                    podcast={mostPopularPodcast}
+                    first={index === 0}
+                  />
+                ) : (
+                  <div
+                    key={index}
+                    className={`col-md p-0 ${index !== 0 && "ms-2"}`}
+                  />
+                )
+              )}
+            </div>
           </div>
         </div>
       </div>
