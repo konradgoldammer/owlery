@@ -156,7 +156,9 @@ const Overview = (props) => {
               <Alert color="danger fs-small">{`${
                 recentReviewsFetchError.status
               } ${
-                recentReviewsFetchError.msg ? recentReviewsFetchError.msg : ""
+                recentReviewsFetchError.msg
+                  ? recentReviewsFetchError.msg
+                  : "An error occurred while loading recent logs"
               }`}</Alert>
             )}
             {showRecentReviewsShowMore &&
@@ -199,7 +201,9 @@ const Overview = (props) => {
             )}
             {recentLogsFetchError && (
               <Alert color="danger fs-small">{`${recentLogsFetchError.status} ${
-                recentLogsFetchError.msg ? recentLogsFetchError.msg : ""
+                recentLogsFetchError.msg
+                  ? recentLogsFetchError.msg
+                  : "An error occurred while loading recent reviews"
               }`}</Alert>
             )}
             {showRecentLogsShowMore &&
