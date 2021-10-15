@@ -184,10 +184,10 @@ router.get("/:username", (req, res) => {
     });
 });
 
-// @route    GET "/:userId"
+// @route    GET "/id/:userId"
 // @desc.    Get user data by userId
 // @access   Public
-router.get("/:userId", (req, res) => {
+router.get("/id/:userId", (req, res) => {
   const userId = req.params.userId;
 
   // Simple validation
