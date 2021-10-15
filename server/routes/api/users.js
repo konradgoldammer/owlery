@@ -184,6 +184,29 @@ router.get("/:username", (req, res) => {
     });
 });
 
+// @route    GET "/:userId"
+// @desc.    Get user data by userId
+// @access   Public
+router.get("/:userId", (req, res) => {
+  const userId = req.params.userId;
+
+  // Simple validation
+  if (!mongoose.isValidObjectId(userId)) {
+    return res.status(403).json({ msg: "Invalid userId" });
+  }
+  // Fetch user data from the database
+  User.findById(userId)
+    .select("-password")
+    .then((user) => {
+      if (!user) {
+        return res
+          .status(404)
+          .json({ msg: `Could not find user with the ID ${userId}` });
+      }
+      return res.json(user);
+    });
+});
+
 // @route    PUT "/follow"
 // @desc.    Follow user
 // @access   Private
