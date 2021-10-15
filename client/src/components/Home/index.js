@@ -52,7 +52,7 @@ const Home = (props) => {
         <Header />
         <div className="container-md">
           <div className="most-popular-podcasts-section mt-5">
-            <h4 className="section-heading txt-center mb-0">
+            <h4 className="section-heading text-center mb-0">
               Most Popular Podcasts
             </h4>
             <hr className="section-separator mt-1 mb-3" />

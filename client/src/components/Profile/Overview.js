@@ -98,7 +98,7 @@ const Overview = (props) => {
   return (
     <div className="container-md">
       <div className="favorite-podcasts-section">
-        <h4 className="section-heading txt-center mt-5 mb-0">
+        <h4 className="section-heading text-center mt-5 mb-0">
           Favorite Podcasts
         </h4>
         <hr className="section-separator mt-1 mb-3" />
@@ -129,7 +129,7 @@ const Overview = (props) => {
       <div className="row mt-4">
         <div className="col-md">
           <div className="recent-reviews-section">
-            <h4 className="section-heading txt-center mb-0">Recent Reviews</h4>
+            <h4 className="section-heading text-center mb-0">Recent Reviews</h4>
             <hr className="section-separator mt-1 mb-3" />
             {recentReviews.map((recentReview) => (
               <ReviewCard key={recentReview._id} review={recentReview} />
@@ -176,7 +176,7 @@ const Overview = (props) => {
         </div>
         <div className="col-md">
           <div className="recent-logs-section">
-            <h4 className="section-heading txt-center mb-0">Diary</h4>
+            <h4 className="section-heading text-center mb-0">Diary</h4>
             <hr className="section-separator mt-1 mb-3" />
             {recentLogs.map((recentLog) => (
               <LogCard key={recentLog._id} log={recentLog} />
