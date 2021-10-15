@@ -176,9 +176,9 @@ router.get("/:username", (req, res) => {
     .select("-password")
     .then((user) => {
       if (!user) {
-        return res
-          .status(404)
-          .json({ msg: "Could not find user with that username" });
+        return res.status(404).json({
+          msg: `Could not find user with the username '${username}'`,
+        });
       }
       return res.json(user);
     });
@@ -201,7 +201,7 @@ router.get("/:userId", (req, res) => {
       if (!user) {
         return res
           .status(404)
-          .json({ msg: `Could not find user with the ID ${userId}` });
+          .json({ msg: `Could not find user with the ID '${userId}'` });
       }
       return res.json(user);
     });
