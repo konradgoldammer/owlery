@@ -326,7 +326,7 @@ const Profile = (props) => {
                         </button>
                         <button
                           className={`profile-header-numbers-element ${
-                            subpage === "followings"
+                            subpage === "following"
                               ? "profile-header-numbers-element-selected"
                               : null
                           } px-2`}
