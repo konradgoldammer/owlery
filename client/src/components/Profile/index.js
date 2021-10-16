@@ -22,6 +22,7 @@ import { titleSuffix } from "../../vars";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { clearErrors } from "../../actions/errorActions";
+import { followUser, unfollowUser } from "../../actions/authActions";
 
 const Profile = (props) => {
   const { username } = useParams();
@@ -54,6 +55,9 @@ const Profile = (props) => {
       if (error.id === "USER_UPDATE_ERROR") {
         store.dispatch(clearErrors());
       }
+    }
+    if (user && auth.user._id === user._id) {
+      setUser(auth.user);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth.user]);
@@ -97,10 +101,13 @@ const Profile = (props) => {
 
   // Is true when follow button should be disabled
   const validateFollow = () => {
-    if (!user || !auth.user) {
-      return true;
-    }
-    return !auth.isAuthenticated || user._id === auth.user._id;
+    return (
+      auth.isUpdatingUser ||
+      !user ||
+      !auth.user ||
+      !auth.isAuthenticated ||
+      user._id === auth.user._id
+    );
   };
 
   // Is false for follow and true for unfollow
@@ -113,32 +120,20 @@ const Profile = (props) => {
 
   // Follow/Unfollow user
   const handleFollow = () => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        "x-auth-token": auth.token,
-      },
-    };
-
     if (followOrUnfollow()) {
-      return axios
-        .put("/api/users/unfollow", { userId: user._id }, config)
-        .then((res) => {
-          setUser({
-            ...user,
-            followers: user.followers.filter(
-              (follower) => follower !== auth.user._id
-            ),
-          });
-        })
-        .catch((err) => console.log(err));
+      store.dispatch(unfollowUser(user._id));
+      return setUser({
+        ...user,
+        followers: user.followers.filter(
+          (follower) => follower !== auth.user._id
+        ),
+      });
     } else {
-      return axios
-        .put("/api/users/follow", { userId: user._id }, config)
-        .then((res) => {
-          setUser({ ...user, followers: [...user.followers, auth.user._id] });
-        })
-        .catch((err) => console.log(err));
+      store.dispatch(followUser(user._id));
+      return setUser({
+        ...user,
+        followers: [...user.followers, auth.user._id],
+      });
     }
   };
 

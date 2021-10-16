@@ -243,17 +243,16 @@ router.put("/follow", auth, (req, res) => {
 
       User.findOneAndUpdate(
         { _id: req.user.id },
-        { $push: { following: userId } }
+        { $push: { following: userId } },
+        { new: true }
       )
-        .then(() => {
+        .then((updatedUser) => {
           User.findOneAndUpdate(
             { _id: userId },
             { $push: { followers: req.user.id } }
           )
             .then(() => {
-              return res.json({
-                msg: `Successfully followed the user with the ID ${userId}`,
-              });
+              return res.json(updatedUser);
             })
             .catch((err) => {
               return console.log(err);
@@ -306,17 +305,16 @@ router.put("/unfollow", auth, (req, res) => {
 
       User.findOneAndUpdate(
         { _id: req.user.id },
-        { $pull: { following: userId } }
+        { $pull: { following: userId } },
+        { new: true }
       )
-        .then(() => {
+        .then((updatedUser) => {
           User.findOneAndUpdate(
             { _id: userId },
             { $pull: { followers: req.user.id } }
           )
             .then(() => {
-              return res.json({
-                msg: `Successfully unfollowed user with id ${userId}`,
-              });
+              return res.json(updatedUser);
             })
             .catch((err) => {
               return console.log(err);

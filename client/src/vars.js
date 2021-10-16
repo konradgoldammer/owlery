@@ -26,3 +26,7 @@ export const timeSince = (date) => {
   }
   return Math.floor(seconds) + " seconds";
 };
+
+export const isError = (inp) => {
+  return inp && inp.stack && inp.message;
+};

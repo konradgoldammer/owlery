@@ -97,8 +97,6 @@ export const updateUser = (changes) => async (dispatch, getState) => {
   let updatedUser = null;
   let error = false;
 
-  console.log("changes", changes);
-
   await axios
     .put(
       "/api/users/location",
@@ -127,7 +125,6 @@ export const updateUser = (changes) => async (dispatch, getState) => {
       tokenConfig(getState)
     )
     .then((res) => {
-      console.log("resdata", res.data);
       updatedUser = res.data;
     })
     .catch((err) => {
@@ -147,6 +144,50 @@ export const updateUser = (changes) => async (dispatch, getState) => {
   }
 
   dispatch({ type: USER_UPDATED, payload: updatedUser });
+};
+
+// Follow user
+export const followUser = (userId) => async (dispatch, getState) => {
+  // User updating
+  dispatch({ type: USER_UPDATING });
+
+  await axios
+    .put("/api/users/follow", { userId }, tokenConfig(getState))
+    .then((res) => {
+      dispatch({ type: USER_UPDATED, payload: res.data });
+    })
+    .catch((err) => {
+      dispatch(
+        returnErrors(
+          err.response.data.msg,
+          err.response.status,
+          "USER_UPDATE_ERROR"
+        )
+      );
+      return dispatch({ type: USER_UPDATE_ERROR });
+    });
+};
+
+// Follow user
+export const unfollowUser = (userId) => async (dispatch, getState) => {
+  // User updating
+  dispatch({ type: USER_UPDATING });
+
+  await axios
+    .put("/api/users/unfollow", { userId }, tokenConfig(getState))
+    .then((res) => {
+      dispatch({ type: USER_UPDATED, payload: res.data });
+    })
+    .catch((err) => {
+      dispatch(
+        returnErrors(
+          err.response.data.msg,
+          err.response.status,
+          "USER_UPDATE_ERROR"
+        )
+      );
+      return dispatch({ type: USER_UPDATE_ERROR });
+    });
 };
 
 // Setup config/headers and token

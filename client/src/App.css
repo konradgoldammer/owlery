@@ -66,8 +66,29 @@ body {
   right: 0;
 }
 
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.center-vertically {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .fs-small {
   font-size: 12px;
+}
+
+.fs-big {
+  font-size: 1.25rem;
+}
+
+.fc-secondary-text {
+  color: var(--secondary-text-color);
 }
 
 /***** SHARED COMPONENTS ******/
@@ -446,4 +467,11 @@ h2.privacy-title {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 5rem;
+}
+
+.user-list-profile-pic {
+  height: 3rem;
+  width: auto;
+  border-radius: 100%;
+  border: 2px var(--light-text-color) solid;
 }
