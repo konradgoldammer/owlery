@@ -13,8 +13,7 @@ import Diary from "./Diary";
 import Reviews from "./Reviews";
 import Lists from "./Lists";
 import Likes from "./Likes";
-import Followers from "./Followers";
-import Following from "./Following";
+import UserList from "../shared/UserList/index";
 import EditProfile from "./EditProfile";
 import Error from "../shared/Error";
 import { useState, useEffect } from "react";
@@ -60,11 +59,19 @@ const Profile = (props) => {
   }, [auth.user]);
 
   useEffect(() => {
-    // Set page title
+    // (Re)set page title
     document.title = props.title;
+
+    // Reset user
+    setUser(null);
 
     // Reset error
     setFetchUserError(null);
+
+    // Reset subpage
+    if (subpage !== "overview") {
+      setSubpage("overview");
+    }
 
     // Fetch user
     setIsLoadingUser(true);
@@ -85,7 +92,8 @@ const Profile = (props) => {
           msg: err.response.data.msg,
         });
       });
-  }, [props.title, username, auth.user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.title, username]);
 
   // Is true when follow button should be disabled
   const validateFollow = () => {
@@ -298,7 +306,7 @@ const Profile = (props) => {
                           <h3 className="text-center m-0">
                             {user.episodes ? user.episodes.length : "0"}
                           </h3>
-                          <p className="profile-header-numbers-text-bottom txt-center m-0">
+                          <p className="profile-header-numbers-text-bottom text-center m-0">
                             Podcasts
                           </p>
                         </button>
@@ -309,7 +317,7 @@ const Profile = (props) => {
                           <h3 className="text-center m-0">
                             {user.followers ? user.followers.length : "0"}
                           </h3>
-                          <p className="profile-header-numbers-text-bottom txt-center m-0">
+                          <p className="profile-header-numbers-text-bottom text-center m-0">
                             Followers
                           </p>
                         </button>
@@ -320,7 +328,7 @@ const Profile = (props) => {
                           <h3 className="text-center m-0">
                             {user.following ? user.following.length : "0"}
                           </h3>
-                          <p className="profile-header-numbers-text-bottom txt-center m-0">
+                          <p className="profile-header-numbers-text-bottom text-center m-0">
                             Following
                           </p>
                         </button>
@@ -336,8 +344,12 @@ const Profile = (props) => {
             {subpage === "reviews" && <Reviews />}
             {subpage === "lists" && <Lists />}
             {subpage === "likes" && <Likes />}
-            {subpage === "followers" && <Followers />}
-            {subpage === "following" && <Following />}
+            {subpage === "followers" && user && (
+              <UserList type="followers" userIds={user.followers} />
+            )}
+            {subpage === "following" && user && (
+              <UserList type="followings" userIds={user.following} />
+            )}
           </div>
         ) : (
           <Error error={fetchUserError} />

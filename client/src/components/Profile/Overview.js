@@ -34,6 +34,14 @@ const Overview = (props) => {
 
       // Reset recent logs
       setRecentLogs([]);
+
+      // Reset Skips
+      setRecentReviewsSkip(0);
+      setRecentLogsSkip(0);
+
+      // Reset visibility of 'load more' buttons
+      setShowRecentReviewsShowMore(true);
+      setShowRecentLogsShowMore(true);
     }
     setUser(newUser);
     // eslint-disable-next-line react-hooks/exhaustive-deps
