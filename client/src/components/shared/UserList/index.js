@@ -22,7 +22,6 @@ const UserList = (props) => {
   }, []);
 
   const handleLoadMore = (skip) => {
-    console.log("handleSkip", skip);
     const maxUsersPerLoad = 5;
 
     if (skip + maxUsersPerLoad >= props.userIds.length) {
