@@ -300,10 +300,13 @@ const Profile = (props) => {
                               ? "profile-header-numbers-element-selected"
                               : null
                           } px-2`}
+                          title={`${
+                            user ? user.episodes.length : "0"
+                          } Podcasts`}
                           onClick={() => setSubpage("podcasts")}
                         >
                           <h3 className="text-center m-0">
-                            {user.episodes ? user.episodes.length : "0"}
+                            {user ? user.episodes.length : "0"}
                           </h3>
                           <p className="profile-header-numbers-text-bottom text-center m-0">
                             Podcasts
@@ -315,10 +318,13 @@ const Profile = (props) => {
                               ? "profile-header-numbers-element-selected"
                               : null
                           } px-2`}
+                          title={`${
+                            user ? user.following.length : "0"
+                          } Followers`}
                           onClick={() => setSubpage("followers")}
                         >
                           <h3 className="text-center m-0">
-                            {user.followers ? user.followers.length : "0"}
+                            {user ? user.followers.length : "0"}
                           </h3>
                           <p className="profile-header-numbers-text-bottom text-center m-0">
                             Followers
@@ -330,10 +336,13 @@ const Profile = (props) => {
                               ? "profile-header-numbers-element-selected"
                               : null
                           } px-2`}
+                          title={`${
+                            user ? user.following.length : "0"
+                          } Following`}
                           onClick={() => setSubpage("following")}
                         >
                           <h3 className="text-center m-0">
-                            {user.following ? user.following.length : "0"}
+                            {user ? user.following.length : "0"}
                           </h3>
                           <p className="profile-header-numbers-text-bottom text-center m-0">
                             Following
