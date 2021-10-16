@@ -192,7 +192,7 @@ router.get("/id/:userId", (req, res) => {
 
   // Simple validation
   if (!mongoose.isValidObjectId(userId)) {
-    return res.status(403).json({ msg: "Invalid userId" });
+    return res.status(400).json({ msg: "Invalid userId" });
   }
   // Fetch user data from the database
   User.findById(userId)
