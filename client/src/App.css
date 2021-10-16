@@ -369,6 +369,7 @@ h2.privacy-title {
   color: var(--secondary-text-color);
 }
 
+.profile-header-numbers-element-selected,
 .profile-header-numbers-element:hover {
   color: var(--light-text-color);
 }

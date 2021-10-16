@@ -295,7 +295,11 @@ const Profile = (props) => {
                     {user && (
                       <div className="profile-header-numbers">
                         <button
-                          className="profile-header-numbers-element px-2"
+                          className={`profile-header-numbers-element ${
+                            subpage === "podcasts"
+                              ? "profile-header-numbers-element-selected"
+                              : null
+                          } px-2`}
                           onClick={() => setSubpage("podcasts")}
                         >
                           <h3 className="text-center m-0">
@@ -306,7 +310,11 @@ const Profile = (props) => {
                           </p>
                         </button>
                         <button
-                          className="profile-header-numbers-element px-2"
+                          className={`profile-header-numbers-element ${
+                            subpage === "followers"
+                              ? "profile-header-numbers-element-selected"
+                              : null
+                          } px-2`}
                           onClick={() => setSubpage("followers")}
                         >
                           <h3 className="text-center m-0">
@@ -317,7 +325,11 @@ const Profile = (props) => {
                           </p>
                         </button>
                         <button
-                          className="profile-header-numbers-element px-2"
+                          className={`profile-header-numbers-element ${
+                            subpage === "followings"
+                              ? "profile-header-numbers-element-selected"
+                              : null
+                          } px-2`}
                           onClick={() => setSubpage("following")}
                         >
                           <h3 className="text-center m-0">
