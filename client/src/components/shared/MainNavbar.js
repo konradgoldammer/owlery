@@ -74,24 +74,24 @@ const MainNavbar = () => {
                 >
                   <strong>{auth.user.username}</strong>
                 </DropdownToggle>
-                <DropdownMenu right className="profile-dropdown-menu">
+                <DropdownMenu right className="dropdown-menu dropdown-dark">
                   <Link
                     to={`/${auth.user.username}`}
                     className="text-decoration-none"
                   >
-                    <DropdownItem className="profile-dropdown-item text-uppercase">
+                    <DropdownItem className="dropdown-item text-uppercase">
                       <strong>Profile</strong>
                     </DropdownItem>
                   </Link>
                   <Link to="" className="text-decoration-none">
-                    <DropdownItem className="profile-dropdown-item text-uppercase">
+                    <DropdownItem className="dropdown-item text-uppercase">
                       <strong>Settings</strong>
                     </DropdownItem>
                   </Link>
                   <DropdownItem divider />
                   <Link to="" className="text-decoration-none">
                     <DropdownItem
-                      className="profile-dropdown-item logout text-uppercase"
+                      className="dropdown-item logout text-uppercase"
                       onClick={() => store.dispatch(logout())}
                     >
                       <strong>Logout</strong>

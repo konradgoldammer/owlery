@@ -17,15 +17,15 @@
   color: #404040 !important;
 }
 
-.profile-dropdown-item:active {
-  background-color: #252525 !important;
+.dropdown-item:hover {
+  background-color: #585858 !important;
+  color: #fafafa !important;
 }
 
-.profile-dropdown-item:hover {
+.dropdown-item:focus {
   background-color: #585858 !important;
-}
-.profile-dropdown-item:hover:hover {
-  color: #fafafa;
+  color: #fafafa !important;
+  text-decoration: underline !important;
 }
 
 .logout:hover {

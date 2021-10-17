@@ -30,3 +30,12 @@ export const timeSince = (date) => {
 export const isError = (inp) => {
   return inp && inp.stack && inp.message;
 };
+
+export const yearsArray = (startYear = 1980) => {
+  const currentYear = new Date().getFullYear();
+  const years = [];
+  for (let i = startYear; i <= currentYear; i++) {
+    years.push(i);
+  }
+  return years;
+};

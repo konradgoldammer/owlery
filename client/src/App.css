@@ -91,6 +91,14 @@ body {
   color: var(--secondary-text-color);
 }
 
+.h-0 {
+  height: 0;
+}
+
+.white-space-normal {
+  white-space: normal;
+}
+
 /***** SHARED COMPONENTS ******/
 
 .navbar-brand {
@@ -183,16 +191,20 @@ body {
   border-bottom-right-radius: 0.2em;
 }
 
-.profile-dropdown-menu {
+.dropdown-dark {
   background-color: var(--main-background-color);
   padding: 0;
   overflow: hidden;
 }
 
-.profile-dropdown-item {
+.dropdown-scrollable {
+  overflow-y: auto;
+  max-height: 150px;
+}
+
+.dropdown-item {
   font-size: 0.875rem;
   color: var(--light-text-color);
-  text-align: center;
 }
 
 .profile-dropdown-toggle {
@@ -225,6 +237,10 @@ body {
 mark {
   color: var(--primary-color);
   background: none;
+}
+
+.mark-secondary {
+  color: var(--secondary-color);
 }
 
 /***** SIGN UP / LOGIN ******/
@@ -475,4 +491,11 @@ h2.privacy-title {
   width: auto;
   border-radius: 100%;
   border: 2px var(--light-text-color) solid;
+}
+
+.podcast-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 100px);
+  justify-content: space-between;
+  grid-gap: 0.5rem;
 }

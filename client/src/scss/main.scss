@@ -27,15 +27,15 @@ $main-background-color: #252525;
   }
 }
 
-.profile-dropdown-item:active {
-  background-color: $main-background-color !important;
+.dropdown-item:hover {
+  background-color: lighten($main-background-color, 20%) !important;
+  color: map-get($theme-colors, "light") !important;
 }
 
-.profile-dropdown-item:hover {
+.dropdown-item:focus {
   background-color: lighten($main-background-color, 20%) !important;
-  &:hover {
-    color: map-get($theme-colors, "light");
-  }
+  color: map-get($theme-colors, "light") !important;
+  text-decoration: underline !important;
 }
 
 .logout {

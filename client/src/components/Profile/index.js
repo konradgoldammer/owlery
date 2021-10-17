@@ -8,12 +8,12 @@ import defaultProfilePicture from "../images/defaultProfilePicture.jpg";
 import { Button } from "reactstrap";
 import { FaMapMarkerAlt, FaCalendarAlt, FaPen, FaLink } from "react-icons/fa";
 import Overview from "./Overview";
-import Podcasts from "./Podcasts";
 import Diary from "./Diary";
 import Reviews from "./Reviews";
 import Lists from "./Lists";
 import Likes from "./Likes";
 import UserList from "../shared/UserList/index";
+import PodcastGrid from "../shared/PodcastGrid/index";
 import EditProfile from "./EditProfile";
 import Error from "../shared/Error";
 import { useState, useEffect } from "react";
@@ -355,7 +355,9 @@ const Profile = (props) => {
               </div>
             </div>
             {subpage === "overview" && user && <Overview user={user} />}
-            {subpage === "podcasts" && <Podcasts />}
+            {subpage === "podcasts" && user && (
+              <PodcastGrid episodes={user.episodes} user={user} />
+            )}
             {subpage === "diary" && <Diary />}
             {subpage === "reviews" && <Reviews />}
             {subpage === "lists" && <Lists />}
