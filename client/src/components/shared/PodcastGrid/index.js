@@ -120,11 +120,11 @@ const PodcastGrid = (props) => {
         <hr className="section-separator mt-1 mb-3" />
         <div className="card mb-3 py-1 px-3">
           <div className="row">
-            <div className="col-md-3 text-center">
-              <div className="btn-group w-100">
+            <div className="col-md-10 d-flex">
+              <div className="btn-group">
                 <button
                   type="button"
-                  className="btn btn-dark text-start dropdown-toggle py-0 px-1 w-100 white-space-normal"
+                  className="btn btn-dark text-start dropdown-toggle py-0 px-1 white-space-normal"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
@@ -146,9 +146,7 @@ const PodcastGrid = (props) => {
                   ))}
                 </div>
               </div>
-            </div>
-            <div className="col-md-1 text-center">
-              <div className="btn-group w-100">
+              <div className="btn-group ms-4">
                 <button
                   type="button"
                   className="btn btn-dark text-start dropdown-toggle py-0 px-1 w-100 white-space-normal"
@@ -181,16 +179,14 @@ const PodcastGrid = (props) => {
                   ))}
                 </div>
               </div>
-            </div>
-            <div
-              className={`col-md-3 text-center ${
-                !auth.isAuthenticated ? "invisible" : null
-              }`}
-            >
-              <div className="btn-group w-100">
+              <div
+                className={`btn-group ms-4 ${
+                  !auth.isAuthenticated ? "invisible" : null
+                }`}
+              >
                 <button
                   type="button"
-                  className="btn btn-dark text-start dropdown-toggle py-0 px-1 w-100 white-space-normal"
+                  className="btn btn-dark text-start dropdown-toggle py-0 px-1 white-space-normal"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
@@ -223,7 +219,7 @@ const PodcastGrid = (props) => {
                 </div>
               </div>
             </div>
-            <div className="col-md-5">
+            <div className="col-md-2">
               <button
                 type="button"
                 className="btn btn-dark py-0 px-1 float-end text-danger"
