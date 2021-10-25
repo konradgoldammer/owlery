@@ -45,7 +45,7 @@ const UserList = (props) => {
           })
       )
     ).then((newlyLoadedUsers) => {
-      setUsers([...users.slice(0, skip), ...newlyLoadedUsers]);
+      setUsers([...[...users].slice(0, skip), ...newlyLoadedUsers]);
       setIsLoadingMore(false);
     });
   };

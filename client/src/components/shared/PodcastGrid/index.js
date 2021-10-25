@@ -7,11 +7,13 @@ import { MdDelete } from "react-icons/md";
 const PodcastGrid = (props) => {
   const auth = useSelector((state) => state.auth);
 
+  const [episodes, setEpisodes] = useState([]);
+
   // Returns episodes array sorted by date in ascending order
   const sortEpisodesByDateAsc = (episodes) => {
     return episodes.sort(
       (a, b) =>
-        new Date(a.episode.date).getTime() - new Date(b.episode.date).getTime()
+        new Date(b.episode.date).getTime() - new Date(a.episode.date).getTime()
     );
   };
 
@@ -19,7 +21,7 @@ const PodcastGrid = (props) => {
   const sortEpisodesByDateDes = (episodes) => {
     return episodes.sort(
       (a, b) =>
-        new Date(b.episode.date).getTime() - new Date(a.episode.date).getTime()
+        new Date(a.episode.date).getTime() - new Date(b.episode.date).getTime()
     );
   };
 
@@ -53,24 +55,27 @@ const PodcastGrid = (props) => {
     props.user ? `${props.user.username}'s rating` : null,
   ];
 
-  const [sortBy, setSortBy] = useState(0);
-
-  const [year, setYear] = useState(-1);
-
   const userListenedOptions = ["listened by you", "not listened by you"];
 
-  const [userListened, setUserListened] = useState(-1);
+  const defaultConfigs = {
+    sortBy: 0,
+    year: -1,
+    userListened: -1,
+  };
 
-  const [episodes, setEpisodes] = useState(props.episodes);
+  // Configs
+  const [sortBy, setSortBy] = useState(defaultConfigs.sortBy);
+  const [year, setYear] = useState(defaultConfigs.year);
+  const [userListened, setUserListened] = useState(defaultConfigs.userListened);
 
   const resetConfigs = () => {
-    setSortBy(0);
-    setYear(-1);
-    setUserListened(-1);
+    setSortBy(defaultConfigs.sortBy);
+    setYear(defaultConfigs.year);
+    setUserListened(defaultConfigs.userListened);
   };
 
   useEffect(() => {
-    let newEpisodes = props.episodes;
+    let newEpisodes = [...props.episodes];
 
     switch (sortBy) {
       case 0:
@@ -95,11 +100,9 @@ const PodcastGrid = (props) => {
       case -1:
         break;
       case 0:
-        console.log("userlistened");
         newEpisodes = filterUserListened(newEpisodes);
         break;
       case 1:
-        console.log("user not listened");
         newEpisodes = filterUserNotListened(newEpisodes);
         break;
       default:
@@ -220,22 +223,24 @@ const PodcastGrid = (props) => {
               </div>
             </div>
             <div className="col-md-2">
-              <button
-                type="button"
-                className="btn btn-dark py-0 px-1 float-end text-danger"
-                title="Reset to default"
-                onClick={() => resetConfigs()}
-              >
-                <MdDelete />
-              </button>
+              {(sortBy !== defaultConfigs.sortBy ||
+                year !== defaultConfigs.year ||
+                userListened !== defaultConfigs.userListened) && (
+                <button
+                  type="button"
+                  className="btn btn-dark py-0 px-1 float-end text-danger"
+                  title="Reset to default"
+                  onClick={() => resetConfigs()}
+                >
+                  <MdDelete />
+                </button>
+              )}
             </div>
           </div>
         </div>
         <div className="podcast-grid-container">
-          {episodes.map((episode, index) => (
-            <div className="" key={episode.episodeId}>
-              {episode.episode.title}
-            </div>
+          {episodes.map((e) => (
+            <div key={e.episodeId}>{e.episode.title}</div>
           ))}
         </div>
       </div>
