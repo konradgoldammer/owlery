@@ -15,7 +15,7 @@ const ReviewCard = (props) => {
   const [showMore, setShowMore] = useState(false);
 
   return (
-    <div className="card w-100 p-3 mb-2" title={review.episode.title}>
+    <div className="card w-100 p-3 mb-2">
       <div className="row">
         <div className="col-3">
           <img
@@ -25,7 +25,11 @@ const ReviewCard = (props) => {
           />
         </div>
         <div className="col-9">
-          <Link to={`/review/${review._id}`} className="text-decoration-none">
+          <Link
+            to={`/review/${review._id}`}
+            className="text-decoration-none"
+            title={review.episode.title}
+          >
             <h5 className="card-title mb-0">{review.episode.title}</h5>
           </Link>
           <div className="review-card-info mt-1">
