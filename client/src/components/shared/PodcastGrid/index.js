@@ -26,6 +26,11 @@ const PodcastGrid = (props) => {
     );
   };
 
+  // Returns episodes array sorted by the user's rating
+  const sortEpisodesByUserRating = (episodes) => {
+    return episodes.sort((a, b) => b.rating - a.rating);
+  };
+
   // Returns episodes array filtered for specific year
   const filterEpisodesForYear = (episodes, y) => {
     return episodes.filter(
@@ -84,6 +89,9 @@ const PodcastGrid = (props) => {
         break;
       case 1:
         newEpisodes = sortEpisodesByDateDes(newEpisodes);
+        break;
+      case 2:
+        newEpisodes = sortEpisodesByUserRating(newEpisodes);
         break;
       default:
         break;
