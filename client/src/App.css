@@ -99,6 +99,10 @@ body {
   white-space: normal;
 }
 
+.bg-secondary-text {
+  background-color: var(--secondary-text-color);
+}
+
 /***** SHARED COMPONENTS ******/
 
 .navbar-brand {
@@ -495,7 +499,26 @@ h2.privacy-title {
 
 .podcast-grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 100px);
+  grid-template-columns: repeat(auto-fill, 150px);
   justify-content: space-between;
   grid-gap: 0.5rem;
+}
+
+.podcast-grid-element {
+  width: 150px;
+  position: relative;
+}
+
+.podcast-grid-element-upper-section {
+  height: 150px;
+  overflow: hidden;
+}
+
+.podcast-grid-element-img {
+  border-radius: 5px;
+}
+
+.podcast-grid-element-title {
+  position: absolute;
+  top: 0;
 }

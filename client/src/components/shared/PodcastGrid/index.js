@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { yearsArray } from "../../../vars";
 import { useSelector } from "react-redux";
 import { MdDelete } from "react-icons/md";
+import PodcastGridElement from "./PodcastGridElement";
 
 const PodcastGrid = (props) => {
   const auth = useSelector((state) => state.auth);
@@ -240,7 +241,7 @@ const PodcastGrid = (props) => {
         </div>
         <div className="podcast-grid-container">
           {episodes.map((e) => (
-            <div key={e.episodeId}>{e.episode.title}</div>
+            <PodcastGridElement episode={e} key={e.episodeId} />
           ))}
         </div>
       </div>
