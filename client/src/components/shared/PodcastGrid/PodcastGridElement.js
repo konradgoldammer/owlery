@@ -30,7 +30,7 @@ const PodcastGridElement = (props) => {
               onError={(e) => (e.target.src = defaultPodcastThumbnail)}
               alt="episode thumbnail"
               title={episode.title}
-              className={`podcast-grid-element-img w-100 ${
+              className={`podcast-grid-element-img w-100 h-100 ${
                 hover ? "opacity-50" : "opacity-100"
               }`}
             />

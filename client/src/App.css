@@ -516,6 +516,7 @@ h2.privacy-title {
 
 .podcast-grid-element-img {
   border-radius: 5px;
+  object-fit: fill;
 }
 
 .podcast-grid-element-title {
