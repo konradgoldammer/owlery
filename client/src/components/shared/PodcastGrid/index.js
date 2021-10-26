@@ -162,7 +162,7 @@ const PodcastGrid = (props) => {
                 <div className="dropdown-menu dropdown-scrollable dropdown-dark">
                   <button
                     className={`dropdown-item text-center ${
-                      year === 0 ? "invisible h-0 p-0" : null
+                      year === -1 ? "invisible h-0 p-0" : null
                     }`}
                     key="-1"
                     onClick={() => setYear(-1)}
