@@ -34,7 +34,7 @@ const ReviewCard = (props) => {
           </Link>
           <div className="review-card-info mt-1">
             <Link
-              className="d-inline text-decoration-none"
+              className="d-inline text-decoration-none me-2"
               to={`/${review.author.username}`}
             >
               <p className="card-author d-inline">
@@ -42,7 +42,7 @@ const ReviewCard = (props) => {
                 {review.author.username}
               </p>
             </Link>
-            <FiveStarRating rating={rating} />
+            {rating && <FiveStarRating rating={rating} />}
             {like && (
               <p className="d-inline ms-2">
                 <FaHeart />

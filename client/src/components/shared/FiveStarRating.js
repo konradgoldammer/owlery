@@ -6,7 +6,7 @@ const FiveStarRating = ({ rating }) => {
   return (
     rating &&
     rating !== -1 && (
-      <div className="row d-inline ms-2" title={`${rating}/10`}>
+      <div className="row d-inline m-0" title={`${rating}/10`}>
         <div className="col d-inline p-0">
           {rating <= 0 ? (
             <BsStar />
