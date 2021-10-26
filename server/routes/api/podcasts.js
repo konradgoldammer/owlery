@@ -91,6 +91,7 @@ router.get("/most-popular", (req, res) => {
       },
     },
     { $sort: { totalReviews: -1 } },
+    { $limit: 5 },
   ])
     .then((podcasts) => {
       Promise.all(
