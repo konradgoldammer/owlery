@@ -244,6 +244,9 @@ const PodcastGrid = (props) => {
             <PodcastGridElement episode={e} key={e.episodeId} />
           ))}
         </div>
+        {episodes.length === 0 && (
+          <p className="w-100">There are no podcast episodes...</p>
+        )}
       </div>
     </div>
   );
