@@ -450,11 +450,9 @@ h2.privacy-title {
   height: 100%;
   width: 100%;
   border-radius: 5px;
-  border: 2px var(--light-text-color) solid;
 }
 
 .podcast-column-image:hover {
-  border: 2px var(--secondary-text-color) solid;
   opacity: 0.8;
 }
 
