@@ -21,6 +21,10 @@ const reviewSchema = new Schema({
     type: Array,
     default: [],
   },
+  alreadyHeard: {
+    type: Boolean,
+    required: true,
+  },
   date: {
     type: Date,
     default: () => new Date(),

@@ -48,10 +48,17 @@ const addAuthorObjects = (reviews) => {
 // @access   Private
 router.post("/", auth, (req, res) => {
   const { content, episodeId } = req.body;
+  const alreadyHeard = req.body.alreadyHeard ? req.body.alreadyHeard : false;
 
   // Simple validation
   if (!episodeId) {
     return res.status(400).json({ msg: "EpisodeId cannot be undefined" });
+  }
+
+  if (typeof alreadyHeard !== "boolean") {
+    return res
+      .status(400)
+      .json({ msg: "Invalid data type for 'alreadyHeard'" });
   }
 
   // Fetch episode data
@@ -74,6 +81,7 @@ router.post("/", auth, (req, res) => {
       const newReview = new Review({
         episode,
         content,
+        alreadyHeard,
         log: !content,
         authorId: req.user.id,
       });
