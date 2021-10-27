@@ -24,7 +24,7 @@ const PodcastGridElement = (props) => {
           onMouseOver={() => setHover(true)}
           onMouseOut={() => setHover(false)}
         >
-          <Link>
+          <Link to={`/episode/${episode.id}`}>
             <img
               src={episode.thumbnail}
               onError={(e) => (e.target.src = defaultPodcastThumbnail)}
