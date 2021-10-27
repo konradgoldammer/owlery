@@ -8,6 +8,7 @@ import Privacy from "./components/Privacy";
 import ForgotPass from "./components/ForgotPass";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
+import Episode from "./components/Episode";
 
 import { titleSuffix } from "./vars";
 
@@ -37,6 +38,10 @@ const Routes = () => {
           component={() => (
             <ForgotPass title={"Recover Account" + titleSuffix} />
           )}
+        />
+        <Route
+          path="/episode/:episodeId"
+          component={() => <Episode title={"Episode" + titleSuffix} />}
         />
         <Route
           path="/:username"

@@ -147,7 +147,7 @@ const Profile = (props) => {
               <div className="container-md">
                 <div className="row mt-2">
                   <div className="col-md-8">
-                    <div className="profile-header-info">
+                    <div className="d-flex">
                       {!isLoadingUser ? (
                         user && (
                           <img
@@ -165,7 +165,7 @@ const Profile = (props) => {
                         />
                       )}
                       <div className="ms-4 w-100 position-relative fs-0">
-                        <h3 className="profile-name">
+                        <h3 className="ff-heading">
                           {!isLoadingUser
                             ? user && user.username
                             : "loading..."}
@@ -226,78 +226,78 @@ const Profile = (props) => {
                             </strong>
                           </Button>
                         )}
-                        <div className="profile-header-nav row w-100 m-0">
+                        <div className="header-nav row w-50 m-0">
                           <button
                             onClick={() => setSubpage("overview")}
-                            className={`profile-header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
+                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
                               subpage === "overview"
-                                ? "profile-header-nav-selected"
-                                : "profile-header-nav-unselected"
+                                ? "header-nav-selected"
+                                : "header-nav-unselected"
                             }`}
                           >
                             Overview
                           </button>
                           <button
                             onClick={() => setSubpage("podcasts")}
-                            className={`profile-header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
+                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
                               subpage === "podcasts"
-                                ? "profile-header-nav-selected"
-                                : "profile-header-nav-unselected"
+                                ? "header-nav-selected"
+                                : "header-nav-unselected"
                             }`}
                           >
                             Podcasts
                           </button>
-                          <button
+                          {/* <button
                             onClick={() => setSubpage("reviews")}
-                            className={`profile-header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 invisible ${
+                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
                               subpage === "reviews"
-                                ? "profile-header-nav-selected"
-                                : "profile-header-nav-unselected"
+                                ? "header-nav-selected"
+                                : "header-nav-unselected"
                             }`}
                           >
                             Reviews
                           </button>
                           <button
                             onClick={() => setSubpage("diary")}
-                            className={`profile-header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 invisible ${
+                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
                               subpage === "diary"
-                                ? "profile-header-nav-selected"
-                                : "profile-header-nav-unselected"
+                                ? "header-nav-selected"
+                                : "header-nav-unselected"
                             }`}
                           >
                             Diary
                           </button>
                           <button
                             onClick={() => setSubpage("lists")}
-                            className={`profile-header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 invisible ${
+                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
                               subpage === "lists"
-                                ? "profile-header-nav-selected"
-                                : "profile-header-nav-unselected"
+                                ? "header-nav-selected"
+                                : "header-nav-unselected"
                             }`}
                           >
                             Lists
                           </button>
                           <button
                             onClick={() => setSubpage("likes")}
-                            className={`profile-header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 invisible ${
+                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
                               subpage === "likes"
-                                ? "profile-header-nav-selected"
-                                : "profile-header-nav-unselected"
+                                ? "header-nav-selected"
+                                : "header-nav-unselected"
                             }`}
                           >
                             Likes
-                          </button>
+                          </button> */}
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="col-md-4 position-relative">
                     {user && (
-                      <div className="profile-header-numbers">
+                      <div className="header-numbers">
                         <button
-                          className={`profile-header-numbers-element ${
+                          className={`header-numbers-element ${
                             subpage === "podcasts"
-                              ? "profile-header-numbers-element-selected"
+                              ? "header-numbers-element-selected"
                               : null
                           } px-2`}
                           title={`${
@@ -308,14 +308,14 @@ const Profile = (props) => {
                           <h3 className="text-center m-0">
                             {user ? user.episodes.length : "0"}
                           </h3>
-                          <p className="profile-header-numbers-text-bottom text-center m-0">
+                          <p className="header-numbers-text-bottom text-center m-0">
                             Podcasts
                           </p>
                         </button>
                         <button
-                          className={`profile-header-numbers-element ${
+                          className={`header-numbers-element ${
                             subpage === "followers"
-                              ? "profile-header-numbers-element-selected"
+                              ? "header-numbers-element-selected"
                               : null
                           } px-2`}
                           title={`${
@@ -326,14 +326,14 @@ const Profile = (props) => {
                           <h3 className="text-center m-0">
                             {user ? user.followers.length : "0"}
                           </h3>
-                          <p className="profile-header-numbers-text-bottom text-center m-0">
+                          <p className="header-numbers-text-bottom text-center m-0">
                             Followers
                           </p>
                         </button>
                         <button
-                          className={`profile-header-numbers-element ${
+                          className={`header-numbers-element ${
                             subpage === "following"
-                              ? "profile-header-numbers-element-selected"
+                              ? "header-numbers-element-selected"
                               : null
                           } px-2`}
                           title={`${
@@ -344,7 +344,7 @@ const Profile = (props) => {
                           <h3 className="text-center m-0">
                             {user ? user.following.length : "0"}
                           </h3>
-                          <p className="profile-header-numbers-text-bottom text-center m-0">
+                          <p className="header-numbers-text-bottom text-center m-0">
                             Following
                           </p>
                         </button>

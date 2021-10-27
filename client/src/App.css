@@ -103,6 +103,10 @@ body {
   background-color: var(--secondary-text-color);
 }
 
+.ff-heading {
+  font-family: var(--heading-font-family);
+}
+
 /***** SHARED COMPONENTS ******/
 
 .navbar-brand {
@@ -162,6 +166,46 @@ body {
 
 .loading-gif {
   height: 25px;
+}
+
+.header-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.header-nav-element {
+  font-size: 14px;
+  color: var(--light-text-color);
+  background-color: var(--dark-color);
+  border-start-end-radius: 5px;
+  border-start-start-radius: 5px;
+}
+
+.header-nav-selected {
+  background-color: var(--main-background-color);
+}
+
+.header-numbers {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.header-numbers-element {
+  background-color: var(--dark-color);
+  color: var(--secondary-text-color);
+}
+
+.header-numbers-element-selected,
+.header-numbers-element:hover {
+  color: var(--light-text-color);
+}
+
+.header-numbers-text-bottom {
+  font-size: 12px;
 }
 
 /***** HOME ******/
@@ -376,36 +420,6 @@ h2.privacy-title {
   border: 2px var(--light-text-color) solid;
 }
 
-.profile-header-numbers {
-  display: flex;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-}
-
-.profile-header-numbers-element {
-  background-color: var(--dark-color);
-  color: var(--secondary-text-color);
-}
-
-.profile-header-numbers-element-selected,
-.profile-header-numbers-element:hover {
-  color: var(--light-text-color);
-}
-
-.profile-header-numbers-text-bottom {
-  font-size: 12px;
-}
-
-.profile-header-info {
-  display: flex;
-}
-
-.profile-name {
-  font-family: var(--heading-font-family);
-}
-
 .profile-header-info-element {
   color: var(--secondary-text-color);
   font-size: 12px;
@@ -413,24 +427,6 @@ h2.privacy-title {
 
 .profile-header-info-button {
   font-size: 12px;
-}
-
-.profile-header-nav {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
-
-.profile-header-nav-element {
-  font-size: 14px;
-  color: var(--light-text-color);
-  background-color: var(--dark-color);
-  border-start-end-radius: 5px;
-  border-start-start-radius: 5px;
-}
-
-.profile-header-nav-selected {
-  background-color: var(--main-background-color);
 }
 
 .section-heading {
@@ -520,4 +516,23 @@ h2.privacy-title {
 .podcast-grid-element-title {
   position: absolute;
   top: 0;
+}
+
+/***** EPISODE PAGE ******/
+
+.episode-header {
+  background-color: var(--dark-color);
+  color: var(--light-text-color);
+}
+
+.episode-thumbnail {
+  height: 150px;
+  width: auto;
+  border-radius: 5px;
+  border: 2px var(--light-text-color) solid;
+}
+
+.episode-header-info-element {
+  color: var(--secondary-text-color);
+  font-size: 12px;
 }
