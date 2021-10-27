@@ -407,7 +407,7 @@ router.put("/like", auth, (req, res) => {
 
       Review.findOneAndUpdate(
         { _id: reviewId },
-        { $push: { likers: req.user.id } },
+        { $push: { likers: req.user.id }, $inc: { totalLikes: 1 } },
         { new: true }
       )
         .then((updatedReview) => {
@@ -455,7 +455,7 @@ router.put("/unlike", auth, (req, res) => {
 
       Review.findOneAndUpdate(
         { _id: reviewId },
-        { $pull: { likers: req.user.id } },
+        { $pull: { likers: req.user.id }, $inc: { totalLikes: -1 } },
         { new: true }
       )
         .then((updatedReview) => {
