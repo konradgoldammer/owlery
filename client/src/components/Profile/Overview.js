@@ -13,11 +13,19 @@ const Overview = (props) => {
   const [recentReviewsSkip, setRecentReviewsSkip] = useState(0);
   const [showRecentReviewsShowMore, setShowRecentReviewsShowMore] =
     useState(true);
+  const [mostPopularReviews, setMostPopularReviews] = useState([]);
+  const [mostPopularReviewsSkip, setMostPopularReviewsSkip] = useState(0);
+  const [showMostPopularReviewsShowMore, setShowMostPopularReviewsShowMore] =
+    useState(true);
   const [recentLogs, setRecentLogs] = useState([]);
   const [recentLogsSkip, setRecentLogsSkip] = useState(0);
   const [showRecentLogsShowMore, setShowRecentLogsShowMore] = useState(true);
   const [isLoadingRecentReviews, setIsLoadingRecentReviews] = useState(false);
   const [recentReviewsFetchError, setRecentReviewsFetchError] = useState(null);
+  const [isLoadingMostPopularReviews, setIsLoadingMostPopularReviews] =
+    useState(false);
+  const [mostPopularReviewsFetchError, setMostPopularReviewsFetchError] =
+    useState(null);
   const [isLoadingRecentLogs, setIsLoadingRecentLogs] = useState(false);
   const [recentLogsFetchError, setRecentLogsFetchError] = useState(null);
 
@@ -32,15 +40,20 @@ const Overview = (props) => {
       // Reset recent reviews
       setRecentReviews([]);
 
+      // Reset most popular reviews
+      setMostPopularReviews([]);
+
       // Reset recent logs
       setRecentLogs([]);
 
       // Reset Skips
       setRecentReviewsSkip(0);
+      setMostPopularReviewsSkip(0);
       setRecentLogsSkip(0);
 
       // Reset visibility of 'load more' buttons
       setShowRecentReviewsShowMore(true);
+      setShowMostPopularReviewsShowMore(true);
       setShowRecentLogsShowMore(true);
     }
     setUser(newUser);
@@ -74,6 +87,36 @@ const Overview = (props) => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recentReviewsSkip, user._id]);
+
+  useEffect(() => {
+    // Reset fetch most popular reviews error
+    setMostPopularReviewsFetchError(null);
+
+    // Fetch user's most popular reviews
+    setIsLoadingMostPopularReviews(true);
+
+    axios
+      .get(
+        `/api/reviews/user/most-popular/${user._id}?skip=${mostPopularReviewsSkip}`
+      )
+      .then((res) => {
+        setIsLoadingMostPopularReviews(false);
+
+        if (res.data.length === 0) {
+          setShowMostPopularReviewsShowMore(false);
+          return;
+        }
+        setMostPopularReviews([...mostPopularReviews, ...res.data]);
+      })
+      .catch((err) => {
+        setIsLoadingMostPopularReviews(false);
+        setMostPopularReviewsFetchError({
+          status: err.response.status,
+          msg: err.response.data.msg,
+        });
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mostPopularReviewsSkip, user._id]);
 
   useEffect(() => {
     // Reset fetch recent reviews error
@@ -175,7 +218,59 @@ const Overview = (props) => {
                 <Button
                   className="w-100 btn btn-sm text-uppercase"
                   color="dark"
-                  onClick={() => setRecentReviewsSkip(recentReviewsSkip + 5)}
+                  onClick={() => setRecentReviewsSkip(recentReviewsSkip + 3)}
+                >
+                  <strong>load more...</strong>
+                </Button>
+              )}
+          </div>
+          <div className="most-popular-reviews-section mt-4">
+            <h4 className="section-heading text-center mb-0">
+              Most Popular Reviews
+            </h4>
+            <hr className="section-separator mt-1 mb-3" />
+            {mostPopularReviews.map((mostPopularReview) => (
+              <ReviewCard
+                key={mostPopularReview._id}
+                review={mostPopularReview}
+              />
+            ))}
+            {mostPopularReviews.length === 0 &&
+              !mostPopularReviewsFetchError &&
+              !isLoadingMostPopularReviews && (
+                <p className="m-0 p-0">
+                  <mark className="text-capitalize">{user.username}</mark>
+                  has not posted any reviews yet.
+                </p>
+              )}
+            {isLoadingMostPopularReviews && (
+              <div className="w-100">
+                <img
+                  src={loading1}
+                  alt="loading..."
+                  title="loading..."
+                  className="text-center d-block mx-auto loading-gif"
+                />
+              </div>
+            )}
+            {mostPopularReviewsFetchError && (
+              <Alert color="danger fs-small">{`${
+                mostPopularReviewsFetchError.status
+              } ${
+                mostPopularReviewsFetchError.msg
+                  ? mostPopularReviewsFetchError.msg
+                  : "An error occurred while loading user's most popular logs"
+              }`}</Alert>
+            )}
+            {showMostPopularReviewsShowMore &&
+              !mostPopularReviewsFetchError &&
+              !isLoadingMostPopularReviews && (
+                <Button
+                  className="w-100 btn btn-sm text-uppercase"
+                  color="dark"
+                  onClick={() =>
+                    setMostPopularReviewsSkip(mostPopularReviewsSkip + 3)
+                  }
                 >
                   <strong>load more...</strong>
                 </Button>
@@ -220,7 +315,7 @@ const Overview = (props) => {
                 <Button
                   className="w-100 btn btn-sm text-uppercase"
                   color="dark"
-                  onClick={() => setRecentLogsSkip(recentLogsSkip + 5)}
+                  onClick={() => setRecentLogsSkip(recentLogsSkip + 3)}
                 >
                   <strong>load more...</strong>
                 </Button>
