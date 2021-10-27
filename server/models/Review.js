@@ -21,7 +21,7 @@ const reviewSchema = new Schema({
     type: Array,
     default: [],
   },
-  alreadyHeard: {
+  relisten: {
     type: Boolean,
     required: true,
   },
