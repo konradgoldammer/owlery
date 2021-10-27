@@ -5,6 +5,7 @@ import { FaUserCircle, FaHeart } from "react-icons/fa";
 import { MdCached } from "react-icons/md";
 import FaCalendar from "../images/FaCalendar.png";
 import { Link } from "react-router-dom";
+import FiveStarRating from "./FiveStarRating";
 
 const LogCard = (props) => {
   const { log } = props;
@@ -34,54 +35,14 @@ const LogCard = (props) => {
           <div className="card-info mt-1">
             <Link
               to={`/${log.author.username}`}
-              className="d-inline text-decoration-none"
+              className="d-inline text-decoration-none me-2"
             >
               <p className="card-author d-inline">
                 <FaUserCircle className="me-1" />
                 {log.author.username}
               </p>
             </Link>
-            {rating !== -1 && (
-              <div className="row d-inline ms-2">
-                <div className="col d-inline p-0">
-                  {rating <= 0 ? (
-                    <BsStar />
-                  ) : rating === 1 ? (
-                    <BsStarHalf />
-                  ) : (
-                    <BsStarFill />
-                  )}
-                  {rating <= 2 ? (
-                    <BsStar />
-                  ) : rating === 3 ? (
-                    <BsStarHalf />
-                  ) : (
-                    <BsStarFill />
-                  )}
-                  {rating <= 4 ? (
-                    <BsStar />
-                  ) : rating === 5 ? (
-                    <BsStarHalf />
-                  ) : (
-                    <BsStarFill />
-                  )}
-                  {rating <= 6 ? (
-                    <BsStar />
-                  ) : rating === 7 ? (
-                    <BsStarHalf />
-                  ) : (
-                    <BsStarFill />
-                  )}
-                  {rating <= 8 ? (
-                    <BsStar />
-                  ) : rating === 9 ? (
-                    <BsStarHalf />
-                  ) : (
-                    <BsStarFill />
-                  )}
-                </div>
-              </div>
-            )}
+            {rating && <FiveStarRating rating={rating} />}
             {like && (
               <p className="d-inline ms-2">
                 <FaHeart />
