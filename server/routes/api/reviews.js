@@ -192,7 +192,7 @@ router.get("/", (req, res) => {
       log: false,
     },
     {},
-    { skip, limit: 5, sort: { totalLikes: -1 } }
+    { skip, limit: 3, sort: { totalLikes: -1 } }
   )
     .then((reviews) => {
       // Convert Mongo objects to regular objects
@@ -233,7 +233,7 @@ router.get("/:episodeId", (req, res) => {
   Review.find(
     { "episode.id": episodeId, log: false },
     {},
-    { skip, limit: 5, sort: { totalLikes: -1 } }
+    { skip, limit: 3, sort: { totalLikes: -1 } }
   )
     .then((reviews) => {
       // Convert Mongo objects to regular objects
@@ -274,7 +274,7 @@ router.get("/user/:userId", (req, res) => {
   Review.find(
     { authorId: userId, log: false },
     {},
-    { skip, limit: 5, sort: { date: -1 } }
+    { skip, limit: 3, sort: { date: -1 } }
   )
     .then((reviews) => {
       // Convert Mongo objects to regular objects
@@ -312,7 +312,7 @@ router.get("/user/logs/:userId", (req, res) => {
     skip = 0;
   }
 
-  Review.find({ authorId: userId }, {}, { skip, limit: 5, sort: { date: -1 } })
+  Review.find({ authorId: userId }, {}, { skip, limit: 3, sort: { date: -1 } })
     .then((reviews) => {
       // Convert Mongo objects to regular objects
       const reviewObjects = reviews.map((review) => review.toObject());
