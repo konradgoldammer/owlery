@@ -127,7 +127,7 @@ const PodcastGrid = (props) => {
     <div className="container-md">
       <div className="grid-section">
         <h4 className="section-heading text-center mt-5 mb-0 text-capitalize">
-          {`Podcast episodes (${props.episodes.length})`}
+          {`podcast episodes (${episodes.length})`}
         </h4>
         <hr className="section-separator mt-1 mb-3" />
         <div className="card mb-3 py-1 px-3">
