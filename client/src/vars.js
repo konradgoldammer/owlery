@@ -37,5 +37,6 @@ export const yearsArray = (startYear = 1980) => {
   for (let i = startYear; i <= currentYear; i++) {
     years.push(i);
   }
+  years.reverse();
   return years;
 };
