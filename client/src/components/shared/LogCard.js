@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { FaUserCircle, FaHeart } from "react-icons/fa";
+import { MdCached } from "react-icons/md";
 import FaCalendar from "../images/FaCalendar.png";
 import { Link } from "react-router-dom";
 
@@ -85,6 +86,14 @@ const LogCard = (props) => {
             {like && (
               <p className="d-inline ms-2">
                 <FaHeart />
+              </p>
+            )}
+            {log.relisten && (
+              <p
+                className="d-inline ms-2"
+                title={`${log.author.username} has relistened this episode`}
+              >
+                <MdCached />
               </p>
             )}
           </div>
