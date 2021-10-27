@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { FaUserCircle, FaHeart, FaComment } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { timeSince } from "../../vars";
+import FiveStarRating from "./FiveStarRating";
 
 const ReviewCard = (props) => {
   const { review } = props;
@@ -15,7 +15,7 @@ const ReviewCard = (props) => {
   const [showMore, setShowMore] = useState(false);
 
   return (
-    <div className="card w-100 p-3 mb-2" title={review.episode.title}>
+    <div className="card w-100 p-3 mb-2">
       <div className="row">
         <div className="col-3">
           <img
@@ -25,12 +25,16 @@ const ReviewCard = (props) => {
           />
         </div>
         <div className="col-9">
-          <Link to={`/review/${review._id}`} className="text-decoration-none">
+          <Link
+            to={`/review/${review._id}`}
+            className="text-decoration-none"
+            title={review.episode.title}
+          >
             <h5 className="card-title mb-0">{review.episode.title}</h5>
           </Link>
           <div className="review-card-info mt-1">
             <Link
-              className="d-inline text-decoration-none"
+              className="d-inline text-decoration-none me-2"
               to={`/${review.author.username}`}
             >
               <p className="card-author d-inline">
@@ -38,47 +42,7 @@ const ReviewCard = (props) => {
                 {review.author.username}
               </p>
             </Link>
-            {rating !== -1 && (
-              <div className="row d-inline ms-2">
-                <div className="col d-inline p-0">
-                  {rating <= 0 ? (
-                    <BsStar />
-                  ) : rating === 1 ? (
-                    <BsStarHalf />
-                  ) : (
-                    <BsStarFill />
-                  )}
-                  {rating <= 2 ? (
-                    <BsStar />
-                  ) : rating === 3 ? (
-                    <BsStarHalf />
-                  ) : (
-                    <BsStarFill />
-                  )}
-                  {rating <= 4 ? (
-                    <BsStar />
-                  ) : rating === 5 ? (
-                    <BsStarHalf />
-                  ) : (
-                    <BsStarFill />
-                  )}
-                  {rating <= 6 ? (
-                    <BsStar />
-                  ) : rating === 7 ? (
-                    <BsStarHalf />
-                  ) : (
-                    <BsStarFill />
-                  )}
-                  {rating <= 8 ? (
-                    <BsStar />
-                  ) : rating === 9 ? (
-                    <BsStarHalf />
-                  ) : (
-                    <BsStarFill />
-                  )}
-                </div>
-              </div>
-            )}
+            {rating && <FiveStarRating rating={rating} />}
             {like && (
               <p className="d-inline ms-2">
                 <FaHeart />
@@ -94,7 +58,7 @@ const ReviewCard = (props) => {
               "..."}
             {review.content.length > maxReviewContentLength && (
               <button
-                className="review-show-more-button bg-transparent"
+                className="text-secondary hover-underline bg-transparent"
                 title={showMore ? "show less" : "show more"}
                 onClick={(e) => {
                   e.preventDefault();

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const PodcastColumn = (props) => {
-  const [podcast, setPodcast] = useState(props.podcast);
+  const [podcast, setPodcast] = useState({ ...props.podcast });
 
   useEffect(() => {
     if (!podcast) return;

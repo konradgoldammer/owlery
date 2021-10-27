@@ -17,15 +17,15 @@
   color: #404040 !important;
 }
 
-.profile-dropdown-item:active {
-  background-color: #252525 !important;
+.dropdown-item:hover {
+  background-color: #585858 !important;
+  color: #fafafa !important;
 }
 
-.profile-dropdown-item:hover {
+.dropdown-item:focus {
   background-color: #585858 !important;
-}
-.profile-dropdown-item:hover:hover {
-  color: #fafafa;
+  color: #fafafa !important;
+  text-decoration: underline !important;
 }
 
 .logout:hover {
@@ -64,6 +64,15 @@
 }
 .card-author:hover {
   color: #c7c7c7;
+}
+
+.profile-header-info-link {
+  color: #c4c4c4;
+  text-decoration: none;
+}
+.profile-header-info-link:hover {
+  color: #c4c4c4;
+  text-decoration: underline;
 }
 
 /*!
@@ -10886,25 +10895,25 @@ textarea.form-control-lg {
 
 @media (min-width: 768px) {
   .log-card-calendar-number {
-    top: 0.75rem;
+    top: 12px;
     font-size: 1rem;
   }
 }
 @media (min-width: 992px) {
   .log-card-calendar-number {
-    top: 1.25rem;
+    top: 20px;
     font-size: 1.5rem;
   }
 }
 @media (min-width: 1200px) {
   .log-card-calendar-number {
-    top: 1.75rem;
+    top: 26px;
     font-size: 2rem;
   }
 }
 @media (min-width: 1400px) {
   .log-card-calendar-number {
-    top: 2.25rem;
+    top: 32px;
     font-size: 2.5rem;
   }
 }

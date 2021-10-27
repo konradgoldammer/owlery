@@ -9,6 +9,9 @@ import {
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  USER_UPDATING,
+  USER_UPDATED,
+  USER_UPDATE_ERROR,
 } from "./types";
 
 // Check token and load user
@@ -84,6 +87,107 @@ export const logout = () => {
   return {
     type: LOGOUT_SUCCESS,
   };
+};
+
+// Update user
+export const updateUser = (changes) => async (dispatch, getState) => {
+  // User updating
+  dispatch({ type: USER_UPDATING });
+
+  let updatedUser = null;
+  let error = false;
+
+  await axios
+    .put(
+      "/api/users/location",
+      { newLocation: changes.newLocation },
+      tokenConfig(getState)
+    )
+    .then((res) => {
+      updatedUser = res.data;
+    })
+    .catch((err) => {
+      error = true;
+      dispatch(
+        returnErrors(
+          err.response.data.msg,
+          err.response.status,
+          "USER_UPDATE_ERROR"
+        )
+      );
+      return dispatch({ type: USER_UPDATE_ERROR });
+    });
+
+  await axios
+    .put(
+      "/api/users/website",
+      { newWebsite: changes.newWebsite },
+      tokenConfig(getState)
+    )
+    .then((res) => {
+      updatedUser = res.data;
+    })
+    .catch((err) => {
+      error = true;
+      dispatch(
+        returnErrors(
+          err.response.data.msg,
+          err.response.status,
+          "USER_UPDATE_ERROR"
+        )
+      );
+      dispatch({ type: USER_UPDATE_ERROR });
+    });
+
+  if (!updatedUser || error) {
+    return;
+  }
+
+  dispatch({ type: USER_UPDATED, payload: updatedUser });
+};
+
+// Follow user
+export const followUser = (userId) => async (dispatch, getState) => {
+  // User updating
+  dispatch({ type: USER_UPDATING });
+
+  await axios
+    .put("/api/users/follow", { userId }, tokenConfig(getState))
+    .then((res) => {
+      dispatch({ type: USER_UPDATED, payload: res.data });
+    })
+    .catch((err) => {
+      dispatch(
+        returnErrors(
+          err.response.data.msg,
+          err.response.status,
+          "USER_UPDATE_ERROR"
+        )
+      );
+      return dispatch({ type: USER_UPDATE_ERROR });
+    });
+};
+
+// Follow user
+export const unfollowUser = (userId) => async (dispatch, getState) => {
+  // User updating
+  dispatch({ type: USER_UPDATING });
+
+  await axios
+    .put("/api/users/unfollow", { userId }, tokenConfig(getState))
+    .then((res) => {
+      dispatch({ type: USER_UPDATED, payload: res.data });
+    })
+    .catch((err) => {
+      dispatch(
+        returnErrors(
+          err.response.data.msg,
+          err.response.status,
+          "USER_UPDATE_ERROR"
+        )
+      );
+      return dispatch({ type: USER_UPDATE_ERROR });
+    });
 };
 
 // Setup config/headers and token

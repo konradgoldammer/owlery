@@ -17,9 +17,17 @@ const reviewSchema = new Schema({
     type: Boolean,
     required: true,
   },
+  totalLikes: {
+    type: Number,
+    default: 0,
+  },
   likers: {
     type: Array,
     default: [],
+  },
+  relisten: {
+    type: Boolean,
+    required: true,
   },
   date: {
     type: Date,

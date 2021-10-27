@@ -18,8 +18,89 @@
   --dark-color: #0d0d0d;
   --light-text-color: #fafafa;
   --secondary-text-color: #c4c4c4;
+  --danger-color: #ff4136;
   --font-family: "Roboto", sans-serif;
   --heading-font-family: "Playfair Display", serif;
+}
+
+/***** MAIN VALUES ******/
+
+html,
+body {
+  min-height: 100vh;
+  max-width: 100%;
+  overflow-x: hidden;
+  background-color: var(--main-background-color);
+  font-family: var(--font-family);
+  color: var(--light-text-color);
+  position: relative;
+}
+
+.content {
+  height: 100%;
+  min-height: 100vh;
+  margin-top: 0;
+  padding-top: 0;
+  background-color: var(--secondary-text-color);
+}
+
+.bg-main {
+  background-color: var(--main-background-color);
+}
+
+.pt-56 {
+  padding-top: 56px;
+}
+
+.fs-0 {
+  font-size: 0;
+}
+
+.hover-underline:hover {
+  text-decoration: underline;
+}
+
+.to-bottom {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.center-vertically {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.fs-small {
+  font-size: 12px;
+}
+
+.fs-big {
+  font-size: 1.25rem;
+}
+
+.fc-secondary-text {
+  color: var(--secondary-text-color);
+}
+
+.h-0 {
+  height: 0;
+}
+
+.white-space-normal {
+  white-space: normal;
+}
+
+.bg-secondary-text {
+  background-color: var(--secondary-text-color);
 }
 
 /***** SHARED COMPONENTS ******/
@@ -59,14 +140,6 @@
   color: var(--secondary-text-color);
 }
 
-.review-show-more-button {
-  color: var(--secondary-color);
-}
-
-.review-show-more-button:hover {
-  text-decoration: underline;
-}
-
 .card {
   background-color: var(--dark-color);
   border-radius: 5px;
@@ -83,23 +156,12 @@
     brightness(104%) contrast(96%);
 }
 
-.to-bottom {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+.edit-profile {
+  font-size: 12px;
 }
 
-/***** MAIN VALUES ******/
-
-html,
-body {
-  min-height: 100vh;
-  max-width: 100%;
-  overflow-x: hidden;
-  background-color: var(--main-background-color);
-  font-family: var(--font-family);
-  color: var(--light-text-color);
-  position: relative;
+.loading-gif {
+  height: 25px;
 }
 
 /***** HOME ******/
@@ -133,16 +195,20 @@ body {
   border-bottom-right-radius: 0.2em;
 }
 
-.profile-dropdown-menu {
+.dropdown-dark {
   background-color: var(--main-background-color);
   padding: 0;
   overflow: hidden;
 }
 
-.profile-dropdown-item {
+.dropdown-scrollable {
+  overflow-y: auto;
+  max-height: 150px;
+}
+
+.dropdown-item {
   font-size: 0.875rem;
   color: var(--light-text-color);
-  text-align: center;
 }
 
 .profile-dropdown-toggle {
@@ -175,6 +241,10 @@ body {
 mark {
   color: var(--primary-color);
   background: none;
+}
+
+.mark-secondary {
+  color: var(--secondary-color);
 }
 
 /***** SIGN UP / LOGIN ******/
@@ -211,6 +281,8 @@ label[for="email"],
 [for="data"],
 [for="username"],
 [for="password"],
+[for="location"],
+[for="website"],
 [for="confirmPassword"] {
   font-size: 14px;
   position: relative;
@@ -239,10 +311,6 @@ p.choose-other-access-option {
   right: 12px;
   top: 50%;
   transform: translateY(-40%);
-}
-
-.error-msg-alert {
-  font-size: 12px;
 }
 
 /***** T&C & PP ******/
@@ -289,7 +357,6 @@ h2.privacy-title {
 /***** PROFILE PAGE ******/
 
 .profile-header {
-  padding-top: 56px;
   background-color: var(--dark-color);
   color: var(--light-text-color);
 }
@@ -322,6 +389,7 @@ h2.privacy-title {
   color: var(--secondary-text-color);
 }
 
+.profile-header-numbers-element-selected,
 .profile-header-numbers-element:hover {
   color: var(--light-text-color);
 }
@@ -340,6 +408,10 @@ h2.privacy-title {
 
 .profile-header-info-element {
   color: var(--secondary-text-color);
+  font-size: 12px;
+}
+
+.profile-header-info-button {
   font-size: 12px;
 }
 
@@ -378,11 +450,9 @@ h2.privacy-title {
   height: 100%;
   width: 100%;
   border-radius: 5px;
-  border: 2px var(--light-text-color) solid;
 }
 
 .podcast-column-image:hover {
-  border: 2px var(--secondary-text-color) solid;
   opacity: 0.8;
 }
 
@@ -392,4 +462,62 @@ h2.privacy-title {
 
 .podcast-column-likes {
   color: var(--light-text-color);
+}
+
+.error-container {
+  min-height: 40vh;
+}
+
+.error-status-code-div {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12rem;
+  height: 12rem;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: var(--danger-color);
+  border: 2px solid var(--light-text-color);
+}
+
+.error-status-code {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5rem;
+}
+
+.user-list-profile-pic {
+  height: 3rem;
+  width: auto;
+  border-radius: 100%;
+  border: 2px var(--light-text-color) solid;
+}
+
+.podcast-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 150px);
+  justify-content: space-between;
+  grid-gap: 0.5rem;
+}
+
+.podcast-grid-element {
+  width: 150px;
+  position: relative;
+}
+
+.podcast-grid-element-upper-section {
+  height: 150px;
+  overflow: hidden;
+}
+
+.podcast-grid-element-img {
+  border-radius: 5px;
+  object-fit: fill;
+}
+
+.podcast-grid-element-title {
+  position: absolute;
+  top: 0;
 }

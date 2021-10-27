@@ -7,12 +7,16 @@ import {
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  USER_UPDATED,
+  USER_UPDATING,
+  USER_UPDATE_ERROR,
 } from "../actions/types";
 
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null,
   isLoading: false,
+  isUpdatingUser: false,
   user: null,
 };
 
@@ -50,6 +54,22 @@ const reducer = (state = initialState, action) => {
         user: null,
         isAuthenticated: false,
         isLoading: false,
+      };
+    case USER_UPDATING:
+      return {
+        ...state,
+        isUpdatingUser: true,
+      };
+    case USER_UPDATED:
+      return {
+        ...state,
+        isUpdatingUser: false,
+        user: action.payload,
+      };
+    case USER_UPDATE_ERROR:
+      return {
+        ...state,
+        isUpdatingUser: false,
       };
     default:
       return state;

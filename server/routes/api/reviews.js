@@ -48,10 +48,15 @@ const addAuthorObjects = (reviews) => {
 // @access   Private
 router.post("/", auth, (req, res) => {
   const { content, episodeId } = req.body;
+  const relisten = req.body.relisten ? req.body.relisten : false;
 
   // Simple validation
   if (!episodeId) {
     return res.status(400).json({ msg: "EpisodeId cannot be undefined" });
+  }
+
+  if (typeof relisten !== "boolean") {
+    return res.status(400).json({ msg: "Invalid data type for 'relisten'" });
   }
 
   // Fetch episode data
@@ -74,6 +79,7 @@ router.post("/", auth, (req, res) => {
       const newReview = new Review({
         episode,
         content,
+        relisten,
         log: !content,
         authorId: req.user.id,
       });
@@ -186,7 +192,7 @@ router.get("/", (req, res) => {
       log: false,
     },
     {},
-    { skip, limit: 5, sort: { totalLikes: -1 } }
+    { skip, limit: 3, sort: { totalLikes: -1 } }
   )
     .then((reviews) => {
       // Convert Mongo objects to regular objects
@@ -227,7 +233,7 @@ router.get("/:episodeId", (req, res) => {
   Review.find(
     { "episode.id": episodeId, log: false },
     {},
-    { skip, limit: 5, sort: { totalLikes: -1 } }
+    { skip, limit: 3, sort: { totalLikes: -1 } }
   )
     .then((reviews) => {
       // Convert Mongo objects to regular objects
@@ -268,7 +274,48 @@ router.get("/user/:userId", (req, res) => {
   Review.find(
     { authorId: userId, log: false },
     {},
-    { skip, limit: 5, sort: { date: -1 } }
+    { skip, limit: 3, sort: { date: -1 } }
+  )
+    .then((reviews) => {
+      // Convert Mongo objects to regular objects
+      const reviewObjects = reviews.map((review) => review.toObject());
+
+      Promise.all(
+        reviewObjects.map((reviewObject) => countComments(reviewObject._id))
+      ).then((totalCommentsArray) => {
+        // Add 'totalComments' property to review objects
+        const reviewsWithTotalComments = reviewObjects.map((review, index) => ({
+          ...review,
+          totalComments: totalCommentsArray[index],
+        }));
+
+        // Add author objects to review objects for the response JSON
+        addAuthorObjects(reviewsWithTotalComments).then(
+          (reviewsWithAuthorObject) => {
+            return res.json(reviewsWithAuthorObject);
+          }
+        );
+      });
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+});
+
+// @route    GET "/user/most-popular/:userId?skip=xxx"
+// @desc.    Get reviews of a user (sorted by totalLikes)
+// @access   Public
+router.get("/user/most-popular/:userId", (req, res) => {
+  const userId = req.params.userId;
+  let skip = Number(req.query.skip) || 0;
+  if (skip === NaN) {
+    skip = 0;
+  }
+
+  Review.find(
+    { authorId: userId, log: false },
+    {},
+    { skip, limit: 3, sort: { totalLikes: -1 } }
   )
     .then((reviews) => {
       // Convert Mongo objects to regular objects
@@ -297,7 +344,7 @@ router.get("/user/:userId", (req, res) => {
 });
 
 // @route    GET "/user/logs/:userId?skip=xxx"
-// @desc.    Get reviews of a user (sorted by date)
+// @desc.    Get logs of a user (sorted by date)
 // @access   Public
 router.get("/user/logs/:userId", (req, res) => {
   const userId = req.params.userId;
@@ -306,7 +353,7 @@ router.get("/user/logs/:userId", (req, res) => {
     skip = 0;
   }
 
-  Review.find({ authorId: userId }, {}, { skip, limit: 5, sort: { date: -1 } })
+  Review.find({ authorId: userId }, {}, { skip, limit: 3, sort: { date: -1 } })
     .then((reviews) => {
       // Convert Mongo objects to regular objects
       const reviewObjects = reviews.map((review) => review.toObject());
@@ -360,7 +407,7 @@ router.put("/like", auth, (req, res) => {
 
       Review.findOneAndUpdate(
         { _id: reviewId },
-        { $push: { likers: req.user.id } },
+        { $push: { likers: req.user.id }, $inc: { totalLikes: 1 } },
         { new: true }
       )
         .then((updatedReview) => {
@@ -408,7 +455,7 @@ router.put("/unlike", auth, (req, res) => {
 
       Review.findOneAndUpdate(
         { _id: reviewId },
-        { $pull: { likers: req.user.id } },
+        { $pull: { likers: req.user.id }, $inc: { totalLikes: -1 } },
         { new: true }
       )
         .then((updatedReview) => {

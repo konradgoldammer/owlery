@@ -6,6 +6,7 @@ const Review = require("../../models/Review");
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
+const validator = require("validator");
 const auth = require("../../middleware/auth");
 const { Client } = require("podcast-api");
 
@@ -151,9 +152,8 @@ router.post("/", (req, res) => {
               res.json({
                 token,
                 user: {
-                  id: user.id,
-                  username: user.username,
-                  email: user.email,
+                  ...user.toObject(),
+                  password: undefined,
                 },
               });
             }
@@ -175,11 +175,34 @@ router.get("/:username", (req, res) => {
     .select("-password")
     .then((user) => {
       if (!user) {
+        return res.status(404).json({
+          msg: `Could not find user with the username '${username}'`,
+        });
+      }
+      return res.json(user);
+    });
+});
+
+// @route    GET "/id/:userId"
+// @desc.    Get user data by userId
+// @access   Public
+router.get("/id/:userId", (req, res) => {
+  const userId = req.params.userId;
+
+  // Simple validation
+  if (!mongoose.isValidObjectId(userId)) {
+    return res.status(400).json({ msg: "Invalid userId" });
+  }
+  // Fetch user data from the database
+  User.findById(userId)
+    .select("-password")
+    .then((user) => {
+      if (!user) {
         return res
           .status(404)
-          .json({ msg: "Could not find user with that username" });
+          .json({ msg: `Could not find user with the ID '${userId}'` });
       }
-      res.json(user);
+      return res.json(user);
     });
 });
 
@@ -219,17 +242,16 @@ router.put("/follow", auth, (req, res) => {
 
       User.findOneAndUpdate(
         { _id: req.user.id },
-        { $push: { following: userId } }
+        { $push: { following: userId } },
+        { new: true }
       )
-        .then(() => {
+        .then((updatedUser) => {
           User.findOneAndUpdate(
             { _id: userId },
             { $push: { followers: req.user.id } }
           )
             .then(() => {
-              return res.json({
-                msg: `Successfully followed the user with the ID ${userId}`,
-              });
+              return res.json(updatedUser);
             })
             .catch((err) => {
               return console.log(err);
@@ -282,17 +304,16 @@ router.put("/unfollow", auth, (req, res) => {
 
       User.findOneAndUpdate(
         { _id: req.user.id },
-        { $pull: { following: userId } }
+        { $pull: { following: userId } },
+        { new: true }
       )
-        .then(() => {
+        .then((updatedUser) => {
           User.findOneAndUpdate(
             { _id: userId },
             { $pull: { followers: req.user.id } }
           )
             .then(() => {
-              return res.json({
-                msg: `Successfully unfollowed user with id ${userId}`,
-              });
+              return res.json(updatedUser);
             })
             .catch((err) => {
               return console.log(err);
@@ -409,10 +430,12 @@ router.put("/add-favorite-podcast", auth, (req, res) => {
           // Add podcast to favoritePodcasts array in the database
           User.findOneAndUpdate(
             { _id: req.user.id },
-            { $push: { favoritePodcasts: podcast } }
+            { $push: { favoritePodcasts: podcast } },
+            { new: true }
           )
-            .then(() => {
-              return res.json(podcast);
+            .select("-password")
+            .then((updatedUser) => {
+              return res.json(updatedUser);
             })
             .catch((err) => {
               return console.log(err);
@@ -457,14 +480,74 @@ router.put("/remove-favorite-podcast", auth, (req, res) => {
       // Remove podcast from favoritePodcasts array in the database
       User.findOneAndUpdate(
         { _id: req.user.id },
-        { $pull: { favoritePodcasts: podcastToRemove } }
+        { $pull: { favoritePodcasts: podcastToRemove } },
+        { new: true }
       )
-        .then(() => {
-          return res.json(podcastToRemove);
+        .select("-password")
+        .then((updatedUser) => {
+          return res.json(updatedUser);
         })
         .catch((err) => {
           return console.log(err);
         });
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+});
+
+// @route    Put "/location"
+// @desc.    Set location of user
+// @access   Private
+router.put("/location", auth, (req, res) => {
+  const { newLocation } = req.body;
+
+  // Simple validation
+  if (
+    (!newLocation || typeof newLocation !== "string") &&
+    newLocation !== null
+  ) {
+    return res.status(400).json({ msg: "Please enter a valid location" });
+  }
+
+  // Update location in database
+  User.findOneAndUpdate(
+    { _id: req.user.id },
+    { location: newLocation },
+    { new: true }
+  )
+    .select("-password")
+    .then((updatedUser) => {
+      return res.json(updatedUser);
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+});
+
+// @route    Put "/website"
+// @desc.    Set website of user
+// @access   Private
+router.put("/website", auth, (req, res) => {
+  const { newWebsite } = req.body;
+
+  // Simple validation
+  if (
+    newWebsite !== null &&
+    !validator.isURL(newWebsite, { require_protocol: true })
+  ) {
+    return res.status(400).json({ msg: "Please enter a valid website" });
+  }
+
+  // Update location in database
+  User.findOneAndUpdate(
+    { _id: req.user.id },
+    { website: newWebsite },
+    { new: true }
+  )
+    .select("-password")
+    .then((updatedUser) => {
+      return res.json(updatedUser);
     })
     .catch((err) => {
       return console.log(err);
