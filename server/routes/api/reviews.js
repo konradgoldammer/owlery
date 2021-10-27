@@ -303,7 +303,7 @@ router.get("/user/:userId", (req, res) => {
 });
 
 // @route    GET "/user/logs/:userId?skip=xxx"
-// @desc.    Get reviews of a user (sorted by date)
+// @desc.    Get logs of a user (sorted by date)
 // @access   Public
 router.get("/user/logs/:userId", (req, res) => {
   const userId = req.params.userId;
