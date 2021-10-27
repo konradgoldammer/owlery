@@ -13,10 +13,7 @@ const LogCard = (props) => {
   );
 
   return (
-    <div
-      className="card w-100 p-3 mb-2 position-relative"
-      title={log.episode.title}
-    >
+    <div className="card w-100 p-3 mb-2 position-relative">
       <div className="row">
         <div className="col-2 position-relative">
           <img
@@ -30,7 +27,9 @@ const LogCard = (props) => {
         </div>
         <div className="col-10">
           <Link to={`/review/${log._id}`} className="text-decoration-none">
-            <h5 className="card-title mb-0">{log.episode.title}</h5>
+            <h5 className="card-title mb-0" title={log.episode.title}>
+              {log.episode.title}
+            </h5>
           </Link>
           <div className="card-info mt-1">
             <Link
