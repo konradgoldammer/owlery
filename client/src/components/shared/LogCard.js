@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { FaUserCircle, FaHeart } from "react-icons/fa";
 import { MdCached } from "react-icons/md";
 import FaCalendar from "../images/FaCalendar.png";
