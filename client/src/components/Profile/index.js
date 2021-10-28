@@ -226,10 +226,10 @@ const Profile = (props) => {
                             </strong>
                           </Button>
                         )}
-                        <div className="header-nav row w-50 m-0">
+                        <div className="header-nav row m-0">
                           <button
                             onClick={() => setSubpage("overview")}
-                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
+                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 px-3 ${
                               subpage === "overview"
                                 ? "header-nav-selected"
                                 : "header-nav-unselected"
@@ -239,7 +239,7 @@ const Profile = (props) => {
                           </button>
                           <button
                             onClick={() => setSubpage("podcasts")}
-                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
+                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 px-3 ${
                               subpage === "podcasts"
                                 ? "header-nav-selected"
                                 : "header-nav-unselected"
@@ -249,7 +249,7 @@ const Profile = (props) => {
                           </button>
                           {/* <button
                             onClick={() => setSubpage("reviews")}
-                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
+                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 px-3 ${
                               subpage === "reviews"
                                 ? "header-nav-selected"
                                 : "header-nav-unselected"
@@ -259,7 +259,7 @@ const Profile = (props) => {
                           </button>
                           <button
                             onClick={() => setSubpage("diary")}
-                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
+                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 px-3 ${
                               subpage === "diary"
                                 ? "header-nav-selected"
                                 : "header-nav-unselected"
@@ -269,7 +269,7 @@ const Profile = (props) => {
                           </button>
                           <button
                             onClick={() => setSubpage("lists")}
-                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
+                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 px-3 ${
                               subpage === "lists"
                                 ? "header-nav-selected"
                                 : "header-nav-unselected"
@@ -279,7 +279,7 @@ const Profile = (props) => {
                           </button>
                           <button
                             onClick={() => setSubpage("likes")}
-                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
+                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 px-3 ${
                               subpage === "likes"
                                 ? "header-nav-selected"
                                 : "header-nav-unselected"

@@ -99,10 +99,10 @@ const Episode = (props) => {
                               episode.description.replace(/(<([^>]+)>)/gi, "")
                             : null}
                         </p>
-                        <div className="header-nav row w-50 m-0">
+                        <div className="header-nav row m-0">
                           <button
                             onClick={() => setSubpage("overview")}
-                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
+                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 px-3 ${
                               subpage === "overview"
                                 ? "header-nav-selected"
                                 : "header-nav-unselected"
@@ -112,7 +112,7 @@ const Episode = (props) => {
                           </button>
                           <button
                             onClick={() => setSubpage("lists")}
-                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 ${
+                            className={`header-nav-element col-md text-center text-uppercase text-decoration-none bold pt-1 px-3 ${
                               subpage === "lists"
                                 ? "header-nav-selected"
                                 : "header-nav-unselected"
