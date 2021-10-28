@@ -84,7 +84,7 @@ const Episode = (props) => {
                           src={loading}
                           alt="loading..."
                           title="loading..."
-                          className="episode-thumbnail mb-3"
+                          className="episode-thumbnail mb-3 rounded-circle"
                         />
                       )}
                       <div className="ms-4 w-100 position-relative fs-0">
