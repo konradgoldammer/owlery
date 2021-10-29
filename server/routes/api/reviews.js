@@ -177,8 +177,8 @@ const countComments = (reviewId) => {
   });
 };
 
-// @route    GET "/?skip=xxx"
-// @desc.    Get last week's reviews (sorted by totalLikes)
+// @route    GET "/?skip=xxx?sortByPopularity=yyy"
+// @desc.    Get last week's reviews
 // @access   Public
 router.get("/", (req, res) => {
   let skip = Number(req.query.skip) || 0;
@@ -186,13 +186,19 @@ router.get("/", (req, res) => {
     skip = 0;
   }
 
+  let sortByPopularity = req.query.sortByPopularity === "false";
+
   Review.find(
     {
       date: { $gte: new Date(new Date() - 7 * 60 * 60 * 24 * 1000) },
       log: false,
     },
     {},
-    { skip, limit: 3, sort: { totalLikes: -1 } }
+    {
+      skip,
+      limit: 3,
+      sort: sortByPopularity ? { totalLikes: -1 } : { date: -1 },
+    }
   )
     .then((reviews) => {
       // Convert Mongo objects to regular objects
@@ -220,20 +226,27 @@ router.get("/", (req, res) => {
     });
 });
 
-// @route    GET "/:episodeId?skip=xxx"
-// @desc.    Get reviews of an episode (sorted by totalLikes)
+// @route    GET "/:episodeId?skip=xxx?sortByPopularity=yyy"
+// @desc.    Get reviews of an episode
 // @access   Public
 router.get("/:episodeId", (req, res) => {
   const episodeId = req.params.episodeId;
+
   let skip = Number(req.query.skip) || 0;
   if (skip === NaN) {
     skip = 0;
   }
+
+  let sortByPopularity = req.query.sortByPopularity === "false";
 
   Review.find(
     { "episode.id": episodeId, log: false },
     {},
-    { skip, limit: 3, sort: { totalLikes: -1 } }
+    {
+      skip,
+      limit: 3,
+      sort: sortByPopularity ? { totalLikes: -1 } : { date: -1 },
+    }
   )
     .then((reviews) => {
       // Convert Mongo objects to regular objects
@@ -261,61 +274,27 @@ router.get("/:episodeId", (req, res) => {
     });
 });
 
-// @route    GET "/user/:userId?skip=xxx"
-// @desc.    Get reviews of a user (sorted by date)
+// @route    GET "/user/:userId?skip=xxx?sortByPopularity=yyy"
+// @desc.    Get reviews of a user
 // @access   Public
 router.get("/user/:userId", (req, res) => {
   const userId = req.params.userId;
+
   let skip = Number(req.query.skip) || 0;
   if (skip === NaN) {
     skip = 0;
   }
 
-  Review.find(
-    { authorId: userId, log: false },
-    {},
-    { skip, limit: 3, sort: { date: -1 } }
-  )
-    .then((reviews) => {
-      // Convert Mongo objects to regular objects
-      const reviewObjects = reviews.map((review) => review.toObject());
-
-      Promise.all(
-        reviewObjects.map((reviewObject) => countComments(reviewObject._id))
-      ).then((totalCommentsArray) => {
-        // Add 'totalComments' property to review objects
-        const reviewsWithTotalComments = reviewObjects.map((review, index) => ({
-          ...review,
-          totalComments: totalCommentsArray[index],
-        }));
-
-        // Add author objects to review objects for the response JSON
-        addAuthorObjects(reviewsWithTotalComments).then(
-          (reviewsWithAuthorObject) => {
-            return res.json(reviewsWithAuthorObject);
-          }
-        );
-      });
-    })
-    .catch((err) => {
-      return console.log(err);
-    });
-});
-
-// @route    GET "/user/most-popular/:userId?skip=xxx"
-// @desc.    Get reviews of a user (sorted by totalLikes)
-// @access   Public
-router.get("/user/most-popular/:userId", (req, res) => {
-  const userId = req.params.userId;
-  let skip = Number(req.query.skip) || 0;
-  if (skip === NaN) {
-    skip = 0;
-  }
+  let sortByPopularity = req.query.sortByPopularity === "false";
 
   Review.find(
     { authorId: userId, log: false },
     {},
-    { skip, limit: 3, sort: { totalLikes: -1 } }
+    {
+      skip,
+      limit: 3,
+      sort: sortByPopularity ? { totalLikes: -1 } : { date: -1 },
+    }
   )
     .then((reviews) => {
       // Convert Mongo objects to regular objects
