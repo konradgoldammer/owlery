@@ -8,7 +8,7 @@ import loading1 from "../images/loading1.gif";
 import axios from "axios";
 
 const Overview = (props) => {
-  const [user, setUser] = useState(props.user);
+  const [user, setUser] = useState({ ...props.user });
   const [recentReviews, setRecentReviews] = useState([]);
   const [recentReviewsSkip, setRecentReviewsSkip] = useState(0);
   const [showRecentReviewsShowMore, setShowRecentReviewsShowMore] =
