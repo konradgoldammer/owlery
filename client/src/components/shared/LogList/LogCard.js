@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FaUserCircle, FaHeart } from "react-icons/fa";
 import { MdCached } from "react-icons/md";
-import FaCalendar from "../images/FaCalendar.png";
+import FaCalendar from "../../images/FaCalendar.png";
 import { Link } from "react-router-dom";
-import FiveStarRating from "./FiveStarRating";
+import FiveStarRating from "../FiveStarRating";
 
 const LogCard = (props) => {
   const { log } = props;

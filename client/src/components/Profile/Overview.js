@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Alert, Button } from "reactstrap";
 import PodcastColumn from "../shared/PodcastColumn";
 import ReviewList from "../shared/ReviewList";
-import LogCard from "../shared/LogCard";
-import loading1 from "../images/loading1.gif";
-import axios from "axios";
+import LogList from "../shared/LogList";
 
 const Overview = (props) => {
+  // Stores the user object
   const [user, setUser] = useState({ ...props.user });
-  const [recentLogs, setRecentLogs] = useState([]);
-  const [recentLogsSkip, setRecentLogsSkip] = useState(0);
-  const [showRecentLogsShowMore, setShowRecentLogsShowMore] = useState(true);
-  const [isLoadingRecentLogs, setIsLoadingRecentLogs] = useState(false);
-  const [recentLogsFetchError, setRecentLogsFetchError] = useState(null);
 
   useEffect(() => {
     const newUser = props.user;
@@ -22,47 +15,9 @@ const Overview = (props) => {
         newUser.favoritePodcasts.push(null);
       }
     }
-    if (user._id !== newUser._id) {
-      // Reset recent logs
-      setRecentLogs([]);
-
-      // Reset Skips
-      setRecentLogsSkip(0);
-
-      // Reset visibility of 'load more' buttons
-      setShowRecentLogsShowMore(true);
-    }
     setUser(newUser);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.user]);
-
-  useEffect(() => {
-    // Reset fetch recent reviews error
-    setRecentLogsFetchError(null);
-
-    // Fetch recent logs
-    setIsLoadingRecentLogs(true);
-
-    axios
-      .get(`/api/reviews/user/logs/${user._id}?skip=${recentLogsSkip}`)
-      .then((res) => {
-        setIsLoadingRecentLogs(false);
-
-        if (res.data.length === 0) {
-          setShowRecentLogsShowMore(false);
-          return;
-        }
-        setRecentLogs([...recentLogs, ...res.data]);
-      })
-      .catch((err) => {
-        setIsLoadingRecentLogs(false);
-        setRecentLogsFetchError({
-          status: err.response.status,
-          msg: err.response.data.msg,
-        });
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recentLogsSkip, user._id]);
 
   return (
     <div className="container-md">
@@ -107,45 +62,7 @@ const Overview = (props) => {
           <div className="recent-logs-section">
             <h4 className="section-heading text-center mb-0">Diary</h4>
             <hr className="section-separator mt-1 mb-3" />
-            {recentLogs.map((recentLog) => (
-              <LogCard key={recentLog._id} log={recentLog} />
-            ))}
-            {recentLogs.length === 0 &&
-              !recentLogsFetchError &&
-              !isLoadingRecentLogs && (
-                <p className="m-0 p-0">
-                  <mark className="text-capitalize">{user.username}</mark>
-                  has not logged any episodes yet.
-                </p>
-              )}
-            {isLoadingRecentLogs && (
-              <div className="w-100">
-                <img
-                  src={loading1}
-                  alt="loading..."
-                  title="loading..."
-                  className="text-center d-block mx-auto loading-gif"
-                />
-              </div>
-            )}
-            {recentLogsFetchError && (
-              <Alert color="danger fs-small">{`${recentLogsFetchError.status} ${
-                recentLogsFetchError.msg
-                  ? recentLogsFetchError.msg
-                  : "An error occurred while loading recent reviews"
-              }`}</Alert>
-            )}
-            {showRecentLogsShowMore &&
-              !recentLogsFetchError &&
-              !isLoadingRecentLogs && (
-                <Button
-                  className="w-100 btn btn-sm text-uppercase"
-                  color="dark"
-                  onClick={() => setRecentLogsSkip(recentLogsSkip + 3)}
-                >
-                  <strong>load more...</strong>
-                </Button>
-              )}
+            <LogList id={user._id} />
           </div>
         </div>
       </div>
