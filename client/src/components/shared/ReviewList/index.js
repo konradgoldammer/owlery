@@ -83,52 +83,6 @@ const ReviewList = ({ id, type }) => {
 
   return (
     <div className="review-list">
-      <div className="card mb-2 py-1 px-3">
-        <div className="row">
-          <div className="col-md-10 d-flex">
-            <div className="btn-group">
-              <button
-                type="button"
-                className="btn btn-dark text-start dropdown-toggle py-0 px-1 white-space-normal"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Sort by
-                <mark className="mark-secondary">{sortOptions[sortBy]}</mark>
-              </button>
-              <div className="dropdown-menu dropdown-dark">
-                {sortOptions.map((option, index) => (
-                  <button
-                    className={`dropdown-item text-center ${
-                      sortBy === index ? "invisible h-0 p-0" : null
-                    }`}
-                    key={index}
-                    onClick={() => setSortBy(index)}
-                  >
-                    {sortOptions[index]}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="col-md-2">
-            {sortBy !== defaultConfigs.sortBy && (
-              <button
-                type="button"
-                className="btn btn-dark py-0 px-1 float-end text-danger"
-                title="Reset to default"
-                onClick={() => resetConfigs()}
-              >
-                <MdDelete />
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-      {reviews.map((review) => (
-        <ReviewCard key={review._id} review={review} />
-      ))}
       {!reviewsFetchError ? (
         isLoadingReviews ? (
           <div className="w-100">
@@ -139,11 +93,60 @@ const ReviewList = ({ id, type }) => {
               className="text-center d-block mx-auto loading-gif"
             />
           </div>
+        ) : reviews.length === 0 ? (
+          <p className="m-0 p-0">Could not find any reviews</p>
         ) : (
           <>
-            {reviews.length === 0 && (
-              <p className="m-0 p-0">Could not find any reviews</p>
-            )}
+            <div className="card mb-2 py-1 px-3">
+              <div className="row">
+                <div className="col-md-10 d-flex">
+                  <div className="btn-group">
+                    <button
+                      type="button"
+                      className="btn btn-dark text-start dropdown-toggle py-0 px-1 white-space-normal"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Sort by
+                      <mark className="mark-secondary">
+                        {sortOptions[sortBy]}
+                      </mark>
+                    </button>
+                    <div className="dropdown-menu dropdown-dark">
+                      {sortOptions.map((option, index) => (
+                        <button
+                          className={`dropdown-item text-center ${
+                            sortBy === index ? "invisible h-0 p-0" : null
+                          }`}
+                          key={index}
+                          onClick={() => setSortBy(index)}
+                        >
+                          {sortOptions[index]}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-2">
+                  {sortBy !== defaultConfigs.sortBy && (
+                    <button
+                      type="button"
+                      className="btn btn-dark py-0 px-1 float-end text-danger"
+                      title="Reset to default"
+                      onClick={() => resetConfigs()}
+                    >
+                      <MdDelete />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {reviews.map((review) => (
+              <ReviewCard key={review._id} review={review} />
+            ))}
+
             {loadMore && (
               <Button
                 className="w-100 btn btn-sm text-uppercase"
