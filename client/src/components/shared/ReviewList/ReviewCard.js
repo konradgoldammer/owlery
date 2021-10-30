@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { FaUserCircle, FaHeart, FaComment } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { timeSince } from "../../vars";
-import FiveStarRating from "./FiveStarRating";
+import { timeSince } from "../../../vars";
+import FiveStarRating from "../FiveStarRating";
 
 const ReviewCard = (props) => {
   const { review } = props;
