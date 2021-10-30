@@ -55,11 +55,15 @@ const ReviewList = ({ id, type }) => {
     // Fetch reviews
     setIsLoadingReviews(true);
 
+    if (!id) {
+      return setReviewsFetchError({ status: 400 });
+    }
+
     axios
       .get(
-        `/api/reviews${type === "user" ? "/user" : null}${
-          id ? `/${id}` : null
-        }/?skip=${skip}&sortByPopularity=${sortBy === 1}`
+        `/api/reviews${
+          type === "user" ? "/user" : null
+        }/${id}/?skip=${skip}&sortByPopularity=${sortBy === 1}`
       )
       .then((res) => {
         setIsLoadingReviews(false);
@@ -160,11 +164,12 @@ const ReviewList = ({ id, type }) => {
         )
       ) : (
         <Alert color="danger fs-small">
-          `${reviewsFetchError.status} $
-          {reviewsFetchError.msg
-            ? reviewsFetchError.msg
-            : "An error occurred while loading the reviews (try reloading the page)"}
-          `
+          {`${reviewsFetchError.status} ${
+            reviewsFetchError.msg
+              ? reviewsFetchError.msg
+              : "An error occurred while loading the reviews (try reloading the page)"
+          }
+          `}
         </Alert>
       )}
     </div>
