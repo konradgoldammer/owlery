@@ -177,7 +177,7 @@ const countComments = (reviewId) => {
   });
 };
 
-// @route    GET "/?skip=xxx?sortByPopularity=yyy"
+// @route    GET "/?skip=x&sortByPopularity=y"
 // @desc.    Get last week's reviews
 // @access   Public
 router.get("/", (req, res) => {
@@ -186,7 +186,7 @@ router.get("/", (req, res) => {
     skip = 0;
   }
 
-  let sortByPopularity = req.query.sortByPopularity === "false";
+  let sortByPopularity = req.query.sortByPopularity !== "false";
 
   Review.find(
     {
@@ -226,7 +226,7 @@ router.get("/", (req, res) => {
     });
 });
 
-// @route    GET "/:episodeId?skip=xxx?sortByPopularity=yyy"
+// @route    GET "/:episodeId?skip=x&sortByPopularity=y"
 // @desc.    Get reviews of an episode
 // @access   Public
 router.get("/:episodeId", (req, res) => {
@@ -237,7 +237,7 @@ router.get("/:episodeId", (req, res) => {
     skip = 0;
   }
 
-  let sortByPopularity = req.query.sortByPopularity === "false";
+  let sortByPopularity = req.query.sortByPopularity !== "false";
 
   Review.find(
     { "episode.id": episodeId, log: false },
@@ -274,7 +274,7 @@ router.get("/:episodeId", (req, res) => {
     });
 });
 
-// @route    GET "/user/:userId?skip=xxx?sortByPopularity=yyy"
+// @route    GET "/user/:userId?skip=x&sortByPopularity=y"
 // @desc.    Get reviews of a user
 // @access   Public
 router.get("/user/:userId", (req, res) => {
@@ -285,7 +285,7 @@ router.get("/user/:userId", (req, res) => {
     skip = 0;
   }
 
-  let sortByPopularity = req.query.sortByPopularity === "false";
+  let sortByPopularity = req.query.sortByPopularity !== "false";
 
   Review.find(
     { authorId: userId, log: false },
