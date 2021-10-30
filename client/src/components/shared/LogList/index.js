@@ -82,7 +82,7 @@ const LogList = ({ id }) => {
             />
           </div>
         ) : logs.length === 0 ? (
-          <p className="m-0 p-0">Could not find any reviews</p>
+          <p className="m-0 p-0">Could not find any logs</p>
         ) : (
           <>
             {loadMore && (
