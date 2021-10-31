@@ -83,6 +83,10 @@ body {
   font-size: 12px;
 }
 
+.fs-medium {
+  font-size: 14px;
+}
+
 .fs-big {
   font-size: 1.25rem;
 }

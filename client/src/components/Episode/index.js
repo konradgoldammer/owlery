@@ -7,6 +7,7 @@ import loading from "../images/loading.gif";
 import MainNavbar from "../shared/MainNavbar";
 import MainFooter from "../shared/MainFooter";
 import Error from "../shared/Error";
+import Overview from "./Overview";
 
 const Episode = (props) => {
   const { episodeId } = useParams();
@@ -169,6 +170,9 @@ const Episode = (props) => {
                 </div>
               </div>
             </div>
+            {subpage === "overview" && episode && (
+              <Overview episode={episode} />
+            )}
           </div>
         ) : (
           <Error error={fetchEpisodeError} />
