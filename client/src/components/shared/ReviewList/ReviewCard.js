@@ -16,15 +16,13 @@ const ReviewCard = (props) => {
 
   return (
     <div className="card w-100 p-3 mb-2">
-      <div className="row">
-        <div className="col-3">
-          <img
-            src={review.episode.thumbnail}
-            alt=""
-            className="review-card-image w-100"
-          />
-        </div>
-        <div className="col-9">
+      <div className="d-flex">
+        <img
+          src={review.episode.thumbnail}
+          alt=""
+          className="review-card-image"
+        />
+        <div className="ms-3 w-100 position-relative">
           <Link
             to={`/review/${review._id}`}
             className="text-decoration-none"
@@ -49,7 +47,7 @@ const ReviewCard = (props) => {
               </p>
             )}
           </div>
-          <p className="mt-2 review-card-content">
+          <p className="mt-2 mb-5 review-card-content">
             {showMore
               ? review.content
               : review.content.substring(0, maxReviewContentLength)}

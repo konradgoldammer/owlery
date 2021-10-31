@@ -126,6 +126,8 @@ body {
 }
 
 .review-card-image {
+  width: 8rem;
+  height: min-content;
   border: 1px var(--light-text-color) solid;
   border-radius: 5px;
 }
@@ -152,7 +154,11 @@ body {
 }
 
 .card-stats {
+  position: absolute;
+  width: 100%;
   font-size: 14px;
+  color: var(--secondary-text-color);
+  bottom: 0;
 }
 
 .log-card-calendar-image {

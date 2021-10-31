@@ -25,7 +25,7 @@ const LogCard = (props) => {
             {new Date(log.date).getDate()}
           </p>
         </div>
-        <div className="col-10">
+        <div className="col-10 position-relative p-0">
           <Link to={`/review/${log._id}`} className="text-decoration-none">
             <h5 className="card-title mb-0" title={log.episode.title}>
               {log.episode.title}
@@ -57,7 +57,7 @@ const LogCard = (props) => {
             )}
           </div>
           <div className="card-stats">
-            <p className="to-bottom d-inline mb-2 me-2">
+            <p className="to-bottom d-inline m-0 me-2">
               {new Date(log.date).toLocaleDateString()}
             </p>
           </div>
