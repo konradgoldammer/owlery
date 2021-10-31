@@ -9,7 +9,7 @@ const Overview = (props) => {
   const [user, setUser] = useState({ ...props.user });
 
   useEffect(() => {
-    const newUser = props.user;
+    const newUser = { ...props.user };
     if (newUser.favoritePodcasts.length !== 0) {
       for (let i = newUser.favoritePodcasts.length; i < 5; i++) {
         newUser.favoritePodcasts.push(null);
