@@ -52,14 +52,14 @@ const Overview = (props) => {
       </div>
       <div className="row mt-4">
         <div className="col-md">
-          <div className="recent-reviews-section">
+          <div className="reviews-section">
             <h4 className="section-heading text-center mb-0">Reviews</h4>
             <hr className="section-separator mt-1 mb-3" />
             <ReviewList type="user" id={user._id} />
           </div>
         </div>
         <div className="col-md">
-          <div className="recent-logs-section">
+          <div className="logs-section">
             <h4 className="section-heading text-center mb-0">Diary</h4>
             <hr className="section-separator mt-1 mb-3" />
             <LogList id={user._id} />
