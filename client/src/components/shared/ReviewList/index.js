@@ -62,7 +62,7 @@ const ReviewList = ({ id, type }) => {
     axios
       .get(
         `/api/reviews${
-          type === "user" ? "/user" : null
+          type === "user" ? "/user" : ""
         }/${id}/?skip=${skip}&sortByPopularity=${sortBy === 1}`
       )
       .then((res) => {
@@ -77,6 +77,8 @@ const ReviewList = ({ id, type }) => {
       })
       .catch((err) => {
         setIsLoadingReviews(false);
+
+        console.log(err.response);
 
         setReviewsFetchError({
           status: err.response.status,
